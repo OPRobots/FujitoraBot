@@ -52,30 +52,52 @@ static void setup_timer_priorities() {
 }
 
 static void setup_usart(void) {
-  // gpio_mode_setup(GPIOB, GPIO_MODE_OUTPUT_50_MHZ, GPIO_CNF_OUTPUT_ALTFN_PUSHPULL, GPIO10);
-  // gpio_mode_setup(GPIOB, GPIO_MODE_INPUT, GPIO_CNF_INPUT_FLOAT, GPIO11);
-  
-	/* Setup GPIO pins for USART2 transmit. */
-	gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO10|GPIO11);
-
-	/* Setup USART2 TX pin as alternate function. */
-	gpio_set_af(GPIOB, GPIO_AF7, GPIO10|GPIO11);
-
   usart_set_baudrate(USART3, 115200);
   usart_set_databits(USART3, 8);
   usart_set_stopbits(USART3, USART_STOPBITS_1);
   usart_set_parity(USART3, USART_PARITY_NONE);
   usart_set_flow_control(USART3, USART_FLOWCONTROL_NONE);
   usart_set_mode(USART3, USART_MODE_TX_RX);
-
   // USART_CR1(USART3) |= USART_CR1_RXNEIE;
   // usart_enable_tx_interrupt(USART3);
-
   usart_enable(USART3);
+}
+
+static void setup_gpio() {
+  // Entradas analógicas sensores de línea
+  gpio_mode_setup(GPIOA, GPIO_MODE_INPUT, GPIO_MODE_ANALOG, GPIO0 | GPIO1 | GPIO2 | GPIO3 | GPIO4 | GPIO5 | GPIO6 | GPIO7);
+  gpio_mode_setup(GPIOC, GPIO_MODE_INPUT, GPIO_MODE_ANALOG, GPIO4 | GPIO5);
+  gpio_mode_setup(GPIOB, GPIO_MODE_INPUT, GPIO_MODE_ANALOG, GPIO0 | GPIO1);
+
+  // Entradas analógicas sensores de marcas
+  gpio_mode_setup(GPIOC, GPIO_MODE_INPUT, GPIO_MODE_ANALOG, GPIO0 | GPIO1 | GPIO2 | GPIO3);
+
+  // Entradas digitales configuracion
+  gpio_mode_setup(GPIOC, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO10 | GPIO11);
+  gpio_mode_setup(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO15);
+
+  // Entradas digitales Switch y botón de inicio
+  gpio_mode_setup(GPIOB, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO12 | GPIO13 | GPIO14 | GPIO15);
+
+  // TODO: Entradas Encoders
+
+  // Salida digital LED auxiliar
+  gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO12);
+
+  // Salida PWM LEDS
+  gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO8 | GPIO9 | GPIO10 | GPIO11 | GPIO12);
+
+  // Salida PWM Motores
+  gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO6 | GPIO7 | GPIO8 | GPIO9);
+
+  // USART3
+  gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO10 | GPIO11);
+  gpio_set_af(GPIOB, GPIO_AF7, GPIO10 | GPIO11);
 }
 
 void setup() {
   setup_clock();
+  setup_gpio();
   setup_usart();
   setup_timer_priorities();
   setup_systick();
