@@ -15,5 +15,6 @@
 
 
 void setup();
+void setup_adc1_dma(volatile uint16_t *sensor_raw);
 
 #endif

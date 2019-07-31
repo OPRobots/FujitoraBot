@@ -3,6 +3,8 @@
 #include <setup.h>
 #include <usart.h>
 
+volatile uint16_t sensores_raw[16];
+
 void sys_tick_handler(void) { clock_tick(); }
 
 void test_xmas_leds() {
@@ -32,13 +34,24 @@ void test_entradas_digitales() {
   delay(250);
 }
 
+void test_sensores_adc1_dma(){
+  for (uint8_t sensor = 0; sensor < 16; sensor++)
+  {
+    printf("%d\t", sensores_raw[sensor]);
+  }
+  printf("\n");
+  delay(50);
+}
+
 int main(void) {
 
   setup();
+  setup_adc1_dma(sensores_raw);
 
   while (1) {
     // printf("probando...%d\n", get_clock_ticks());
     // test_entradas_digitales();
     // test_xmas_leds();
+    test_sensores_adc1_dma();
   }
 }
