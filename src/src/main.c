@@ -1,5 +1,6 @@
 
 #include <delay.h>
+#include <leds.h>
 #include <setup.h>
 #include <usart.h>
 
@@ -34,9 +35,8 @@ void test_entradas_digitales() {
   delay(250);
 }
 
-void test_sensores_adc1_dma(){
-  for (uint8_t sensor = 0; sensor < 16; sensor++)
-  {
+void test_sensores_adc1_dma() {
+  for (uint8_t sensor = 0; sensor < 16; sensor++) {
     printf("%d\t", sensores_raw[sensor]);
   }
   printf("\n");
@@ -47,29 +47,32 @@ int main(void) {
 
   setup();
   setup_adc1_dma(sensores_raw);
-
+  int last_ticks_crazy_blink = get_clock_ticks();
   while (1) {
-  // timer_set_oc_value(TIM1, TIM_OC1, 0);
-  // timer_set_oc_value(TIM1, TIM_OC2, 0);
-  // timer_set_oc_value(TIM1, TIM_OC3, 0);
-  // timer_set_oc_value(TIM1, TIM_OC4, 0);
-  // delay(500);
-  timer_set_oc_value(TIM1, TIM_OC1, 50);
-  timer_set_oc_value(TIM1, TIM_OC2, 50);
-  timer_set_oc_value(TIM1, TIM_OC3, 50);
-  timer_set_oc_value(TIM1, TIM_OC4, 50);
-  // delay(500);
-  // timer_set_oc_value(TIM1, TIM_OC1, 750);
-  // timer_set_oc_value(TIM1, TIM_OC2, 750);
-  // timer_set_oc_value(TIM1, TIM_OC3, 750);
-  // timer_set_oc_value(TIM1, TIM_OC4, 750);
-  // delay(500);
-  // timer_set_oc_value(TIM1, TIM_OC1, 1000);
-  // timer_set_oc_value(TIM1, TIM_OC2, 1000);
-  // timer_set_oc_value(TIM1, TIM_OC3, 1000);
-  // timer_set_oc_value(TIM1, TIM_OC4, 1000);
-  // delay(500);
-  //   // printf("probando...%d\n", get_clock_ticks());
+    set_neon_heartbeat();
+    set_rgb_rainbow();
+    if (get_clock_ticks() > last_ticks_crazy_blink + 50) {
+      last_ticks_crazy_blink = get_clock_ticks();
+      toggle_status_led();
+    }
+    // timer_set_oc_value(TIM1, TIM_OC1, 0);
+    // timer_set_oc_value(TIM1, TIM_OC2, 0);
+    // timer_set_oc_value(TIM1, TIM_OC3, 0);
+    // timer_set_oc_value(TIM1, TIM_OC4, 0);
+    // delay(500);
+    // timer_set_oc_value(TIM1, TIM_OC1, 50);
+    // delay(500);
+    // timer_set_oc_value(TIM1, TIM_OC1, 750);
+    // timer_set_oc_value(TIM1, TIM_OC2, 750);
+    // timer_set_oc_value(TIM1, TIM_OC3, 750);
+    // timer_set_oc_value(TIM1, TIM_OC4, 750);
+    // delay(500);
+    // timer_set_oc_value(TIM1, TIM_OC1, 1000);
+    // timer_set_oc_value(TIM1, TIM_OC2, 1000);
+    // timer_set_oc_value(TIM1, TIM_OC3, 1000);
+    // timer_set_oc_value(TIM1, TIM_OC4, 1000);
+    // delay(500);
+    //   // printf("probando...%d\n", get_clock_ticks());
     // test_entradas_digitales();
     // test_xmas_leds();
     // test_sensores_adc1_dma();
