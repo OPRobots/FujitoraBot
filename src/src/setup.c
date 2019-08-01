@@ -22,7 +22,7 @@ static void setup_clock() {
 
   rcc_periph_clock_enable(RCC_DMA2);
 
-  //   rcc_periph_clock_enable(RCC_TIM1);
+  rcc_periph_clock_enable(RCC_TIM1);
   //   rcc_periph_clock_enable(RCC_TIM2);
   //   rcc_periph_clock_enable(RCC_TIM8);
 
@@ -44,7 +44,7 @@ static void setup_systick() {
 static void setup_timer_priorities() {
   nvic_set_priority(NVIC_SYSTICK_IRQ, 16 * 1);
   nvic_set_priority(NVIC_DMA2_STREAM0_IRQ, 16 * 2);
-  nvic_set_priority(NVIC_USART3_IRQ, 16 * 3);
+  nvic_set_priority(NVIC_USART3_IRQ, 16 * 5);
 
   //   nvic_enable_irq(NVIC_TIM2_IRQ);
   nvic_enable_irq(NVIC_USART3_IRQ);
@@ -85,7 +85,8 @@ static void setup_gpio() {
   gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO12);
 
   // Salida PWM LEDS
-  gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO8 | GPIO9 | GPIO10 | GPIO11 | GPIO12);
+  gpio_mode_setup(GPIOA, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO8 | GPIO9 | GPIO10 | GPIO11);
+  gpio_set_af(GPIOA, GPIO_AF1, GPIO8 | GPIO9 | GPIO10 | GPIO11);
 
   // Salida PWM Motores
   gpio_mode_setup(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO6 | GPIO7 | GPIO8 | GPIO9);
@@ -150,11 +151,40 @@ void dma2_stream0_isr(void) {
   }
 }
 
+static void setup_leds_pwm(void) {
+  timer_set_mode(TIM1, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
+
+  timer_set_prescaler(TIM1, rcc_apb2_frequency * 2 / 400000);
+  // 400000 es la frecuencia a la que irá el PWM 4 kHz, los dos últimos ceros no se porqué, pero son necesarios ya que rcc_apb2_frequency también añade dos ceros a mayores
+  timer_set_repetition_counter(TIM1, 0);
+  timer_enable_preload(TIM1);
+  timer_continuous_mode(TIM1);
+  timer_set_period(TIM1, 1024);
+
+  timer_set_oc_mode(TIM1, TIM_OC1, TIM_OCM_PWM1);
+  timer_set_oc_mode(TIM1, TIM_OC2, TIM_OCM_PWM1);
+  timer_set_oc_mode(TIM1, TIM_OC3, TIM_OCM_PWM1);
+  timer_set_oc_mode(TIM1, TIM_OC4, TIM_OCM_PWM1);
+  timer_set_oc_value(TIM1, TIM_OC1, 0);
+  timer_set_oc_value(TIM1, TIM_OC2, 0);
+  timer_set_oc_value(TIM1, TIM_OC3, 0);
+  timer_set_oc_value(TIM1, TIM_OC4, 0);
+  timer_enable_oc_output(TIM1, TIM_OC1);
+  timer_enable_oc_output(TIM1, TIM_OC2);
+  timer_enable_oc_output(TIM1, TIM_OC3);
+  timer_enable_oc_output(TIM1, TIM_OC4);
+
+  timer_enable_break_main_output(TIM1);
+
+  timer_enable_counter(TIM1);
+}
+
 void setup() {
   setup_clock();
   setup_gpio();
   setup_usart();
   setup_timer_priorities();
+  setup_leds_pwm();
   setup_systick();
 }
 
