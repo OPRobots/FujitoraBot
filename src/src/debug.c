@@ -42,3 +42,8 @@ void debug_digital_io() {
   printf("BTN: %d SW1: %d SW2: %d SW3: %d CFM: %d CFU: %d CFD: %d\n", (bool)gpio_get(GPIOB, GPIO15), (bool)gpio_get(GPIOB, GPIO14), (bool)gpio_get(GPIOB, GPIO13), (bool)gpio_get(GPIOB, GPIO12), (bool)gpio_get(GPIOC, GPIO11), (bool)gpio_get(GPIOC, GPIO10), (bool)gpio_get(GPIOA, GPIO15));
   delay(250);
 }
+
+void debug_line_position(){
+  printf("%d\n", get_sensor_line_position());
+  delay(50);
+}

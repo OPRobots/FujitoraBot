@@ -8,6 +8,7 @@ static volatile uint16_t sensores_raw[NUM_SENSORS];
 static uint16_t sensores_max[NUM_SENSORS];
 static uint16_t sensores_min[NUM_SENSORS];
 static uint16_t sensores_umb[NUM_SENSORS];
+static int32_t line_position;
 
 uint8_t *get_sensors() {
   return sensores;
@@ -68,15 +69,21 @@ void calibrate_sensors() {
       if (sensores_raw[sensor] > sensores_max[sensor]) {
         sensores_max[sensor] = sensores_raw[sensor];
       }
+      set_RGB_rainbow();
     }
   }
 
   for (int sensor = 0; sensor < NUM_SENSORS; sensor++) {
     sensores_umb[sensor] = (sensores_max[sensor] + sensores_min[sensor]) / 2.;
   }
+  set_RGB_color(0,0,0);
 }
 
-int32_t get_sensor_line_position(int32_t last_position) {
+int32_t get_sensor_line_position() {
+  return line_position;
+}
+
+void calc_sensor_line_position() {
   uint32_t suma_sensores_ponderados = 0;
   uint32_t suma_sensores = 0;
   uint8_t sensores_detectando = 0;
@@ -90,12 +97,12 @@ int32_t get_sensor_line_position(int32_t last_position) {
   }
 
   //TODO: comprobar tiempo sin pista para detener automáticamente el robot.
-  int posicion;
+  int32_t posicion;
   if (sensores_detectando > 0) {
     posicion = ((suma_sensores_ponderados / suma_sensores) - ((NUM_SENSORS + 1) * 1000) / 2);
   } else {
-    posicion = (last_position >= 0) ? ((1000 * (NUM_SENSORS + 1)) / 2) : -((1000 * (NUM_SENSORS + 1)) / 2);
+    posicion = (line_position >= 0) ? ((1000 * (NUM_SENSORS + 1)) / 2) : -((1000 * (NUM_SENSORS + 1)) / 2);
   }
 
-  return posicion;
+  line_position = posicion;
 }

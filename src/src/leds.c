@@ -24,7 +24,7 @@ void set_RGB_color(uint32_t r, uint32_t g, uint32_t b) {
   timer_set_oc_value(TIM1, TIM_OC2, b);
 }
 
-void set_rgb_rainbow() {
+void set_RGB_rainbow() {
   if (get_clock_ticks() > lastTicksRainbow + 10) {
     lastTicksRainbow = get_clock_ticks();
     rainbowRGB[rainbowColorDesc] -= 20;
