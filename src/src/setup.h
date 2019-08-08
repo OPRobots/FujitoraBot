@@ -12,9 +12,9 @@
 #include <libopencm3/stm32/dma.h>
 
 #include <config.h>
+#include <sensors.h>
 
 
 void setup();
-void setup_adc1_dma(volatile uint16_t *sensor_raw);
 
 #endif

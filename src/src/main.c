@@ -1,6 +1,7 @@
 
 #include <delay.h>
 #include <leds.h>
+#include <sensors.h>
 #include <setup.h>
 #include <usart.h>
 
@@ -36,8 +37,8 @@ void test_entradas_digitales() {
 }
 
 void test_sensores_adc1_dma() {
-  for (uint8_t sensor = 0; sensor < 16; sensor++) {
-    printf("%d\t", sensores_raw[sensor]);
+  for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
+    printf("%d\t", get_sensor_raw(sensor));
   }
   printf("\n");
   delay(50);
@@ -46,15 +47,14 @@ void test_sensores_adc1_dma() {
 int main(void) {
 
   setup();
-  setup_adc1_dma(sensores_raw);
-  int last_ticks_crazy_blink = get_clock_ticks();
+  // int last_ticks_crazy_blink = get_clock_ticks();
   while (1) {
-    set_neon_heartbeat();
-    set_rgb_rainbow();
-    if (get_clock_ticks() > last_ticks_crazy_blink + 50) {
-      last_ticks_crazy_blink = get_clock_ticks();
-      toggle_status_led();
-    }
+    // set_neon_heartbeat();
+    // set_rgb_rainbow();
+    // if (get_clock_ticks() > last_ticks_crazy_blink + 50) {
+    //   last_ticks_crazy_blink = get_clock_ticks();
+    //   toggle_status_led();
+    // }
     // timer_set_oc_value(TIM1, TIM_OC1, 0);
     // timer_set_oc_value(TIM1, TIM_OC2, 0);
     // timer_set_oc_value(TIM1, TIM_OC3, 0);
@@ -75,6 +75,6 @@ int main(void) {
     //   // printf("probando...%d\n", get_clock_ticks());
     // test_entradas_digitales();
     // test_xmas_leds();
-    // test_sensores_adc1_dma();
+    test_sensores_adc1_dma();
   }
 }
