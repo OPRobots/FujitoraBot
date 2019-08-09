@@ -6,6 +6,7 @@ int rainbowColorDesc = 0;
 int rainbowColorAsc = 1;
 
 int lastTicksHeartbeat = 0;
+int lastTicksWarning = 0;
 
 void set_status_led(bool state) {
   if (state) {
@@ -14,8 +15,16 @@ void set_status_led(bool state) {
     gpio_clear(GPIOA, GPIO12);
   }
 }
+
 void toggle_status_led() {
   gpio_toggle(GPIOA, GPIO12);
+}
+
+void warning_status_led() {
+  if (get_clock_ticks() > lastTicksWarning + 125) {
+    toggle_status_led();
+    lastTicksWarning = get_clock_ticks();
+  }
 }
 
 void set_RGB_color(uint32_t r, uint32_t g, uint32_t b) {
@@ -63,4 +72,10 @@ void set_neon_heartbeat() {
     }
     set_neon_fade(fade);
   }
+}
+
+void all_leds_clear(){
+  set_neon_fade(0);
+  set_RGB_color(0,0,0);
+  set_status_led(false);
 }

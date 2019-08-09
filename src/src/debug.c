@@ -17,29 +17,13 @@ void debug_sensors_calibrated() {
 }
 
 void debug_all_leds() {
-  gpio_clear(GPIOA, GPIO8 | GPIO9 | GPIO10 | GPIO11 | GPIO12);
-  gpio_set(GPIOA, GPIO8);
-  delay(250);
-
-  gpio_clear(GPIOA, GPIO8 | GPIO9 | GPIO10 | GPIO11 | GPIO12);
-  gpio_set(GPIOA, GPIO9);
-  delay(250);
-
-  gpio_clear(GPIOA, GPIO8 | GPIO9 | GPIO10 | GPIO11 | GPIO12);
-  gpio_set(GPIOA, GPIO10);
-  delay(250);
-
-  gpio_clear(GPIOA, GPIO8 | GPIO9 | GPIO10 | GPIO11 | GPIO12);
-  gpio_set(GPIOA, GPIO11);
-  delay(250);
-
-  gpio_clear(GPIOA, GPIO8 | GPIO9 | GPIO10 | GPIO11 | GPIO12);
-  gpio_set(GPIOA, GPIO12);
-  delay(250);
+  set_RGB_rainbow();
+  set_neon_heartbeat();
+  warning_status_led();
 }
 
 void debug_digital_io() {
-  printf("BTN: %d SW1: %d SW2: %d SW3: %d CFM: %d CFU: %d CFD: %d\n", (bool)gpio_get(GPIOB, GPIO15), (bool)gpio_get(GPIOB, GPIO14), (bool)gpio_get(GPIOB, GPIO13), (bool)gpio_get(GPIOB, GPIO12), (bool)gpio_get(GPIOC, GPIO11), (bool)gpio_get(GPIOC, GPIO10), (bool)gpio_get(GPIOA, GPIO15));
+  printf("BTN: %d SW1: %d SW2: %d SW3: %d CFM: %d CFU: %d CFD: %d\n", get_start_btn(), get_swtich_1(), get_swtich_2(), get_swtich_3(), get_menu_mode_btn(), get_menu_up_btn(), get_menu_down_btn());
   delay(250);
 }
 
@@ -54,5 +38,34 @@ void debug_motors() {
     delay(1000);
     set_motors_speed(0, 0);
     delay(1000);
+  }
+}
+
+void debug_from_switch() {
+  if (get_switch_decimal() != 7) {
+    all_leds_clear();
+  }
+  switch (get_switch_decimal()) {
+    case 1:
+      debug_sensors_raw();
+      break;
+    case 2:
+      debug_sensors_calibrated();
+      break;
+    case 3:
+      debug_digital_io();
+      break;
+    case 4:
+      debug_line_position();
+      break;
+    case 5:
+      // TODO: añadir comprobación de encoders
+      break;
+    case 6:
+      debug_motors();
+      break;
+    case 7:
+      debug_all_leds();
+      break;
   }
 }
