@@ -43,7 +43,16 @@ void debug_digital_io() {
   delay(250);
 }
 
-void debug_line_position(){
+void debug_line_position() {
   printf("%ld\n", get_sensor_line_position());
   delay(50);
+}
+
+void debug_motors() {
+  if (is_esc_inited()) {
+    set_motors_speed(30, 30);
+    delay(1000);
+    set_motors_speed(0, 0);
+    delay(1000);
+  }
 }
