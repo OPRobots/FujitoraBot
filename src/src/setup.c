@@ -24,7 +24,7 @@ static void setup_clock() {
 
   rcc_periph_clock_enable(RCC_TIM1);
   //   rcc_periph_clock_enable(RCC_TIM2);
-    rcc_periph_clock_enable(RCC_TIM8);
+  rcc_periph_clock_enable(RCC_TIM8);
 
   rcc_periph_clock_enable(RCC_ADC1);
 
@@ -177,12 +177,11 @@ static void setup_leds_pwm(void) {
   timer_enable_counter(TIM1);
 }
 
-
 static void setup_motors_pwm(void) {
   timer_set_mode(TIM8, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
 
-//84000000
-  timer_set_prescaler(TIM8, rcc_apb2_frequency * 2 / 4000000 -2 );
+  //84000000
+  timer_set_prescaler(TIM8, rcc_apb2_frequency * 2 / 4000000 - 2);
   // 400000 es la frecuencia a la que irá el PWM 4 kHz, los dos últimos ceros no se porqué, pero son necesarios ya que rcc_apb2_frequency también añade dos ceros a mayores
   timer_set_repetition_counter(TIM8, 0);
   timer_enable_preload(TIM8);
