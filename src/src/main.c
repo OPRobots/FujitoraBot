@@ -16,10 +16,18 @@ void sys_tick_handler(void) {
 }
 
 int main(void) {
-
   setup();
-  // calibrate_sensors();
 
+  // Espera para calibrar sensores
+  while (!get_start_btn()) {
+    set_neon_heartbeat();
+  }
+  while (get_start_btn()) {
+    set_neon_heartbeat();
+  }
+  set_neon_fade(0);
+  delay(1000);
+  calibrate_sensors();
 
   while (1) {
     debug_from_switch();
