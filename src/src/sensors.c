@@ -99,9 +99,9 @@ void calc_sensor_line_position() {
   //TODO: comprobar tiempo sin pista para detener automáticamente el robot.
   int32_t posicion;
   if (sensores_detectando > 0) {
-    posicion = ((suma_sensores_ponderados / suma_sensores) - ((NUM_SENSORS + 1) * 1000) / 2);
+    posicion = ((suma_sensores_ponderados / suma_sensores) - ((NUM_SENSORS_LINE + 1) * 1000) / 2);
   } else {
-    posicion = (line_position >= 0) ? ((1000 * (NUM_SENSORS + 1)) / 2) : -((1000 * (NUM_SENSORS + 1)) / 2);
+    posicion = (line_position >= 0) ? ((1000 * (NUM_SENSORS_LINE + 1)) / 2) : -((1000 * (NUM_SENSORS_LINE + 1)) / 2);
   }
 
   line_position = posicion;
