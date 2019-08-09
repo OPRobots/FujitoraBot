@@ -1,7 +1,7 @@
 #include <leds.h>
 
 int lastTicksRainbow = 0;
-uint32_t rainbowRGB[3] = {1024, 0, 0};
+uint32_t rainbowRGB[3] = {LEDS_MAX_PWM, 0, 0};
 int rainbowColorDesc = 0;
 int rainbowColorAsc = 1;
 
@@ -30,9 +30,9 @@ void set_RGB_rainbow() {
     rainbowRGB[rainbowColorDesc] -= 20;
     rainbowRGB[rainbowColorAsc] += 20;
     set_RGB_color(rainbowRGB[0], rainbowRGB[1], rainbowRGB[2]);
-    if (rainbowRGB[rainbowColorDesc] <= 0 || rainbowRGB[rainbowColorAsc] >= 1024) {
+    if (rainbowRGB[rainbowColorDesc] <= 0 || rainbowRGB[rainbowColorAsc] >= LEDS_MAX_PWM) {
       rainbowRGB[rainbowColorDesc] = 0;
-      rainbowRGB[rainbowColorAsc] = 1024;
+      rainbowRGB[rainbowColorAsc] = LEDS_MAX_PWM;
       set_RGB_color(rainbowRGB[0], rainbowRGB[1], rainbowRGB[2]);
       rainbowColorDesc++;
       if (rainbowColorDesc > 2) {
@@ -53,8 +53,8 @@ void set_neon_heartbeat() {
   if (get_clock_ticks() > lastTicksHeartbeat + 10) {
     lastTicksHeartbeat = get_clock_ticks();
     fade += increment;
-    if (fade > 1024) {
-      fade = 1024;
+    if (fade > LEDS_MAX_PWM) {
+      fade = LEDS_MAX_PWM;
       increment = -increment;
     }
     if (fade <= 0) {

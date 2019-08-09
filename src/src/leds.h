@@ -5,6 +5,7 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/timer.h>
 #include <delay.h>
+#include <config.h>
 
 void set_status_led(bool state);
 void toggle_status_led();

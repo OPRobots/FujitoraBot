@@ -44,6 +44,6 @@ void debug_digital_io() {
 }
 
 void debug_line_position(){
-  printf("%d\n", get_sensor_line_position());
+  printf("%ld\n", get_sensor_line_position());
   delay(50);
 }

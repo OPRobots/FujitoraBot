@@ -157,7 +157,7 @@ static void setup_leds_pwm(void) {
   timer_set_repetition_counter(TIM1, 0);
   timer_enable_preload(TIM1);
   timer_continuous_mode(TIM1);
-  timer_set_period(TIM1, 1024);
+  timer_set_period(TIM1, LEDS_MAX_PWM);
 
   timer_set_oc_mode(TIM1, TIM_OC1, TIM_OCM_PWM1);
   timer_set_oc_mode(TIM1, TIM_OC2, TIM_OCM_PWM1);
@@ -186,7 +186,7 @@ static void setup_motors_pwm(void) {
   timer_set_repetition_counter(TIM8, 0);
   timer_enable_preload(TIM8);
   timer_continuous_mode(TIM8);
-  timer_set_period(TIM8, 1024);
+  timer_set_period(TIM8, MOTORES_MAX_PWM);
 
   timer_set_oc_mode(TIM8, TIM_OC1, TIM_OCM_PWM1);
   timer_set_oc_mode(TIM8, TIM_OC2, TIM_OCM_PWM1);
