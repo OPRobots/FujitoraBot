@@ -13,6 +13,7 @@
 
 #include <config.h>
 #include <sensors.h>
+#include <control.h>
 
 
 void setup();

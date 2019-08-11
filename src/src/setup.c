@@ -23,7 +23,8 @@ static void setup_clock() {
   rcc_periph_clock_enable(RCC_DMA2);
 
   rcc_periph_clock_enable(RCC_TIM1);
-  //   rcc_periph_clock_enable(RCC_TIM2);
+  rcc_periph_clock_enable(RCC_TIM2);
+  rcc_periph_clock_enable(RCC_TIM5);
   rcc_periph_clock_enable(RCC_TIM8);
 
   rcc_periph_clock_enable(RCC_ADC1);
@@ -44,11 +45,15 @@ static void setup_systick() {
 static void setup_timer_priorities() {
   nvic_set_priority(NVIC_SYSTICK_IRQ, 16 * 1);
   nvic_set_priority(NVIC_DMA2_STREAM0_IRQ, 16 * 2);
+  nvic_set_priority(NVIC_TIM2_IRQ, 16 * 3);
+  nvic_set_priority(NVIC_TIM5_IRQ, 16 * 4);
   nvic_set_priority(NVIC_USART3_IRQ, 16 * 5);
 
-  //   nvic_enable_irq(NVIC_TIM2_IRQ);
-  nvic_enable_irq(NVIC_USART3_IRQ);
+  //   nvic_enable_irq(NVIC_TIM5_IRQ);
   nvic_enable_irq(NVIC_DMA2_STREAM0_IRQ);
+  nvic_enable_irq(NVIC_TIM5_IRQ);
+  nvic_enable_irq(NVIC_TIM2_IRQ);
+  nvic_enable_irq(NVIC_USART3_IRQ);
 }
 
 static void setup_usart(void) {
@@ -198,6 +203,46 @@ static void setup_motors_pwm(void) {
   timer_enable_counter(TIM8);
 }
 
+static void setup_pid_timer() {
+  rcc_periph_reset_pulse(RST_TIM5);
+  timer_set_mode(TIM5, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
+  timer_set_prescaler(TIM5, ((rcc_apb1_frequency * 2) / 4000000 - 1));
+  timer_disable_preload(TIM5);
+  timer_continuous_mode(TIM5);
+  timer_set_period(TIM5, 1024);
+
+  timer_enable_counter(TIM5);
+  // El timer se iniciará en el arranque
+  // timer_enable_irq(TIM5, TIM_DIER_CC1IE);
+}
+
+void tim5_isr() {
+  if (timer_get_flag(TIM5, TIM_SR_CC1IF)) {
+    timer_clear_flag(TIM5, TIM_SR_CC1IF);
+    pid_timer_custom_isr();
+  }
+}
+
+static void setup_speed_timer() {
+  rcc_periph_reset_pulse(RST_TIM2);
+  timer_set_mode(TIM2, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
+  timer_set_prescaler(TIM2, ((rcc_apb1_frequency * 2) / 8000000 - 1));
+  timer_disable_preload(TIM2);
+  timer_continuous_mode(TIM2);
+  timer_set_period(TIM2, 1024);
+
+  timer_enable_counter(TIM2);
+  // El timer de velocidad se puede dejar ejecutándose
+  timer_enable_irq(TIM2, TIM_DIER_CC1IE);
+}
+
+void tim2_isr() {
+  if (timer_get_flag(TIM2, TIM_SR_CC1IF)) {
+    timer_clear_flag(TIM2, TIM_SR_CC1IF);
+    speed_timer_custom_isr();
+  }
+}
+
 void setup() {
   setup_clock();
   setup_gpio();
@@ -207,5 +252,7 @@ void setup() {
   setup_motors_pwm();
   setup_dma_adc1();
   setup_adc1();
+  setup_pid_timer();
+  setup_speed_timer();
   setup_systick();
 }
