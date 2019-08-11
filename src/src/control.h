@@ -5,6 +5,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/timer.h>
 
 void pid_timer_custom_isr();
 void speed_timer_custom_isr();

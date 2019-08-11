@@ -19,7 +19,7 @@ void debug_sensors_calibrated() {
 void debug_all_leds() {
   set_RGB_rainbow();
   set_neon_heartbeat();
-  warning_status_led();
+  warning_status_led(125);
 }
 
 void debug_digital_io() {

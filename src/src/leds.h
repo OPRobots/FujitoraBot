@@ -10,7 +10,7 @@
 
 void set_status_led(bool state);
 void toggle_status_led();
-void warning_status_led();
+void warning_status_led(uint16_t ms);
 void set_RGB_color(uint32_t r, uint32_t g, uint32_t b);
 void set_RGB_rainbow();
 void set_neon_fade(uint32_t n);

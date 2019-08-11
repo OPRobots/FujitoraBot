@@ -20,8 +20,8 @@ void toggle_status_led() {
   gpio_toggle(GPIOA, GPIO12);
 }
 
-void warning_status_led() {
-  if (get_clock_ticks() > lastTicksWarning + 125) {
+void warning_status_led(uint16_t ms) {
+  if (get_clock_ticks() > lastTicksWarning + ms) {
     toggle_status_led();
     lastTicksWarning = get_clock_ticks();
   }

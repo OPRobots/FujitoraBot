@@ -2,6 +2,7 @@
 #include <debug.h>
 #include <delay.h>
 #include <leds.h>
+#include <menu.h>
 #include <motors.h>
 #include <sensors.h>
 #include <setup.h>
@@ -30,6 +31,6 @@ int main(void) {
   calibrate_sensors();
 
   while (1) {
-    debug_from_switch();
+    check_menu_button();
   }
 }
