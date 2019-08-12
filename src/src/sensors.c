@@ -53,6 +53,27 @@ uint16_t get_sensor_calibrated(uint8_t pos) {
 }
 
 void calibrate_sensors() {
+  bool auto_move = false;
+  bool pushFlag = false;
+  while (!get_start_btn()) {
+    set_neon_heartbeat();
+    if (get_menu_mode_btn()) {
+      if (!pushFlag) {
+        auto_move = !auto_move;
+        pushFlag = true;
+      }
+    } else {
+      pushFlag = false;
+    }
+    set_status_led(auto_move);
+  }
+  while (get_start_btn()) {
+    set_neon_heartbeat();
+  }
+  set_neon_fade(0);
+  set_status_led(false);
+  delay(1000);
+
   // Resetear los valores máximos, mínimos y umbrales
   for (uint8_t sensor = 0; sensor < NUM_SENSORS; sensor++) {
     sensores_max[sensor] = LECTURA_MINIMO_SENSORES_LINEA;
@@ -70,13 +91,38 @@ void calibrate_sensors() {
         sensores_max[sensor] = sensores_raw[sensor];
       }
       set_RGB_rainbow();
+      if (auto_move) {
+        set_motors_speed(20, -20);
+      }
     }
   }
+  if (auto_move) {
+    set_motors_speed(0, 0);
+  }
 
+  bool calibrationOK = true;
   for (int sensor = 0; sensor < NUM_SENSORS; sensor++) {
+    if (abs(sensores_max[sensor] - sensores_min[sensor]) < 1000) {
+      calibrationOK = false;
+    }
     sensores_umb[sensor] = (sensores_max[sensor] + sensores_min[sensor]) / 2.;
   }
-  set_RGB_color(0,0,0);
+
+  while (!get_start_btn()) {
+    if (calibrationOK) {
+      set_RGB_color(0, 100, 0);
+    } else {
+      set_RGB_color(100, 0, 0);
+    }
+  }
+  while (get_start_btn()) {
+    if (calibrationOK) {
+      set_RGB_color(0, 100, 0);
+    } else {
+      set_RGB_color(100, 0, 0);
+    }
+  }
+  set_RGB_color(0, 0, 0);
 }
 
 int32_t get_sensor_line_position() {

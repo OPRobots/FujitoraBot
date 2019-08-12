@@ -5,6 +5,8 @@
 #include <stdint.h>
 #include <delay.h>
 #include <leds.h>
+#include <motors.h>
+#include <buttons.h>
 #include <config.h>
 
 void calibrate_sensors();
