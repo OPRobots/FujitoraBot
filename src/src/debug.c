@@ -28,7 +28,7 @@ void debug_digital_io() {
 }
 
 void debug_line_position() {
-  printf("%d\t%ld\t%d\n", -(get_sensors_line_num()+2) * 1000 / 2, get_sensor_line_position(), (get_sensors_line_num()+2) * 1000 / 2);
+  printf("%d\t%ld\t%d\n", -(get_sensors_line_num() + 2) * 1000 / 2, get_sensor_line_position(), (get_sensors_line_num() + 2) * 1000 / 2);
   delay(50);
 }
 
@@ -42,6 +42,9 @@ void debug_motors() {
 }
 
 void debug_from_switch() {
+  if (get_switch_decimal() == 0) {
+    return;
+  }
   if (get_switch_decimal() != 7) {
     all_leds_clear();
   }

@@ -232,8 +232,8 @@ static void setup_speed_timer() {
   timer_set_period(TIM2, 1024);
 
   timer_enable_counter(TIM2);
-  // El timer de velocidad se puede dejar ejecutándose
-  timer_enable_irq(TIM2, TIM_DIER_CC1IE);
+  // El timer se iniciará en el arranque
+  // timer_enable_irq(TIM2, TIM_DIER_CC1IE);
 }
 
 void tim2_isr() {
