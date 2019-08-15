@@ -10,6 +10,8 @@ static uint16_t sensores_min[NUM_SENSORS];
 static uint16_t sensores_umb[NUM_SENSORS];
 static int32_t line_position;
 static uint32_t ultimaLinea = 0;
+static bool left_mark = false;
+static bool right_mark = false;
 
 uint8_t *get_sensors() {
   return sensores;
@@ -163,4 +165,24 @@ void calc_sensor_line_position() {
   posicion = map(posicion, -6500, 6500, -1000, 1000);
 
   line_position = posicion;
+}
+
+void check_side_marks() {
+  bool side_marks[4] = {false, false, false, false};
+  for (uint8_t sensor = NUM_SENSORS_LINE; sensor < NUM_SENSORS; sensor++) {
+    side_marks[sensor - NUM_SENSORS_LINE] = get_sensor_calibrated(sensor) >= sensores_umb[sensor];
+  }
+  bool left = side_marks[0] || side_marks[1];
+  bool right = side_marks[2] || side_marks[3];
+
+  left_mark = left && !(left && right);
+  right_mark = right && !(left && right);
+}
+
+bool is_left_mark() {
+  return left_mark;
+}
+
+bool is_right_mark() {
+  return right_mark;
 }

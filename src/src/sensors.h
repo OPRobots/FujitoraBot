@@ -18,5 +18,8 @@ uint16_t get_sensor_raw(uint8_t pos);
 uint16_t get_sensor_calibrated(uint8_t pos);
 int32_t get_sensor_line_position();
 void calc_sensor_line_position();
+void check_side_marks();
+bool is_left_mark();
+bool is_right_mark();
 
 #endif
