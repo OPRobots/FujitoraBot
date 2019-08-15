@@ -2,6 +2,7 @@
 #define __MENU_H
 
 #include <config.h>
+#include <debug.h>
 #include <buttons.h>
 #include <leds.h>
 

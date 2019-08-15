@@ -18,7 +18,8 @@ static void handle_menu_mode() {
 
 static void handle_menu_value() {
   switch (modoConfig) {
-    case 0: // NONE
+    case 0: // DEBUG
+      debug_from_switch();
       break;
     case 1: // VELOCIDAD
       switch (valorConfig) {

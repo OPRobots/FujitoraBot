@@ -53,7 +53,5 @@ int main(void) {
       // printf("%d\n", get_base_speed() + get_speed_correction());
       // delay(25);
     }
-
-    debug_from_switch();
   }
 }
