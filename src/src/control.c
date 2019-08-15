@@ -18,16 +18,24 @@ static int32_t calc_pid_correction(int32_t posicion) {
   return p + i + d;
 }
 
-bool is_competicion_iniciada(){
-    return competicionIniciada;
+bool is_competicion_iniciada() {
+  return competicionIniciada;
 }
-void set_competicion_iniciada(bool state){
-    competicionIniciada = state;
+void set_competicion_iniciada(bool state) {
+  competicionIniciada = state;
 }
 
 void pid_timer_custom_isr() {
   calc_sensor_line_position();
   correccion_velocidad = calc_pid_correction(get_sensor_line_position());
+  check_side_marks();
+  if (is_left_mark() || is_right_mark()) {
+    set_neon_fade(1024);
+    set_status_led(true);
+  } else {
+    set_neon_fade(0);
+    set_status_led(false);
+  }
 }
 
 int32_t get_speed_correction() {
