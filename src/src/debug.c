@@ -34,8 +34,11 @@ void debug_line_position() {
 
 void debug_motors() {
   if (is_esc_inited()) {
-    set_motors_speed(15, -15);
-    delay(1000);
+    uint32_t millisInicio = get_clock_ticks();
+    set_motors_speed(0, 0);
+    while (get_clock_ticks() < millisInicio + 1000) {
+      set_motors_speed(15, 15);
+    }
     set_motors_speed(0, 0);
     delay(5000);
   }

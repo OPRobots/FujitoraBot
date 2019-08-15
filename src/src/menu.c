@@ -128,6 +128,13 @@ void check_menu_button() {
     delay(50);
   }
 
+  if (modoConfig == 0) {
+    set_RGB_color(0, 0, 0);
+    delay(50);
+    handle_menu_value();
+    return;
+  }
+
   // Comprueba aumento de valor de configuración
   if (get_menu_up_btn()) {
     valorConfig++;
@@ -155,10 +162,10 @@ void check_menu_button() {
   }
 }
 
-uint8_t get_base_speed(){
+uint8_t get_base_speed() {
   return velocidadBase;
 }
 
-uint8_t get_base_fan_speed(){
+uint8_t get_base_fan_speed() {
   return velocidadVentiladorBase;
 }

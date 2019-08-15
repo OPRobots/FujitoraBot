@@ -3,6 +3,8 @@
 static bool escInited = false;
 static uint32_t escInitMillis = 0;
 static const uint16_t STOP_MOTORS_PWM = (uint16_t)(MOTORES_MAX_PWM * 0.75);
+static bool iniciado = false;
+static uint32_t millis_iniciado = 0;
 
 bool is_esc_inited() {
   return escInited;
@@ -33,6 +35,26 @@ void set_motors_speed(int8_t velI, int8_t velD) {
   if (!escInited) {
     return;
   }
+  if (velI == 0 && velD == 0) {
+    iniciado = false;
+  } else {
+    if(!iniciado){
+      iniciado = true;
+      millis_iniciado = get_clock_ticks();
+    }
+  }
+
+  if (iniciado && (get_clock_ticks() < (millis_iniciado + 300))) {
+    if (velI != 0) {
+      if (velI > 0) {
+        velI += 10;
+      } /* else {
+        velI -= 10;
+      } */
+    }
+  }
+
+  // printf("%d - %d\n", velI, velD);
   uint16_t ocI = STOP_MOTORS_PWM;
   uint16_t ocD = STOP_MOTORS_PWM;
 
