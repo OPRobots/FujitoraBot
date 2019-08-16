@@ -4,6 +4,9 @@ static int32_t velocidad = 0;
 static bool competicionIniciada = false;
 volatile static int32_t correccion_velocidad = 0;
 volatile static int32_t error_anterior = 0;
+static bool vuelta_iniciada = false;
+static bool left_mark = false;
+static bool right_mark = false;
 
 static int32_t calc_pid_correction(int32_t posicion) {
   double p = 0;
@@ -29,13 +32,28 @@ void pid_timer_custom_isr() {
   calc_sensor_line_position();
   correccion_velocidad = calc_pid_correction(get_sensor_line_position());
   check_side_marks();
+
+  if (!right_mark && is_right_mark()) {
+    if (!vuelta_iniciada) {
+      vuelta_iniciada = true;
+      set_status_led(true);
+    } else {
+      vuelta_iniciada = false;
+      all_leds_clear();
+      set_competicion_iniciada(false);
+      pause_pid_timer();
+      pause_speed_timer();
+    }
+  }
+
   if (is_left_mark() || is_right_mark()) {
     set_neon_fade(1024);
-    set_status_led(true);
   } else {
     set_neon_fade(0);
-    set_status_led(false);
   }
+
+  left_mark = is_left_mark();
+  right_mark = is_right_mark();
 }
 
 int32_t get_speed_correction() {
@@ -74,4 +92,5 @@ void resume_speed_timer() {
 void pause_speed_timer() {
   timer_disable_irq(TIM2, TIM_DIER_CC1IE);
   set_motors_speed(0, 0);
+  all_leds_clear();
 }

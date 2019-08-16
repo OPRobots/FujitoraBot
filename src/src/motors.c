@@ -44,10 +44,10 @@ void set_motors_speed(int8_t velI, int8_t velD) {
     }
   }
 
-  if (iniciado && (get_clock_ticks() < (millis_iniciado + 300))) {
+  if (iniciado && (get_clock_ticks() < (millis_iniciado + 125))) {
     if (velI != 0) {
       if (velI > 0) {
-        velI += 10;
+        velI += 20;
       } /* else {
         velI -= 10;
       } */

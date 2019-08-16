@@ -172,8 +172,8 @@ void check_side_marks() {
   for (uint8_t sensor = NUM_SENSORS_LINE; sensor < NUM_SENSORS; sensor++) {
     side_marks[sensor - NUM_SENSORS_LINE] = get_sensor_calibrated(sensor) >= sensores_umb[sensor];
   }
-  bool left = side_marks[0] || side_marks[1];
-  bool right = side_marks[2] || side_marks[3];
+  bool left = side_marks[2] || side_marks[3];
+  bool right = side_marks[0] || side_marks[1];
 
   left_mark = left && !(left && right);
   right_mark = right && !(left && right);

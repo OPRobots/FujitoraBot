@@ -19,7 +19,7 @@
 #define KI 0
 #define KD 2.5
 #define MILLIS_INICIO 5000
-#define TIEMPO_SIN_PISTA 200
+#define TIEMPO_SIN_PISTA 100
 
 
 #endif
