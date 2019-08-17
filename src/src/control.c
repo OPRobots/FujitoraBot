@@ -33,24 +33,24 @@ void pid_timer_custom_isr() {
   correccion_velocidad = calc_pid_correction(get_sensor_line_position());
   check_side_marks();
 
-  if (!right_mark && is_right_mark()) {
-    if (!vuelta_iniciada) {
-      vuelta_iniciada = true;
-      set_status_led(true);
-    } else {
-      vuelta_iniciada = false;
-      all_leds_clear();
-      set_competicion_iniciada(false);
-      pause_pid_timer();
-      pause_speed_timer();
-    }
-  }
+  // if (!right_mark && is_right_mark()) {
+  //   if (!vuelta_iniciada) {
+  //     vuelta_iniciada = true;
+  //     set_status_led(true);
+  //   } else {
+  //     vuelta_iniciada = false;
+  //     all_leds_clear();
+  //     set_competicion_iniciada(false);
+  //     pause_pid_timer();
+  //     pause_speed_timer();
+  //   }
+  // }
 
-  if (is_left_mark() || is_right_mark()) {
-    set_neon_fade(1024);
-  } else {
-    set_neon_fade(0);
-  }
+  // if (is_left_mark() || is_right_mark()) {
+  //   set_neon_fade(1024);
+  // } else {
+  //   set_neon_fade(0);
+  // }
 
   left_mark = is_left_mark();
   right_mark = is_right_mark();
