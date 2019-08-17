@@ -15,10 +15,10 @@
 #define LINEA_NEGRA 1
 #define LINEA LINEA_NEGRA
 
-#define KP 0.05
+#define KP 0.03
 #define KI 0
 #define KD 2.5
-#define MILLIS_INICIO 5000
+#define MILLIS_INICIO 2000
 #define TIEMPO_SIN_PISTA 100
 
 
