@@ -106,18 +106,25 @@ void calibrate_sensors() {
   }
 
   bool calibrationOK = true;
+  bool marksOK = true;
   for (int sensor = 0; sensor < NUM_SENSORS; sensor++) {
     if (abs(sensores_max[sensor] - sensores_min[sensor]) < 1000) {
-      calibrationOK = false;
+      if (sensor >= NUM_SENSORS_LINE) {
+        marksOK = false;
+      } else {
+        calibrationOK = false;
+      }
     }
     sensores_umb[sensor] = (sensores_max[sensor] + sensores_min[sensor]) / 2.;
   }
 
   while (!get_start_btn()) {
-    if (calibrationOK) {
+    if (calibrationOK && marksOK) {
       set_RGB_color(0, 100, 0);
-    } else {
+    } else if (!calibrationOK) {
       set_RGB_color(100, 0, 0);
+    } else if (!marksOK) {
+      set_RGB_color(100, 20, 0);
     }
   }
   while (get_start_btn()) {
