@@ -64,8 +64,16 @@ void speed_timer_custom_isr() {
   if (velocidad > 0) {
     int32_t velI = velocidad - correccion_velocidad;
     int32_t velD = velocidad + correccion_velocidad;
-    velD = constrain(velD, 15, 100);
-    velI = constrain(velI, 15, 100);
+
+    if (velD < 10) {
+      velI += 10 - velD;
+    }
+    if (velI < 10) {
+      velD += 10 - velI;
+    }
+
+    velD = constrain(velD, 10, 100);
+    velI = constrain(velI, 10, 100);
     set_motors_speed(velD, velI);
   } else {
     set_motors_speed(0, 0);

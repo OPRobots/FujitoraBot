@@ -43,18 +43,6 @@ void set_motors_speed(int8_t velI, int8_t velD) {
       millis_iniciado = get_clock_ticks();
     }
   }
-
-  if (iniciado && (get_clock_ticks() < (millis_iniciado + 125))) {
-    if (velI != 0) {
-      if (velI > 0) {
-        velI += 20;
-      } /* else {
-        velI -= 10;
-      } */
-    }
-  }
-
-  // printf("%d - %d\n", velI, velD);
   uint16_t ocI = STOP_MOTORS_PWM;
   uint16_t ocD = STOP_MOTORS_PWM;
 
