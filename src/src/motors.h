@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include <config.h>
 #include <delay.h>
@@ -12,6 +13,6 @@
 
 bool is_esc_inited();
 void init_esc();
-void set_motors_speed(int8_t velI, int8_t velD);
+void set_motors_speed(float velI, float velD);
 
 #endif

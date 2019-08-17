@@ -31,36 +31,36 @@ void init_esc() {
   }
 }
 
-void set_motors_speed(int8_t velI, int8_t velD) {
+void set_motors_speed(float velI, float velD) {
   if (!escInited) {
     return;
   }
   if (velI == 0 && velD == 0) {
     iniciado = false;
   } else {
-    if(!iniciado){
+    if (!iniciado) {
       iniciado = true;
       millis_iniciado = get_clock_ticks();
     }
   }
-  uint16_t ocI = STOP_MOTORS_PWM;
-  uint16_t ocD = STOP_MOTORS_PWM;
+  float ocI = STOP_MOTORS_PWM;
+  float ocD = STOP_MOTORS_PWM;
 
   if (velI != 0) {
     if (velI > 0) {
-      ocI += map(velI, 0, 100, 0, (int32_t)(MOTORES_MAX_PWM * 0.25));
+      ocI += map(velI, 0, 100, 0, (MOTORES_MAX_PWM * 0.25));
     } else {
-      ocI -= map(abs(velI), 0, 100, 0, (int32_t)(MOTORES_MAX_PWM * 0.25));
+      ocI -= map(abs(velI), 0, 100, 0, (MOTORES_MAX_PWM * 0.25));
     }
   }
 
   if (velD != 0) {
     if (velD > 0) {
-      ocD += map(velD, 0, 100, 0, (int32_t)(MOTORES_MAX_PWM * 0.25));
+      ocD += map(velD, 0, 100, 0, (MOTORES_MAX_PWM * 0.25));
     } else {
-      ocD -= map(abs(velD), 0, 100, 0, (int32_t)(MOTORES_MAX_PWM * 0.25));
+      ocD -= map(abs(velD), 0, 100, 0, (MOTORES_MAX_PWM * 0.25));
     }
   }
-  timer_set_oc_value(TIM8, TIM_OC4, ocI);
-  timer_set_oc_value(TIM8, TIM_OC2, ocD);
+  timer_set_oc_value(TIM8, TIM_OC4, (uint32_t)ocI);
+  timer_set_oc_value(TIM8, TIM_OC2, (uint32_t)ocD);
 }

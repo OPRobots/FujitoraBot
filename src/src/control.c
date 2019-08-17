@@ -1,17 +1,20 @@
 #include <control.h>
 
-static int32_t velocidad = 0;
+static float velocidad = 0;
+static int32_t velocidadIdeal = 0;
 static bool competicionIniciada = false;
-volatile static int32_t correccion_velocidad = 0;
+volatile static float correccion_velocidad = 0;
 volatile static int32_t error_anterior = 0;
 static bool vuelta_iniciada = false;
 static bool left_mark = false;
 static bool right_mark = false;
 
-static int32_t calc_pid_correction(int32_t posicion) {
-  double p = 0;
-  double i = 0;
-  double d = 0;
+static uint32_t resume_speed_ms = 0;
+
+static float calc_pid_correction(int32_t posicion) {
+  float p = 0;
+  float i = 0;
+  float d = 0;
   int32_t error = 0 - posicion;
 
   p = KP * error;
@@ -56,32 +59,46 @@ void pid_timer_custom_isr() {
   right_mark = is_right_mark();
 }
 
-int32_t get_speed_correction() {
+float get_speed_correction() {
   return correccion_velocidad;
 }
 
 void speed_timer_custom_isr() {
-  if (velocidad > 0) {
-    int32_t velI = velocidad - correccion_velocidad;
-    int32_t velD = velocidad + correccion_velocidad;
+  if (velocidadIdeal > 0) {
+    if (velocidad < velocidadIdeal) {
+      if (velocidad < 10) {
+        velocidad = 10;
+      }
+      uint32_t ms = (get_clock_ticks() - resume_speed_ms);
+      float increment = (ms / 1000.0) * 45.0;
+      velocidad = 10 + increment;
+    } else if (velocidad != velocidadIdeal) {
+      velocidad = velocidadIdeal;
+    }
+    float velI = velocidad - correccion_velocidad;
+    float velD = velocidad + correccion_velocidad;
 
     if (velD < 10) {
       velI += 10 - velD;
+      velD = 10;
+    } else if (velD > 100) {
+      velD = 100;
     }
     if (velI < 10) {
       velD += 10 - velI;
+      velI = 10;
+    } else if (velI > 100) {
+      velI = 100;
     }
-
-    velD = constrain(velD, 10, 100);
-    velI = constrain(velI, 10, 100);
     set_motors_speed(velD, velI);
   } else {
+    velocidad = velocidadIdeal;
     set_motors_speed(0, 0);
   }
 }
 
 void set_speed(int32_t v) {
-  velocidad = v;
+  velocidadIdeal = v;
 }
 
 void resume_pid_timer() {
@@ -94,6 +111,8 @@ void pause_pid_timer() {
 }
 
 void resume_speed_timer() {
+  resume_speed_ms = get_clock_ticks();
+  velocidad = 0;
   timer_enable_irq(TIM2, TIM_DIER_CC1IE);
 }
 

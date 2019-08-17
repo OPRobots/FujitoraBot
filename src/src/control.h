@@ -14,7 +14,7 @@ void set_competicion_iniciada(bool state);
 
 void pid_timer_custom_isr();
 void speed_timer_custom_isr();
-int32_t get_speed_correction();
+float get_speed_correction();
 void set_speed(int32_t v);
 void resume_pid_timer();
 void pause_pid_timer();
