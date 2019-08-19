@@ -29,39 +29,39 @@ static void handle_menu_value() {
           break;
         case 1:
           set_RGB_color(0, 10, 0);
-          velocidadBase = 30;
+          velocidadBase = 10;
           break;
         case 2:
           set_RGB_color(0, 255, 0);
-          velocidadBase = 44;
+          velocidadBase = 20;
           break;
         case 3:
           set_RGB_color(10, 10, 0);
-          velocidadBase = 50;
+          velocidadBase = 25;
           break;
         case 4:
           set_RGB_color(255, 225, 0);
-          velocidadBase = 56;
+          velocidadBase = 30;
           break;
         case 5:
           set_RGB_color(10, 0, 0);
-          velocidadBase = 58;
+          velocidadBase = 35;
           break;
         case 6:
           set_RGB_color(255, 0, 0);
-          velocidadBase = 66;
+          velocidadBase = 40;
           break;
         case 7:
           set_RGB_color(10, 0, 10);
-          velocidadBase = 74;
+          velocidadBase = 45;
           break;
         case 8:
           set_RGB_color(255, 0, 255);
-          velocidadBase = 82;
+          velocidadBase = 50;
           break;
         case 9:
           set_RGB_color(255, 255, 255);
-          velocidadBase = 90;
+          velocidadBase = 55;
           break;
       }
       break;
