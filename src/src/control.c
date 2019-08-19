@@ -2,6 +2,7 @@
 
 static float velocidad = 0;
 static int32_t velocidadIdeal = 0;
+static int32_t velocidadVentiladorIdeal = 0;
 static bool competicionIniciada = false;
 volatile static float correccion_velocidad = 0;
 volatile static int32_t error_anterior = 0;
@@ -91,14 +92,19 @@ void speed_timer_custom_isr() {
       velI = 100;
     }
     set_motors_speed(velD, velI);
+    set_fan_speed(velocidadVentiladorIdeal);
   } else {
     velocidad = velocidadIdeal;
     set_motors_speed(0, 0);
   }
 }
 
-void set_speed(int32_t v) {
+void set_ideal_motors_speed(int32_t v) {
   velocidadIdeal = v;
+}
+
+void set_ideal_fan_speed(int32_t v) {
+  velocidadVentiladorIdeal = v;
 }
 
 void resume_pid_timer() {
@@ -119,5 +125,6 @@ void resume_speed_timer() {
 void pause_speed_timer() {
   timer_disable_irq(TIM2, TIM_DIER_CC1IE);
   set_motors_speed(0, 0);
+  set_fan_speed(0);
   all_leds_clear();
 }

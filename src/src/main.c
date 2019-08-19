@@ -42,12 +42,17 @@ int main(void) {
           r = map(millisPasados, 0, MILLIS_INICIO, 255, 0);
           g = map(millisPasados, 0, 1000, 0, 255);
           set_RGB_color(r, g, 0);
+          if ((millisPasados > MILLIS_INICIO * 0.75 || MILLIS_INICIO == 0) && get_base_fan_speed() > 0) {
+            set_fan_speed(20);
+          }
         }
         set_competicion_iniciada(true);
         set_RGB_color(0, 0, 0);
+        set_ideal_motors_speed(get_base_speed());
+        set_ideal_fan_speed(get_base_fan_speed());
+        set_fan_speed(get_base_fan_speed());
         resume_pid_timer();
         resume_speed_timer();
-        set_speed(get_base_speed());
       }
     } else {
       // printf("%d\n", get_base_speed() + get_speed_correction());
