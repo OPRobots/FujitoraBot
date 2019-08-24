@@ -24,6 +24,8 @@ static void setup_clock() {
 
   rcc_periph_clock_enable(RCC_TIM1);
   rcc_periph_clock_enable(RCC_TIM2);
+  rcc_periph_clock_enable(RCC_TIM3);
+  rcc_periph_clock_enable(RCC_TIM4);
   rcc_periph_clock_enable(RCC_TIM5);
   rcc_periph_clock_enable(RCC_TIM8);
 
@@ -84,7 +86,9 @@ static void setup_gpio() {
   // Entradas digitales Switch y botón de inicio
   gpio_mode_setup(GPIOB, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO12 | GPIO13 | GPIO14 | GPIO15);
 
-  // TODO: Entradas Encoders
+  // Entradas Encoders
+  gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO4 | GPIO5 | GPIO6 | GPIO7);
+  gpio_set_af(GPIOB, GPIO_AF2, GPIO4 | GPIO5 | GPIO6 | GPIO7);
 
   // Salida digital LED auxiliar
   gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO12);
@@ -243,6 +247,20 @@ void tim2_isr() {
   }
 }
 
+static void setup_quadrature_encoders() {
+  timer_set_period(TIM4, 0xFFFF);
+  timer_slave_set_mode(TIM4, TIM_SMCR_SMS_EM3);
+  timer_ic_set_input(TIM4, TIM_IC1, TIM_IC_IN_TI1);
+  timer_ic_set_input(TIM4, TIM_IC2, TIM_IC_IN_TI2);
+  timer_enable_counter(TIM4);
+
+  timer_set_period(TIM3, 0xFFFF);
+  timer_slave_set_mode(TIM3, TIM_SMCR_SMS_EM3);
+  timer_ic_set_input(TIM3, TIM_IC1, TIM_IC_IN_TI1);
+  timer_ic_set_input(TIM3, TIM_IC2, TIM_IC_IN_TI2);
+  timer_enable_counter(TIM3);
+}
+
 void setup() {
   setup_clock();
   setup_gpio();
@@ -254,5 +272,6 @@ void setup() {
   setup_adc1();
   setup_pid_timer();
   setup_speed_timer();
+  setup_quadrature_encoders();
   setup_systick();
 }

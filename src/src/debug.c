@@ -32,6 +32,11 @@ void debug_line_position() {
   delay(50);
 }
 
+void debug_encoders(){
+  printf("%ld\t%ld\n", timer_get_counter(TIM3), timer_get_counter(TIM4));
+  delay(50);
+}
+
 void debug_motors() {
   if (is_esc_inited()) {
     uint32_t millisInicio = get_clock_ticks();
@@ -65,7 +70,7 @@ void debug_from_switch() {
       debug_line_position();
       break;
     case 5:
-      // TODO: añadir comprobación de encoders
+      debug_encoders();
       break;
     case 6:
       debug_motors();
