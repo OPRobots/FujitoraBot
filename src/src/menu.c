@@ -2,7 +2,7 @@
 
 uint8_t modoConfig = 0;
 #define NUM_MODOS 3
-int8_t valorConfig = 0;
+int8_t valorConfig[NUM_MODOS] = {0, 0, 0};
 #define NUM_VALORES 9
 
 uint8_t velocidadBase = 0;
@@ -22,7 +22,7 @@ static void handle_menu_value() {
       debug_from_switch();
       break;
     case 1: // VELOCIDAD
-      switch (valorConfig) {
+      switch (valorConfig[modoConfig]) {
         case 0:
           set_RGB_color(0, 10, 10);
           velocidadBase = 0;
@@ -66,10 +66,10 @@ static void handle_menu_value() {
       }
       break;
     case 2: // VENTILADORES
-      switch (valorConfig) {
+      switch (valorConfig[modoConfig]) {
         case 0:
           set_RGB_color(0, 10, 10);
-          velocidadVentiladorBase = 0;
+          velocidadVentiladorBase = 10;
           break;
         case 1:
           set_RGB_color(0, 10, 0);
@@ -137,9 +137,9 @@ void check_menu_button() {
 
   // Comprueba aumento de valor de configuración
   if (get_menu_up_btn()) {
-    valorConfig++;
-    if (valorConfig > NUM_VALORES) {
-      valorConfig = NUM_VALORES;
+    valorConfig[modoConfig]++;
+    if (valorConfig[modoConfig] > NUM_VALORES) {
+      valorConfig[modoConfig] = NUM_VALORES;
     }
     while (get_menu_up_btn()) {
       handle_menu_value();
@@ -150,9 +150,9 @@ void check_menu_button() {
 
   // Comprueba descenso de valor de configuración
   if (get_menu_down_btn()) {
-    valorConfig--;
-    if (valorConfig < 0) {
-      valorConfig = 0;
+    valorConfig[modoConfig]--;
+    if (valorConfig[modoConfig] < 0) {
+      valorConfig[modoConfig] = 0;
     }
     while (get_menu_down_btn()) {
       handle_menu_value();
