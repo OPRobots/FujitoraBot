@@ -1,7 +1,7 @@
 #include <menu.h>
 
 uint8_t modoConfig = 0;
-#define NUM_MODOS 3
+#define NUM_MODOS 4
 int8_t valorConfig[NUM_MODOS] = {0, 0, 0};
 #define NUM_VALORES 9
 
@@ -110,6 +110,48 @@ static void handle_menu_value() {
       }
       break;
     case 3: // EXTRA
+      switch (valorConfig[modoConfig]) {
+        case 0:
+          set_RGB_color(0, 10, 10);
+          set_fans_speed(10, 10);
+          break;
+        case 1:
+          set_RGB_color(0, 10, 0);
+          set_fans_speed(20, 20);
+          break;
+        case 2:
+          set_RGB_color(0, 255, 0);
+          set_fans_speed(30, 30);
+          break;
+        case 3:
+          set_RGB_color(10, 10, 0);
+          set_fans_speed(40, 40);
+          break;
+        case 4:
+          set_RGB_color(255, 225, 0);
+          set_fans_speed(50, 50);
+          break;
+        case 5:
+          set_RGB_color(10, 0, 0);
+          set_fans_speed(60, 60);
+          break;
+        case 6:
+          set_RGB_color(255, 0, 0);
+          set_fans_speed(70, 70);
+          break;
+        case 7:
+          set_RGB_color(10, 0, 10);
+          set_fans_speed(80, 80);
+          break;
+        case 8:
+          set_RGB_color(255, 0, 255);
+          set_fans_speed(90, 90);
+          break;
+        case 9:
+          set_RGB_color(255, 255, 255);
+          set_fans_speed(100, 100);
+          break;
+      }
       break;
   }
 }

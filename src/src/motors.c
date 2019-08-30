@@ -81,3 +81,29 @@ void set_fan_speed(uint8_t vel) {
   timer_set_oc_value(TIM8, TIM_OC1, ocF);
   timer_set_oc_value(TIM8, TIM_OC3, ocF);
 }
+
+
+void set_fans_speed(int8_t velI, int8_t velD) {
+  if (!escInited) {
+    return;
+  }
+
+  uint32_t ocF_I = STOP_MOTORS_PWM;
+  if (velI != 0) {
+    if (velI > 0) {
+      ocF_I += map(velI, 0, 100, 0, (MOTORES_MAX_PWM * 0.25));
+    } else {
+      ocF_I -= map(abs(velI), 0, 100, 0, (MOTORES_MAX_PWM * 0.25));
+    }
+  }
+  uint32_t ocF_D = STOP_MOTORS_PWM;
+  if (velD != 0) {
+    if (velD > 0) {
+      ocF_D -= map(velD, 0, 100, 0, (MOTORES_MAX_PWM * 0.25));
+    } else {
+      ocF_D += map(abs(velD), 0, 100, 0, (MOTORES_MAX_PWM * 0.25));
+    }
+  }
+  timer_set_oc_value(TIM8, TIM_OC1, ocF_D);
+  timer_set_oc_value(TIM8, TIM_OC3, ocF_I);
+}
