@@ -1,0 +1,274 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# AS5040-AS5040
+#
+DEF AS5040-AS5040 IC 0 40 Y Y 1 L N
+F0 "IC" -500 450 50 H V L BNN
+F1 "AS5040-AS5040" -500 -600 50 H V L BNN
+F2 "SSOP16" 0 0 50 H I L BNN
+F3 "None" 0 0 50 H I L BNN
+F4 "ams" 0 0 50 H I L BNN
+F5 "None" 0 0 50 H I L BNN
+F6 "10-bit programmable magnetic rotary encoder" 0 0 50 H I L BNN
+F7 "Unavailable" 0 0 50 H I L BNN
+F8 "AS5040" 0 0 50 H I L BNN
+DRAW
+P 2 0 0 10 -500 -500 -500 400 N
+P 2 0 0 10 -500 400 500 400 N
+P 2 0 0 10 500 -500 -500 -500 N
+P 2 0 0 10 500 400 500 -500 N
+X MAGINC 1 -700 300 200 R 40 40 0 0 T
+X CLK 10 700 -300 200 L 40 40 0 0 I
+X CSN 11 700 -200 200 L 40 40 0 0 I
+X PWN 12 700 -100 200 L 40 40 0 0 P
+X T_B_0 13 700 0 200 L 40 40 0 0 N
+X T_B_1 14 700 100 200 L 40 40 0 0 N
+X VDD3V3 15 700 200 200 L 40 40 0 0 P
+X VDD5V 16 700 300 200 L 40 40 0 0 P
+X MAGDEC 2 -700 200 200 R 40 40 0 0 T
+X A_LSB_U 3 -700 100 200 R 40 40 0 0 O
+X B_DIR_V 4 -700 0 200 R 40 40 0 0 O
+X COIL 5 -700 -100 200 R 40 40 0 0 N
+X INDEX_W 6 -700 -200 200 R 40 40 0 0 O
+X VSS 7 -700 -300 200 R 40 40 0 0 P
+X PROG 8 -700 -400 200 R 40 40 0 0 I
+X D0 9 700 -400 200 L 40 40 0 0 T
+ENDDRAW
+ENDDEF
+#
+# Barra_anti-Flex-Barra_aint-flex
+#
+DEF Barra_anti-Flex-Barra_aint-flex U 0 40 Y Y 1 F N
+F0 "U" 0 0 50 H V C CNN
+F1 "Barra_anti-Flex-Barra_aint-flex" 0 0 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+S -350 -250 300 -350 0 1 0 N
+X Ancl1 1 -250 -450 100 U 50 50 1 1 P
+X Ancl2 2 -100 -450 100 U 50 50 1 1 P
+X Ancl3 3 50 -450 100 U 50 50 1 1 P
+X Ancl4 4 200 -450 100 U 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Conn_01x02-multiPCB-rescue-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue
+#
+DEF Conn_01x02-multiPCB-rescue-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue J 0 40 Y N 1 F N
+F0 "J" 0 100 50 H V C CNN
+F1 "Conn_01x02-multiPCB-rescue-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue" 0 -200 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Connector*:*_??x*mm*
+ Connector*:*1x??x*mm*
+ Pin?Header?Straight?1X*
+ Pin?Header?Angled?1X*
+ Socket?Strip?Straight?1X*
+ Socket?Strip?Angled?1X*
+$ENDFPLIST
+DRAW
+S -50 -95 0 -105 1 1 6 N
+S -50 5 0 -5 1 1 6 N
+S -50 50 50 -150 1 1 10 f
+X Pin_1 1 -200 0 150 R 50 50 1 1 P
+X Pin_2 2 -200 -100 150 R 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# ESC_x4_15A-ESC_x4_15A
+#
+DEF ESC_x4_15A-ESC_x4_15A ESC 0 40 Y Y 1 F N
+F0 "ESC" 0 50 50 H V C CNN
+F1 "ESC_x4_15A-ESC_x4_15A" 0 -50 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+S -650 350 650 -450 0 1 0 N
+X M1_R 1 -750 250 100 R 50 50 1 1 O
+X M4_R 10 750 -100 100 L 50 50 1 1 O
+X M4_S 11 750 -200 100 L 50 50 1 1 O
+X M4_T 12 750 -300 100 L 50 50 1 1 O
+X GND 19 -100 450 100 D 50 50 1 1 P
+X M1_S 2 -750 150 100 R 50 50 1 1 O
+X VCC 20 100 450 100 D 50 50 1 1 P
+X M1_T 3 -750 50 100 R 50 50 1 1 O
+X M2_R 4 -750 -100 100 R 50 50 1 1 O
+X M2_S 5 -750 -200 100 R 50 50 1 1 O
+X M2_T 6 -750 -300 100 R 50 50 1 1 O
+X M3_R 7 750 250 100 L 50 50 1 1 O
+X M3_S 8 750 150 100 L 50 50 1 1 O
+X M3_T 9 750 50 100 L 50 50 1 1 O
+ENDDRAW
+ENDDEF
+#
+# HRO-TYPE-C-31-M-12-Type-C
+#
+DEF HRO-TYPE-C-31-M-12-Type-C USB 0 40 Y Y 1 F N
+F0 "USB" -200 650 60 H V C CNN
+F1 "HRO-TYPE-C-31-M-12-Type-C" -400 -50 60 V V C CNN
+F2 "" 0 0 60 H I C CNN
+F3 "" 0 0 60 H I C CNN
+DRAW
+S -450 600 -350 -700 0 1 0 f
+S 0 -700 -350 600 0 1 0 f
+X GND 1 100 550 100 L 50 50 1 1 I
+X CC2 10 100 -350 100 L 50 50 1 1 I
+X VBUS 11 100 -450 100 L 50 50 1 1 I
+X GND 12 100 -550 100 L 50 50 1 1 I
+X SHIELD 13 100 -650 100 L 50 50 1 1 I
+X VBUS 2 100 450 100 L 50 50 1 1 I
+X SBU2 3 100 350 100 L 50 50 1 1 I
+X CC1 4 100 250 100 L 50 50 1 1 I
+X DN2 5 100 150 100 L 50 50 1 1 I
+X DP1 6 100 50 100 L 50 50 1 1 I
+X DN1 7 100 -50 100 L 50 50 1 1 I
+X DP2 8 100 -150 100 L 50 50 1 1 I
+X SBU1 9 100 -250 100 L 50 50 1 1 I
+ENDDRAW
+ENDDEF
+#
+# MOSFET-N-MOSFET-N
+#
+DEF MOSFET-N-MOSFET-N U 0 40 Y Y 1 F N
+F0 "U" 30 120 30 H V L CNN
+F1 "MOSFET-N-MOSFET-N" 25 -115 30 H V L CNN
+F2 "" 0 -50 60 H V C CNN
+F3 "" 0 -50 60 H V C CNN
+$FPLIST
+ SOT95P237X112_123-3N
+$ENDFPLIST
+DRAW
+P 2 0 1 0 -75 100 -75 -100 N
+P 2 0 1 0 -50 -100 -50 -50 N
+P 2 0 1 0 -50 -30 -50 30 N
+P 2 0 1 0 -50 45 -50 100 N
+P 2 0 1 0 35 15 65 15 N
+P 3 0 1 0 -50 0 0 0 0 -75 N
+P 4 0 1 0 -50 75 50 75 50 -75 -50 -75 N
+P 4 0 1 0 -45 5 -30 15 -30 -15 -50 0 F
+P 4 0 1 0 65 -15 50 15 35 -15 65 -15 F
+X ~ 1 -200 0 122 R 30 50 1 1 P
+X ~ 2 0 -200 122 U 30 50 1 1 P
+X ~ 3 0 200 122 D 30 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# MP2307-mp2307
+#
+DEF MP2307-mp2307 U 0 40 Y Y 1 F N
+F0 "U" -300 350 50 H V L CNN
+F1 "MP2307-mp2307" -500 250 50 H V L CNN
+F2 "kicad-libraries:SOP8" 250 350 50 H I L CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ SOT-23*
+$ENDFPLIST
+DRAW
+S -300 200 300 -200 0 1 10 f
+X BS 1 100 300 100 D 50 39 1 1 I
+X IN 2 -100 300 100 D 50 39 1 1 W
+X SW 3 400 100 100 L 50 39 1 1 O
+X GND 4 -100 -300 100 U 50 39 1 1 W
+X FB 5 400 -100 100 L 50 39 1 1 I
+X COMP 6 100 -300 100 U 50 39 1 1 I
+X EN 7 -400 100 100 R 50 39 1 1 I
+X SS 8 -400 -100 100 R 50 39 1 1 I
+ENDDRAW
+ENDDEF
+#
+# STM32F405RGT6-stm32f405rgt6-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue
+#
+DEF STM32F405RGT6-stm32f405rgt6-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue U 0 40 Y Y 1 F N
+F0 "U" 0 -250 60 H V C CNN
+F1 "STM32F405RGT6-stm32f405rgt6-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue" 0 250 60 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+S -1450 1350 1500 -1550 0 1 0 N
+X VBAT 1 -1750 1000 300 R 50 50 1 1 I
+X PC2 10 -1750 -350 300 R 50 50 1 1 B
+X PC3 11 -1750 -500 300 R 50 50 1 1 B
+X VSSA 12 -1750 -650 300 R 50 50 1 1 W
+X VDDA 13 -1750 -800 300 R 50 50 1 1 P
+X PA0 14 -1750 -950 300 R 50 50 1 1 B
+X PA1 15 -1750 -1100 300 R 50 50 1 1 B
+X PA2 16 -1750 -1250 300 R 50 50 1 1 B
+X PA3 17 -1050 -1850 300 U 50 50 1 1 B
+X VSS 18 -900 -1850 300 U 50 50 1 1 W
+X VDD 19 -750 -1850 300 U 50 50 1 1 W
+X PC13 2 -1750 850 300 R 50 50 1 1 B
+X PA4 20 -600 -1850 300 U 50 50 1 1 B
+X PA5 21 -450 -1850 300 U 50 50 1 1 B
+X PA6 22 -300 -1850 300 U 50 50 1 1 B
+X PA7 23 -150 -1850 300 U 50 50 1 1 B
+X PC4 24 0 -1850 300 U 50 50 1 1 B
+X PC5 25 150 -1850 300 U 50 50 1 1 B
+X PB0 26 300 -1850 300 U 50 50 1 1 B
+X PB1 27 450 -1850 300 U 50 50 1 1 B
+X PB2/BOOT1 28 600 -1850 300 U 50 50 1 1 B
+X PB10 29 750 -1850 300 U 50 50 1 1 B
+X PC14 3 -1750 700 300 R 50 50 1 1 B
+X PB11 30 900 -1850 300 U 50 50 1 1 B
+X VCAP_1 31 1050 -1850 300 U 50 50 1 1 P
+X VDD 32 1200 -1850 300 U 50 50 1 1 W
+X PB12 33 1800 -1250 300 L 50 50 1 1 B
+X PB13 34 1800 -1100 300 L 50 50 1 1 B
+X PB14 35 1800 -950 300 L 50 50 1 1 B
+X PB15 36 1800 -800 300 L 50 50 1 1 B
+X PC6 37 1800 -650 300 L 50 50 1 1 B
+X PC7 38 1800 -500 300 L 50 50 1 1 B
+X PC8 39 1800 -350 300 L 50 50 1 1 B
+X PC15 4 -1750 550 300 R 50 50 1 1 B
+X PC9 40 1800 -200 300 L 50 50 1 1 B
+X PA8 41 1800 -50 300 L 50 50 1 1 B
+X PA9 42 1800 100 300 L 50 50 1 1 B
+X PA10 43 1800 250 300 L 50 50 1 1 B
+X PA11 44 1800 400 300 L 50 50 1 1 B
+X PA12 45 1800 550 300 L 50 50 1 1 B
+X PA13 46 1800 700 300 L 50 50 1 1 B
+X VCAP_2 47 1800 850 300 L 50 50 1 1 P
+X VDD 48 1800 1000 300 L 50 50 1 1 W
+X PA14 49 1200 1650 300 D 50 50 1 1 B
+X PH0/OSC_IN 5 -1750 400 300 R 50 50 1 1 B
+X PA15 50 1050 1650 300 D 50 50 1 1 B
+X PC10 51 900 1650 300 D 50 50 1 1 B
+X PC11 52 750 1650 300 D 50 50 1 1 B
+X PC12 53 600 1650 300 D 50 50 1 1 B
+X PD2 54 450 1650 300 D 50 50 1 1 B
+X PB3 55 300 1650 300 D 50 50 1 1 B
+X PB4 56 150 1650 300 D 50 50 1 1 B
+X PB5 57 0 1650 300 D 50 50 1 1 B
+X PB6 58 -150 1650 300 D 50 50 1 1 B
+X PB7 59 -300 1650 300 D 50 50 1 1 B
+X PH1/OSC_OUT 6 -1750 250 300 R 50 50 1 1 B
+X BOOT0 60 -450 1650 300 D 50 50 1 1 I
+X PB8 61 -600 1650 300 D 50 50 1 1 B
+X PB9 62 -750 1650 300 D 50 50 1 1 B
+X VSS 63 -900 1650 300 D 50 50 1 1 W
+X VDD 64 -1050 1650 300 D 50 50 1 1 W
+X NRST 7 -1750 100 300 R 50 50 1 1 I
+X PC0 8 -1750 -50 300 R 50 50 1 1 B
+X PC1 9 -1750 -200 300 R 50 50 1 1 B
+ENDDRAW
+ENDDEF
+#
+# SW_Push-multiPCB-rescue-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue
+#
+DEF SW_Push-multiPCB-rescue-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue SW 0 40 N N 1 F N
+F0 "SW" 50 100 50 H V L CNN
+F1 "SW_Push-multiPCB-rescue-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue" 0 -60 50 H V C CNN
+F2 "" 0 200 50 H I C CNN
+F3 "" 0 200 50 H I C CNN
+DRAW
+C -80 0 20 0 1 0 N
+C 80 0 20 0 1 0 N
+P 2 0 1 0 0 50 0 120 N
+P 2 0 1 0 100 50 -100 50 N
+X 1 1 -200 0 100 R 50 50 0 1 P
+X 2 2 200 0 100 L 50 50 0 1 P
+ENDDRAW
+ENDDEF
+#
+#End Library
