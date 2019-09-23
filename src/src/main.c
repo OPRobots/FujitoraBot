@@ -3,6 +3,7 @@
 #include <control.h>
 #include <debug.h>
 #include <delay.h>
+#include <encoders.h>
 #include <leds.h>
 #include <menu.h>
 #include <motors.h>
@@ -15,13 +16,14 @@ void sys_tick_handler(void) {
   if (!is_esc_inited()) {
     init_esc();
   }
+  update_encoder_readings();
 }
-
 
 int main(void) {
   setup();
   calibrate_sensors();
-
+  int32_t last_micrometers_l = 0;
+  int32_t last_micrometers_r = 0;
   while (1) {
     // printf("%d\n", get_toggle_ticks());
     // delay(25);
@@ -55,8 +57,12 @@ int main(void) {
         resume_speed_timer();
       }
     } else {
-      // printf("%d\n", get_base_speed() + get_speed_correction());
-      // delay(25);
+      // if (last_micrometers_r == 0 || last_micrometers_l == 0 || abs(last_micrometers_r - get_encoder_right_micrometers()) >= 10000 || abs(last_micrometers_l - get_encoder_left_micrometers()) >= 10000) {
+      // last_micrometers_r = get_encoder_right_micrometers();
+      // last_micrometers_l = get_encoder_left_micrometers();
+      // printf("%ld\t%ld\n", get_encoder_x_position(), get_encoder_y_position());
+      // delay(1);
+      // }
     }
   }
 }

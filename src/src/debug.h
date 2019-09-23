@@ -8,6 +8,7 @@
 #include <delay.h>
 #include <motors.h>
 #include <sensors.h>
+#include <encoders.h>
 #include <usart.h>
 
 

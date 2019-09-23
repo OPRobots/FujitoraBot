@@ -33,7 +33,9 @@ void debug_line_position() {
 }
 
 void debug_encoders(){
-  printf("%ld\t%ld\n", timer_get_counter(TIM3), timer_get_counter(TIM4));
+  // printf("%ld (%ld)\t%ld (%ld)\n", get_encoder_left_total_ticks(), get_encoder_left_micrometers(), get_encoder_right_total_ticks(), get_encoder_right_micrometers());
+  printf("%.4f\t%.4f | %.4f\n", get_encoder_x_position(), get_encoder_y_position(), get_encoder_curernt_angle());
+  // printf("%.4f | %.4f - %.4f\n", get_encoder_curernt_angle(),get_encoder_avg_micrometers(), get_encoder_angular_speed());
   delay(50);
 }
 
