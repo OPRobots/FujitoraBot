@@ -30,33 +30,33 @@ volatile uint16_t *get_sensors_raw() {
 }
 
 uint16_t get_sensor_raw(uint8_t pos) {
-  if (pos + 1 > NUM_SENSORS) {
-    return 0;
-  } else {
+  if (pos < NUM_SENSORS) {
     return sensores_raw[pos];
+  } else {
+    return 0;
   }
 }
 
 uint16_t get_sensor_calibrated(uint8_t pos) {
-  if (pos + 1 > NUM_SENSORS) {
-    return 0;
-  } else {
-    uint16_t sensor_calibrado = sensores_raw[pos];
+  if (pos < NUM_SENSORS) {
+    uint16_t sensor_calibrado = get_sensor_raw(pos);
     if (sensor_calibrado >= sensores_umb[pos]) {
       sensor_calibrado = LECTURA_MAXIMO_SENSORES_LINEA;
     } else {
       sensor_calibrado = LECTURA_MINIMO_SENSORES_LINEA;
     }
-    if (LINEA == LINEA_BLANCA) {
+    if (get_config_track() == CONFIG_TRACK_ROBOTRACER) {
       return LECTURA_MAXIMO_SENSORES_LINEA - sensor_calibrado;
     } else {
       return sensor_calibrado;
     }
+  } else {
+    return 0;
   }
 }
 
 void calibrate_sensors() {
-  bool auto_move = false;
+  bool auto_move = get_config_run() == CONFIG_RUN_RACE; // En modo carrera, se calibra automáticamente por defecto.
   bool pushFlag = false;
   while (!get_start_btn()) {
     set_neon_heartbeat();
@@ -157,7 +157,7 @@ void calc_sensor_line_position() {
 
   if (sensores_detectando > 0 && sensores_detectando < NUM_SENSORS_LINE) {
     ultimaLinea = get_clock_ticks();
-  } else if (get_clock_ticks() > (ultimaLinea + TIEMPO_SIN_PISTA)) {
+  } else if (get_clock_ticks() > (ultimaLinea + get_offtrack_time())) {
     set_competicion_iniciada(false);
     pause_pid_timer();
     pause_speed_timer();

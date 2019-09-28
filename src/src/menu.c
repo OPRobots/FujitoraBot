@@ -1,7 +1,7 @@
 #include <menu.h>
 
 uint8_t modoConfig = 0;
-#define NUM_MODOS 4
+#define NUM_MODOS 4 //TODO: El número de modos varía si el modo carrera está activo o no (sin/con debug)
 int8_t valorConfig[NUM_MODOS] = {0, 0, 0};
 #define NUM_VALORES 9
 

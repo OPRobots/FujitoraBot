@@ -1,5 +1,7 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
+#include <stdio.h>
+#include <buttons.h>
 
 #define SYSCLK_FREQUENCY_HZ 168000000
 #define SYSTICK_FREQUENCY_HZ 1000
@@ -13,9 +15,6 @@
 
 #define LEDS_MAX_PWM 1024
 #define MOTORES_MAX_PWM 1024
-#define LINEA_BLANCA 2
-#define LINEA_NEGRA 1
-#define LINEA LINEA_NEGRA
 
 #define KP 0.03
 #define KI 0
@@ -23,9 +22,23 @@
 #define MILLIS_INICIO 2000
 #define TIEMPO_SIN_PISTA 100
 
-
 #define MICROMETERS_PER_TICK 78.3699
 #define WHEELS_SEPARATION 0.1169
 
+#define CONFIG_RUN_RACE 1
+#define CONFIG_RUN_DEBUG 0
+
+#define CONFIG_SPEED_MS 1
+#define CONFIG_SPEED_PWM 0
+ 
+#define CONFIG_TRACK_ROBOTRACER 1
+#define CONFIG_TRACK_LINEFOLLOWER 0
+
+void set_all_configs(void);
+uint16_t get_config_run(void);
+uint16_t get_config_speed(void);
+uint16_t get_config_track(void);
+
+uint16_t get_offtrack_time(void);
 
 #endif

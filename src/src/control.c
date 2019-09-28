@@ -65,37 +65,41 @@ float get_speed_correction() {
 }
 
 void speed_timer_custom_isr() {
-  if (velocidadIdeal > 0) {
-    if (velocidad < velocidadIdeal) {
-      if (velocidad < 10) {
-        velocidad = 10;
-      }
-      uint32_t ms = (get_clock_ticks() - resume_speed_ms);
-      float increment = (ms / 1000.0) * 45.0;
-      velocidad = 10 + increment;
-    } else if (velocidad != velocidadIdeal) {
-      velocidad = velocidadIdeal;
-    }
-    float velI = velocidad - correccion_velocidad;
-    float velD = velocidad + correccion_velocidad;
-
-    if (velD < 10) {
-      velI += 10 - velD;
-      velD = 10;
-    } else if (velD > 100) {
-      velD = 100;
-    }
-    if (velI < 10) {
-      velD += 10 - velI;
-      velI = 10;
-    } else if (velI > 100) {
-      velI = 100;
-    }
-    set_motors_speed(velD, velI);
-    set_fan_speed(velocidadVentiladorIdeal);
+  if (get_config_speed() == CONFIG_SPEED_MS) {
+    //TODO: asignar velocidad mediante m/s
   } else {
-    velocidad = velocidadIdeal;
-    set_motors_speed(0, 0);
+    if (velocidadIdeal > 0) {
+      if (velocidad < velocidadIdeal) {
+        if (velocidad < 10) {
+          velocidad = 10;
+        }
+        uint32_t ms = (get_clock_ticks() - resume_speed_ms);
+        float increment = (ms / 1000.0) * 45.0;
+        velocidad = 10 + increment;
+      } else if (velocidad != velocidadIdeal) {
+        velocidad = velocidadIdeal;
+      }
+      float velI = velocidad - correccion_velocidad;
+      float velD = velocidad + correccion_velocidad;
+
+      if (velD < 10) {
+        velI += 10 - velD;
+        velD = 10;
+      } else if (velD > 100) {
+        velD = 100;
+      }
+      if (velI < 10) {
+        velD += 10 - velI;
+        velI = 10;
+      } else if (velI > 100) {
+        velI = 100;
+      }
+      set_motors_speed(velD, velI);
+      set_fan_speed(velocidadVentiladorIdeal);
+    } else {
+      velocidad = velocidadIdeal;
+      set_motors_speed(0, 0);
+    }
   }
 }
 
