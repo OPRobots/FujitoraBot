@@ -1,53 +1,81 @@
 #include <debug.h>
 
-void debug_sensors_raw() {
-  for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
-    printf("%d\t", get_sensor_raw(sensor));
+bool debug_enabled = false;
+uint32_t last_print_debug = 0;
+
+static void debug_sensors_raw() {
+  if (get_clock_ticks() > last_print_debug + 50) {
+    for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
+      printf("%d\t", get_sensor_raw(sensor));
+    }
+    printf("\n");
+    last_print_debug = get_clock_ticks();
   }
-  printf("\n");
-  delay(50);
 }
 
-void debug_sensors_calibrated() {
-  for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
-    printf("%d\t", get_sensor_calibrated(sensor));
+static void debug_sensors_calibrated() {
+  if (get_clock_ticks() > last_print_debug + 50) {
+    for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
+      printf("%d\t", get_sensor_calibrated(sensor));
+    }
+    printf("\n");
+    last_print_debug = get_clock_ticks();
   }
-  printf("\n");
-  delay(50);
 }
 
-void debug_all_leds() {
+static void debug_all_leds() {
   set_RGB_rainbow();
   set_neon_heartbeat();
   warning_status_led(125);
 }
 
-void debug_digital_io() {
-  printf("BTN: %d SW1: %d SW2: %d SW3: %d CFM: %d CFU: %d CFD: %d\n", get_start_btn(), get_swtich_1(), get_swtich_2(), get_swtich_3(), get_menu_mode_btn(), get_menu_up_btn(), get_menu_down_btn());
-  delay(250);
+static void debug_digital_io() {
+  if (get_clock_ticks() > last_print_debug + 250) {
+    printf("BTN: %d SW1: %d SW2: %d SW3: %d CFM: %d CFU: %d CFD: %d\n", get_start_btn(), get_swtich_1(), get_swtich_2(), get_swtich_3(), get_menu_mode_btn(), get_menu_up_btn(), get_menu_down_btn());
+    last_print_debug = get_clock_ticks();
+  }
 }
 
-void debug_line_position() {
-  printf("%d\t%ld\t%d\n", -(get_sensors_line_num() + 2) * 1000 / 2, get_sensor_line_position(), (get_sensors_line_num() + 2) * 1000 / 2);
-  delay(50);
+static void debug_line_position() {
+  if (get_clock_ticks() > last_print_debug + 50) {
+    printf("%d\t%ld\t%d\n", -(get_sensors_line_num() + 2) * 1000 / 2, get_sensor_line_position(), (get_sensors_line_num() + 2) * 1000 / 2);
+    delay(50);
+    last_print_debug = get_clock_ticks();
+  }
 }
 
-void debug_encoders(){
-  // printf("%ld (%ld)\t%ld (%ld)\n", get_encoder_left_total_ticks(), get_encoder_left_micrometers(), get_encoder_right_total_ticks(), get_encoder_right_micrometers());
-  printf("%.4f\t%.4f | %.4f\n", get_encoder_x_position(), get_encoder_y_position(), get_encoder_curernt_angle());
+static void debug_encoders() {
+  if (get_clock_ticks() > last_print_debug + 50) {
+  printf("%ld (%ld)\t%ld (%ld)\n", get_encoder_left_total_ticks(), get_encoder_left_micrometers(), get_encoder_right_total_ticks(), get_encoder_right_micrometers());
+  // printf("%.4f\t%.4f | %.4f\n", get_encoder_x_position(), get_encoder_y_position(), get_encoder_curernt_angle());
   // printf("%.4f | %.4f - %.4f\n", get_encoder_curernt_angle(),get_encoder_avg_micrometers(), get_encoder_angular_speed());
-  delay(50);
+    last_print_debug = get_clock_ticks();
+  }
 }
 
-void debug_motors() {
+static void debug_motors() {
   if (is_esc_inited()) {
-    uint32_t millisInicio = get_clock_ticks();
-    set_motors_speed(0, 0);
-    while (get_clock_ticks() < millisInicio + 1000) {
-      set_motors_speed(15, 15);
+    set_motors_speed(15, 15);
+  }
+}
+
+static void debug_fans() {
+  if (is_esc_inited()) {
+    set_fan_speed(50);
+  }
+}
+
+static void check_debug_btn() {
+  if (get_start_btn()) {
+    debug_enabled = !debug_enabled;
+    while (get_start_btn()) {
     }
-    set_motors_speed(0, 0);
-    delay(5000);
+    delay(50);
+  }
+  if (debug_enabled) {
+    set_neon_heartbeat();
+  } else {
+    set_neon_fade(0);
   }
 }
 
@@ -80,5 +108,49 @@ void debug_from_switch() {
     case 7:
       debug_all_leds();
       break;
+  }
+}
+
+void debug_from_config(uint8_t type) {
+  check_debug_btn();
+  if (debug_enabled) {
+    switch (type) {
+      case DEBUG_TYPE_SENSORS_RAW:
+        debug_sensors_raw();
+        break;
+      case DEBUG_TYPE_SENSORS_CALIBRATED:
+        debug_sensors_calibrated();
+        break;
+      case DEBUG_TYPE_LINE_POSITION:
+        debug_line_position();
+        break;
+      case DEBUG_TYPE_MOTORS:
+        debug_motors();
+        break;
+      case DEBUG_TYPE_ENCODERS:
+        debug_encoders();
+        break;
+      case DEBUG_TYPE_DIGITAL_IO:
+        debug_digital_io();
+        break;
+      case DEBUG_TYPE_LEDS_PARTY:
+        debug_all_leds();
+        break;
+      case DEBUG_TYPE_FANS_DEMO:
+        debug_fans();
+        break;
+    }
+  } else {
+    switch (type) {
+      case DEBUG_TYPE_MOTORS:
+        set_motors_speed(0, 0);
+        break;
+      case DEBUG_TYPE_LEDS_PARTY:
+        all_leds_clear();
+        break;
+      case DEBUG_TYPE_FANS_DEMO:
+        set_fan_speed(0);
+        break;
+    }
   }
 }

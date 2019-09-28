@@ -12,7 +12,6 @@
 #include <setup.h>
 #include <usart.h>
 
-
 void sys_tick_handler(void) {
   clock_tick();
   if (!is_esc_inited()) {
@@ -25,7 +24,7 @@ int main(void) {
   setup();
   set_all_configs();
 
-  calibrate_sensors();
+  // calibrate_sensors();
   // int32_t last_micrometers_l = 0;
   // int32_t last_micrometers_r = 0;
   while (1) {
@@ -36,29 +35,32 @@ int main(void) {
 
     if (!is_competicion_iniciada()) {
       check_menu_button();
-      if (get_start_btn()) {
-        while (get_start_btn()) {
-          set_RGB_color(255, 0, 0);
-        }
-        int32_t millisInicio = get_clock_ticks();
-        int16_t millisPasados = 5;
-        while (get_clock_ticks() < (millisInicio + MILLIS_INICIO)) {
-          millisPasados = get_clock_ticks() - millisInicio;
-          uint8_t r = 0, g = 0;
-          r = map(millisPasados, 0, MILLIS_INICIO, 255, 0);
-          g = map(millisPasados, 0, 1000, 0, 255);
-          set_RGB_color(r, g, 0);
-          if ((millisPasados > MILLIS_INICIO * 0.75 || MILLIS_INICIO == 0) && get_base_fan_speed() > 0) {
-            set_fan_speed(20);
+      if (!in_debug_mode()) {
+        if (get_start_btn()) {
+          set_status_led(false);
+          while (get_start_btn()) {
+            set_RGB_color(255, 0, 0);
           }
+          int32_t millisInicio = get_clock_ticks();
+          int16_t millisPasados = 5;
+          while (get_clock_ticks() < (millisInicio + MILLIS_INICIO)) {
+            millisPasados = get_clock_ticks() - millisInicio;
+            uint8_t r = 0, g = 0;
+            r = map(millisPasados, 0, MILLIS_INICIO, 255, 0);
+            g = map(millisPasados, 0, 1000, 0, 255);
+            set_RGB_color(r, g, 0);
+            if ((millisPasados > MILLIS_INICIO * 0.75 || MILLIS_INICIO == 0) && get_base_fan_speed() > 0) {
+              set_fan_speed(20);
+            }
+          }
+          set_competicion_iniciada(true);
+          set_RGB_color(0, 0, 0);
+          set_ideal_motors_speed(get_base_speed());
+          set_ideal_fan_speed(get_base_fan_speed());
+          set_fan_speed(get_base_fan_speed());
+          resume_pid_timer();
+          resume_speed_timer();
         }
-        set_competicion_iniciada(true);
-        set_RGB_color(0, 0, 0);
-        set_ideal_motors_speed(get_base_speed());
-        set_ideal_fan_speed(get_base_fan_speed());
-        set_fan_speed(get_base_fan_speed());
-        resume_pid_timer();
-        resume_speed_timer();
       }
     } else {
       // if (last_micrometers_r == 0 || last_micrometers_l == 0 || abs(last_micrometers_r - get_encoder_right_micrometers()) >= 10000 || abs(last_micrometers_l - get_encoder_left_micrometers()) >= 10000) {

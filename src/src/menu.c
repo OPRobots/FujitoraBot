@@ -1,27 +1,41 @@
 #include <menu.h>
 
 uint8_t modoConfig = 0;
-#define NUM_MODOS 4 //TODO: El número de modos varía si el modo carrera está activo o no (sin/con debug)
-int8_t valorConfig[NUM_MODOS] = {0, 0, 0};
+#define MODE_NOTHING 0
+#define MODE_SPEED 1
+#define MODE_FANS 2
+#define MODE_DEBUG 3
+#define NUM_MODOS_RACE 3
+#define NUM_MODOS_DEBUG 4
+int8_t valorConfig[NUM_MODOS_DEBUG] = {0, 0, 0};
 #define NUM_VALORES 9
 
 uint8_t velocidadBase = 0;
 uint8_t velocidadVentiladorBase = 0;
 
 static void handle_menu_mode() {
-  if (modoConfig == 0) {
-    set_status_led(false);
-  } else {
-    warning_status_led(90 + modoConfig * 75);
+  switch (modoConfig) {
+    case MODE_NOTHING:
+      set_status_led(false);
+      break;
+    case MODE_SPEED:
+      warning_status_led(50);
+      break;
+    case MODE_FANS:
+      warning_status_led(200);
+      break;
+    case MODE_DEBUG:
+      set_status_led(true);
+      break;
   }
 }
 
 static void handle_menu_value() {
   switch (modoConfig) {
-    case 0: // DEBUG
-      debug_from_switch();
+    case MODE_NOTHING:
+      set_RGB_color(0, 0, 0);
       break;
-    case 1: // VELOCIDAD
+    case MODE_SPEED:
       switch (valorConfig[modoConfig]) {
         case 0:
           set_RGB_color(0, 10, 10);
@@ -65,7 +79,7 @@ static void handle_menu_value() {
           break;
       }
       break;
-    case 2: // VENTILADORES
+    case MODE_FANS:
       switch (valorConfig[modoConfig]) {
         case 0:
           set_RGB_color(0, 10, 10);
@@ -109,64 +123,68 @@ static void handle_menu_value() {
           break;
       }
       break;
-    case 3: // EXTRA
+    case MODE_DEBUG:
       switch (valorConfig[modoConfig]) {
         case 0:
           set_RGB_color(0, 10, 10);
-          set_fans_speed(10, 10);
           break;
         case 1:
           set_RGB_color(0, 10, 0);
-          set_fans_speed(20, 20);
           break;
         case 2:
           set_RGB_color(0, 255, 0);
-          set_fans_speed(30, 30);
           break;
         case 3:
           set_RGB_color(10, 10, 0);
-          set_fans_speed(40, 40);
           break;
         case 4:
           set_RGB_color(255, 225, 0);
-          set_fans_speed(50, 50);
           break;
         case 5:
           set_RGB_color(10, 0, 0);
-          set_fans_speed(60, 60);
           break;
         case 6:
           set_RGB_color(255, 0, 0);
-          set_fans_speed(70, 70);
           break;
         case 7:
           set_RGB_color(10, 0, 10);
-          set_fans_speed(80, 80);
           break;
         case 8:
           set_RGB_color(255, 0, 255);
-          set_fans_speed(90, 90);
           break;
         case 9:
           set_RGB_color(255, 255, 255);
-          set_fans_speed(100, 100);
           break;
       }
+      debug_from_config(valorConfig[modoConfig]);
       break;
   }
 }
 
+static uint8_t get_num_modos() {
+  if (get_config_run() == CONFIG_RUN_RACE) {
+    return NUM_MODOS_RACE; // NOTHING - VELOCIDAD - VENTILADORES
+  } else {
+    return NUM_MODOS_DEBUG; // NOTHING - VELOCIDAD - VENTILADORES - DEBUG
+  }
+}
+
 void check_menu_button() {
+  handle_menu_mode();
+  if (in_debug_mode()) {
+    handle_menu_value();
+  }
+
   // Comprueba cambios del modo de configuración
   if (get_menu_mode_btn()) {
     modoConfig++;
-    if (modoConfig > NUM_MODOS) {
+    if (modoConfig >= get_num_modos()) {
       modoConfig = 0;
     }
     while (get_menu_mode_btn()) {
       handle_menu_mode();
+      handle_menu_value();
     };
-    set_status_led(false);
     delay(50);
   }
 
@@ -185,8 +203,11 @@ void check_menu_button() {
     }
     while (get_menu_up_btn()) {
       handle_menu_value();
+      handle_menu_mode();
     };
-    set_RGB_color(0, 0, 0);
+    if (!in_debug_mode()) {
+      set_RGB_color(0, 0, 0);
+    }
     delay(50);
   }
 
@@ -198,8 +219,11 @@ void check_menu_button() {
     }
     while (get_menu_down_btn()) {
       handle_menu_value();
+      handle_menu_mode();
     };
-    set_RGB_color(0, 0, 0);
+    if (!in_debug_mode()) {
+      set_RGB_color(0, 0, 0);
+    }
     delay(50);
   }
 }
@@ -210,4 +234,8 @@ uint8_t get_base_speed() {
 
 uint8_t get_base_fan_speed() {
   return velocidadVentiladorBase;
+}
+
+bool in_debug_mode() {
+  return modoConfig == MODE_DEBUG;
 }
