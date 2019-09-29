@@ -38,8 +38,8 @@ static void debug_digital_io() {
 
 static void debug_line_position() {
   if (get_clock_ticks() > last_print_debug + 50) {
+    calc_sensor_line_position();
     printf("%d\t%ld\t%d\n", -(get_sensors_line_num() + 2) * 1000 / 2, get_sensor_line_position(), (get_sensors_line_num() + 2) * 1000 / 2);
-    delay(50);
     last_print_debug = get_clock_ticks();
   }
 }
