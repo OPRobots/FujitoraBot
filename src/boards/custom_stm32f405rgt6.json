@@ -10,7 +10,7 @@
   },
   "debug": {
     "default_tools": [
-      "blackmagic"
+      "stlink"
     ],
     "jlink_device": "STM32F415RG",
     "openocd_target": "stm32f4x",
