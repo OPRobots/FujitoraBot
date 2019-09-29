@@ -155,11 +155,16 @@ void calc_sensor_line_position() {
     suma_sensores += get_sensor_calibrated(sensor);
   }
 
-  if (sensores_detectando > 0 && sensores_detectando < NUM_SENSORS_LINE) {
+  if (sensores_detectando > 0 && sensores_detectando < NUM_SENSORS_LINE/2) {
     ultimaLinea = get_clock_ticks();
-  } else if (get_clock_ticks() > (ultimaLinea + get_offtrack_time())) {
-    set_competicion_iniciada(false);
-    pause_pid_speed_timer();
+  } else {
+    if (get_clock_ticks() > (ultimaLinea + get_offtrack_time())) {
+      set_competicion_iniciada(false);
+      pause_pid_speed_timer();
+    }
+    if (abs(line_position) < 800) {
+      return;
+    }
   }
 
   int32_t posicion;
