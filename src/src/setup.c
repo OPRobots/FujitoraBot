@@ -191,7 +191,7 @@ static void setup_motors_pwm(void) {
 
   //84000000
   timer_set_prescaler(TIM8, rcc_apb2_frequency * 2 / 4000000 - 2);
-  // 400000 es la frecuencia a la que irá el PWM 4 kHz, los dos últimos ceros no se porqué, pero son necesarios ya que rcc_apb2_frequency también añade dos ceros a mayores
+  // 4000000 es la frecuencia a la que irá el PWM 4 kHz, los dos últimos ceros no se porqué, pero son necesarios ya que rcc_apb2_frequency también añade dos ceros a mayores
   timer_set_repetition_counter(TIM8, 0);
   timer_enable_preload(TIM8);
   timer_continuous_mode(TIM8);
@@ -207,10 +207,10 @@ static void setup_motors_pwm(void) {
   timer_enable_counter(TIM8);
 }
 
-static void setup_pid_timer() {
+static void setup_pid_speed_timer() {
   rcc_periph_reset_pulse(RST_TIM5);
   timer_set_mode(TIM5, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
-  timer_set_prescaler(TIM5, ((rcc_apb1_frequency * 2) / 4000000 - 1));
+  timer_set_prescaler(TIM5, ((rcc_apb1_frequency * 2) / 1000000 - 2));
   timer_disable_preload(TIM5);
   timer_continuous_mode(TIM5);
   timer_set_period(TIM5, 1024);
@@ -223,27 +223,7 @@ static void setup_pid_timer() {
 void tim5_isr() {
   if (timer_get_flag(TIM5, TIM_SR_CC1IF)) {
     timer_clear_flag(TIM5, TIM_SR_CC1IF);
-    pid_timer_custom_isr();
-  }
-}
-
-static void setup_speed_timer() {
-  rcc_periph_reset_pulse(RST_TIM2);
-  timer_set_mode(TIM2, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
-  timer_set_prescaler(TIM2, ((rcc_apb1_frequency * 2) / 8000000 - 1));
-  timer_disable_preload(TIM2);
-  timer_continuous_mode(TIM2);
-  timer_set_period(TIM2, 1024);
-
-  timer_enable_counter(TIM2);
-  // El timer se iniciará en el arranque
-  // timer_enable_irq(TIM2, TIM_DIER_CC1IE);
-}
-
-void tim2_isr() {
-  if (timer_get_flag(TIM2, TIM_SR_CC1IF)) {
-    timer_clear_flag(TIM2, TIM_SR_CC1IF);
-    speed_timer_custom_isr();
+    pid_speed_timer_custom_isr();
   }
 }
 
@@ -270,8 +250,7 @@ void setup() {
   setup_motors_pwm();
   setup_dma_adc1();
   setup_adc1();
-  setup_pid_timer();
-  setup_speed_timer();
+  setup_pid_speed_timer();
   setup_quadrature_encoders();
   setup_systick();
 }

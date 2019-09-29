@@ -24,7 +24,7 @@ int main(void) {
   setup();
   set_all_configs();
 
-  // calibrate_sensors();
+  calibrate_sensors();
   // int32_t last_micrometers_l = 0;
   // int32_t last_micrometers_r = 0;
   while (1) {
@@ -59,8 +59,7 @@ int main(void) {
           set_ideal_motors_speed(get_base_speed());
           set_ideal_fan_speed(get_base_fan_speed());
           set_fan_speed(get_base_fan_speed());
-          resume_pid_timer();
-          resume_speed_timer();
+          resume_pid_speed_timer();
         }
       }
     } else {

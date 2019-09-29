@@ -159,8 +159,7 @@ void calc_sensor_line_position() {
     ultimaLinea = get_clock_ticks();
   } else if (get_clock_ticks() > (ultimaLinea + get_offtrack_time())) {
     set_competicion_iniciada(false);
-    pause_pid_timer();
-    pause_speed_timer();
+    pause_pid_speed_timer();
   }
 
   int32_t posicion;
