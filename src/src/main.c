@@ -37,6 +37,7 @@ int main(void) {
       check_menu_button();
       if (!in_debug_mode()) {
         if (get_start_btn()) {
+          reset_menu_mode();
           set_status_led(false);
           while (get_start_btn()) {
             set_RGB_color(255, 0, 0);

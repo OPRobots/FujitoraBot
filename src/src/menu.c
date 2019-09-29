@@ -239,3 +239,7 @@ uint8_t get_base_fan_speed() {
 bool in_debug_mode() {
   return modoConfig == MODE_DEBUG;
 }
+
+void reset_menu_mode(){
+  modoConfig = MODE_NOTHING;
+}
