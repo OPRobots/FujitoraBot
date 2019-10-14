@@ -8,7 +8,7 @@ static volatile uint16_t sensores_raw[NUM_SENSORS];
 static uint16_t sensores_max[NUM_SENSORS];
 static uint16_t sensores_min[NUM_SENSORS];
 static uint16_t sensores_umb[NUM_SENSORS];
-static int32_t line_position;
+static int32_t line_position = 0;
 static uint32_t ultimaLinea = 0;
 static bool left_mark = false;
 static bool right_mark = false;
@@ -146,16 +146,43 @@ void calc_sensor_line_position() {
   uint32_t suma_sensores_ponderados = 0;
   uint32_t suma_sensores = 0;
   uint8_t sensores_detectando = 0;
-
-  for (uint8_t sensor = 0; sensor < NUM_SENSORS_LINE; sensor++) {
-    if (get_sensor_calibrated(sensor) >= sensores_umb[sensor]) {
-      sensores_detectando++;
+  // Obtener los sensores importantes para el cálculo de posición
+  int8_t sensor_ini_linea = -1;
+  int8_t sensor_fin_linea = -1;
+  int8_t sensor_inicial = round(map(line_position, -1000, 1000, -1, 12));
+  if (sensor_inicial <= 0) {
+    sensor_ini_linea = 0;
+    sensor_fin_linea = 3;
+  } else if (sensor_inicial >= 11) {
+    sensor_ini_linea = 8;
+    sensor_fin_linea = 11;
+  } else {
+    sensor_ini_linea = sensor_inicial - 2;
+    sensor_fin_linea = sensor_inicial + 1;
+    if (sensor_ini_linea < 0) {
+      sensor_fin_linea += abs(sensor_ini_linea);
+      sensor_ini_linea = 0;
     }
-    suma_sensores_ponderados += (sensor + 1) * get_sensor_calibrated(sensor) * 1000;
-    suma_sensores += get_sensor_calibrated(sensor);
+    if (sensor_fin_linea >= NUM_SENSORS_LINE) {
+      sensor_ini_linea -= abs(sensor_fin_linea - NUM_SENSORS_LINE);
+      sensor_fin_linea = 11;
+    }
   }
 
-  if (sensores_detectando > 0 && sensores_detectando < NUM_SENSORS_LINE/2) {
+  for (uint8_t sensor = 0; sensor < NUM_SENSORS_LINE; sensor++) {
+    uint16_t sensor_value = get_sensor_calibrated(sensor);
+
+    if(sensor < sensor_ini_linea || sensor > sensor_fin_linea){
+      sensor_value = LECTURA_MINIMO_SENSORES_LINEA;
+    }
+    if (sensor_value >= sensores_umb[sensor]) {
+      sensores_detectando++;
+    }
+    suma_sensores_ponderados += (sensor + 1) * sensor_value * 1000;
+    suma_sensores += sensor_value;
+  }
+  
+  if (sensores_detectando > 0 && sensores_detectando < NUM_SENSORS_LINE / 2) {
     ultimaLinea = get_clock_ticks();
   } else {
     if (get_clock_ticks() > (ultimaLinea + get_offtrack_time())) {
