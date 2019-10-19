@@ -36,6 +36,17 @@ static void debug_digital_io() {
   }
 }
 
+static void debug_posicion_correccion() {
+  if (get_clock_ticks() > last_print_debug + 50) {
+
+    calc_sensor_line_position();
+    float correccion_velocidad = calc_pid_correction(get_sensor_line_position());
+
+    printf("%.3f - %ld\n", correccion_velocidad, get_sensor_line_position());
+    last_print_debug = get_clock_ticks();
+  }
+}
+
 static void debug_line_position() {
   if (get_clock_ticks() > last_print_debug + 50) {
     calc_sensor_line_position();
@@ -46,9 +57,9 @@ static void debug_line_position() {
 
 static void debug_encoders() {
   if (get_clock_ticks() > last_print_debug + 50) {
-  printf("%ld (%ld)\t%ld (%ld)\n", get_encoder_left_total_ticks(), get_encoder_left_micrometers(), get_encoder_right_total_ticks(), get_encoder_right_micrometers());
-  // printf("%.4f\t%.4f | %.4f\n", get_encoder_x_position(), get_encoder_y_position(), get_encoder_curernt_angle());
-  // printf("%.4f | %.4f - %.4f\n", get_encoder_curernt_angle(),get_encoder_avg_micrometers(), get_encoder_angular_speed());
+    printf("%ld (%ld)\t%ld (%ld)\n", get_encoder_left_total_ticks(), get_encoder_left_micrometers(), get_encoder_right_total_ticks(), get_encoder_right_micrometers());
+    // printf("%.4f\t%.4f | %.4f\n", get_encoder_x_position(), get_encoder_y_position(), get_encoder_curernt_angle());
+    // printf("%.4f | %.4f - %.4f\n", get_encoder_curernt_angle(),get_encoder_avg_micrometers(), get_encoder_angular_speed());
     last_print_debug = get_clock_ticks();
   }
 }
@@ -132,6 +143,9 @@ void debug_from_config(uint8_t type) {
         break;
       case DEBUG_TYPE_DIGITAL_IO:
         debug_digital_io();
+        break;
+      case DEBUG_TYPE_CORRECCION_POSICION:
+        debug_posicion_correccion();
         break;
       case DEBUG_TYPE_LEDS_PARTY:
         debug_all_leds();

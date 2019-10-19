@@ -12,7 +12,7 @@ static bool right_mark = false;
 
 static uint32_t resume_speed_ms = 0;
 
-static float calc_pid_correction(int32_t posicion) {
+float calc_pid_correction(int32_t posicion) {
   float p = 0;
   float i = 0;
   float d = 0;

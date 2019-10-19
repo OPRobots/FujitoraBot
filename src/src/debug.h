@@ -5,6 +5,7 @@
 
 #include <buttons.h>
 #include <config.h>
+#include <control.h>
 #include <delay.h>
 #include <motors.h>
 #include <sensors.h>
@@ -17,6 +18,7 @@
 #define DEBUG_TYPE_MOTORS 3
 #define DEBUG_TYPE_ENCODERS 4
 #define DEBUG_TYPE_DIGITAL_IO 5
+#define DEBUG_TYPE_CORRECCION_POSICION 6
 #define DEBUG_TYPE_LEDS_PARTY 8
 #define DEBUG_TYPE_FANS_DEMO 9
 

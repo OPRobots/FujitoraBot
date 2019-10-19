@@ -14,6 +14,7 @@ bool is_competicion_iniciada();
 void set_competicion_iniciada(bool state);
 
 void pid_speed_timer_custom_isr();
+float calc_pid_correction(int32_t posicion);
 void speed_timer_custom_isr();
 float get_speed_correction();
 void set_ideal_motors_speed(int32_t v);
