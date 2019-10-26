@@ -2,10 +2,14 @@
 
 static float velocidad = 0;
 static int32_t velocidadIdeal = 0;
+static float velocidadIdealMs = 0.0;
+static float velocidadObjetivoMs = 0.0;
 static int32_t velocidadVentiladorIdeal = 0;
 static bool competicionIniciada = false;
 volatile static float correccion_velocidad = 0;
-volatile static int32_t error_anterior = 0;
+volatile static float error_anterior = 0;
+volatile static float suma_error_ms = 0;
+volatile static float error_anterior_ms = 0;
 // static bool vuelta_iniciada = false;
 static bool left_mark = false;
 static bool right_mark = false;
@@ -21,6 +25,26 @@ float calc_pid_correction(int32_t posicion) {
   p = KP * error;
   d = KD * (error - error_anterior);
   error_anterior = error;
+
+  return p + i + d;
+}
+
+float calc_ms_pid_correction(float velocidadActualMs) {
+  float p = 0;
+  float i = 0;
+  float d = 0;
+  float error_ms = velocidadObjetivoMs - velocidadActualMs;
+  if (error_ms > 0.1) {
+    if (abs(suma_error_ms) < 8) {
+      suma_error_ms += error_ms;
+    }
+  } else {
+    suma_error_ms = 0;
+  }
+  p = KP_MS * error_ms;
+  i = KI_MS * suma_error_ms;
+  // d = KD_MS * (error_ms - error_anterior_ms);
+  error_anterior_ms = error_ms;
 
   return p + i + d;
 }
@@ -58,41 +82,61 @@ void pid_speed_timer_custom_isr() {
 
   if (is_competicion_iniciada()) {
     if (get_config_speed() == CONFIG_SPEED_MS) {
-      //TODO: asignar velocidad mediante m/s
+      if (velocidadIdealMs > 0 || velocidadObjetivoMs > 0 || velocidad > 0) {
+        if (velocidadObjetivoMs < velocidadIdealMs) {
+          velocidadObjetivoMs += MAX_ACCEL_MS2 / 1000.0;
+        } else if (velocidadObjetivoMs > velocidadIdealMs) {
+          velocidadObjetivoMs -= MAX_ACCEL_MS2 / 1000.0;
+        }
+        if (velocidadIdealMs != velocidadObjetivoMs && abs(velocidadIdealMs * 100 - velocidadObjetivoMs * 100) < 2) {
+          velocidadObjetivoMs = velocidadIdealMs;
+        }
+        velocidad += calc_ms_pid_correction(get_encoder_avg_speed());
+        if(velocidad > 100){
+          velocidad = 100;
+        }
+      } else {
+        calc_ms_pid_correction(get_encoder_avg_speed());
+        velocidad = 0;
+        set_motors_speed(0, 0);
+        return;
+      }
     } else {
       if (velocidadIdeal > 0) {
         if (velocidad < velocidadIdeal) {
-          if (velocidad < 10) {
-            velocidad = 10;
+          if (velocidad < MIN_SPEED_PERCENT) {
+            velocidad = MIN_SPEED_PERCENT;
           }
-          uint32_t ms = (get_clock_ticks() - resume_speed_ms);
-          float increment = (ms / 1000.0) * 45.0;
-          velocidad = 10 + increment;
+          float increment_percent = ((get_clock_ticks() - resume_speed_ms) / 1000.0) * MAX_ACCEL_PERCENT;
+          velocidad = MIN_SPEED_PERCENT + increment_percent;
         } else if (velocidad != velocidadIdeal) {
           velocidad = velocidadIdeal;
         }
-        float velI = velocidad - correccion_velocidad;
-        float velD = velocidad + correccion_velocidad;
-
-        if (velD < 10) {
-          velI += 10 - velD;
-          velD = 10;
-        } else if (velD > 100) {
-          velD = 100;
-        }
-        if (velI < 10) {
-          velD += 10 - velI;
-          velI = 10;
-        } else if (velI > 100) {
-          velI = 100;
-        }
-        set_motors_speed(velD, velI);
-        set_fan_speed(velocidadVentiladorIdeal);
       } else {
-        velocidad = velocidadIdeal;
+        velocidad = 0;
         set_motors_speed(0, 0);
+        return;
       }
     }
+
+    float velI = velocidad - correccion_velocidad;
+    float velD = velocidad + correccion_velocidad;
+
+    if (velD < MIN_SPEED_PERCENT) {
+      velI += MIN_SPEED_PERCENT - velD;
+      velD = MIN_SPEED_PERCENT;
+    } else if (velD > 100) {
+      velD = 100;
+    }
+    if (velI < MIN_SPEED_PERCENT) {
+      velD += MIN_SPEED_PERCENT - velI;
+      velI = MIN_SPEED_PERCENT;
+    } else if (velI > 100) {
+      velI = 100;
+    }
+    set_motors_speed(velD, velI);
+    set_fan_speed(velocidadVentiladorIdeal);
+
   } else {
     velocidad = 0;
     set_motors_speed(0, 0);
@@ -105,6 +149,10 @@ float get_speed_correction() {
 
 void set_ideal_motors_speed(int32_t v) {
   velocidadIdeal = v;
+}
+
+void set_ideal_motors_ms_speed(float ms) {
+  velocidadIdealMs = ms;
 }
 
 void set_ideal_fan_speed(int32_t v) {

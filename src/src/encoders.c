@@ -132,6 +132,10 @@ float get_encoder_right_speed(void) {
   return right_speed;
 }
 
+float get_encoder_avg_speed(void) {
+  return (left_speed + right_speed) / 2.0f;
+}
+
 /**
  * @brief Read left motor speed in meters per second.
  */

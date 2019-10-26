@@ -1,7 +1,8 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
-#include <stdio.h>
 #include <buttons.h>
+#include <stdio.h>
+
 
 #define SYSCLK_FREQUENCY_HZ 168000000
 #define SYSTICK_FREQUENCY_HZ 1000
@@ -19,18 +20,27 @@
 #define KP 0.03
 #define KI 0
 #define KD 2.5
+
+#define KP_MS 0.2
+#define KI_MS 0.02
+#define KD_MS 0.5
+
 #define MILLIS_INICIO 2000
 #define TIEMPO_SIN_PISTA 150
 
 #define MICROMETERS_PER_TICK 78.3699
 #define WHEELS_SEPARATION 0.1169
 
+#define MIN_SPEED_PERCENT 15
+#define MAX_ACCEL_PERCENT 45.0
+#define MAX_ACCEL_MS2 6.0
+
 #define CONFIG_RUN_RACE 1
 #define CONFIG_RUN_DEBUG 0
 
 #define CONFIG_SPEED_MS 1
 #define CONFIG_SPEED_PWM 0
- 
+
 #define CONFIG_TRACK_ROBOTRACER 1
 #define CONFIG_TRACK_LINEFOLLOWER 0
 

@@ -57,6 +57,7 @@ int main(void) {
           set_competicion_iniciada(true);
           set_RGB_color(0, 0, 0);
           set_ideal_motors_speed(get_base_speed());
+          set_ideal_motors_ms_speed(get_base_ms_speed());
           set_ideal_fan_speed(get_base_fan_speed());
           set_fan_speed(get_base_fan_speed());
           resume_pid_speed_timer();

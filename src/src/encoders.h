@@ -21,6 +21,7 @@ int32_t get_encoder_right_micrometers(void);
 int32_t get_encoder_average_micrometers(void);
 float get_encoder_left_speed(void);
 float get_encoder_right_speed(void);
+float get_encoder_avg_speed(void);
 float get_encoder_angular_speed(void);
 
 float get_encoder_avg_micrometers();

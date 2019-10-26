@@ -11,6 +11,7 @@ int8_t valorConfig[NUM_MODOS_DEBUG] = {0, 0, 0};
 #define NUM_VALORES 9
 
 uint8_t velocidadBase = 0;
+float velocidadMsBase = 0;
 uint8_t velocidadVentiladorBase = 0;
 
 static void handle_menu_mode() {
@@ -40,42 +41,52 @@ static void handle_menu_value() {
         case 0:
           set_RGB_color(0, 10, 10);
           velocidadBase = 0;
+          velocidadMsBase = 0.0;
           break;
         case 1:
           set_RGB_color(0, 10, 0);
           velocidadBase = 10;
+          velocidadMsBase = 1.0;
           break;
         case 2:
           set_RGB_color(0, 255, 0);
           velocidadBase = 20;
+          velocidadMsBase = 1.5;
           break;
         case 3:
           set_RGB_color(10, 10, 0);
           velocidadBase = 25;
+          velocidadMsBase = 2.0;
           break;
         case 4:
           set_RGB_color(255, 225, 0);
           velocidadBase = 30;
+          velocidadMsBase = 2.5;
           break;
         case 5:
           set_RGB_color(10, 0, 0);
           velocidadBase = 35;
+          velocidadMsBase = 3.0;
           break;
         case 6:
           set_RGB_color(255, 0, 0);
           velocidadBase = 40;
+          velocidadMsBase = 3.5;
           break;
         case 7:
           set_RGB_color(10, 0, 10);
           velocidadBase = 45;
+          velocidadMsBase = 4.0;
           break;
         case 8:
           set_RGB_color(255, 0, 255);
           velocidadBase = 50;
+          velocidadMsBase = 4.5;
           break;
         case 9:
           set_RGB_color(255, 255, 255);
           velocidadBase = 55;
+          velocidadMsBase = 5.0;
           break;
       }
       break;
@@ -230,6 +241,11 @@ void check_menu_button() {
 
 uint8_t get_base_speed() {
   return velocidadBase;
+}
+
+
+float get_base_ms_speed() {
+  return velocidadMsBase;
 }
 
 uint8_t get_base_fan_speed() {

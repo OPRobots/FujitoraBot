@@ -8,6 +8,7 @@
 
 void check_menu_button();
 uint8_t get_base_speed();
+float get_base_ms_speed();
 uint8_t get_base_fan_speed();
 bool in_debug_mode();
 void reset_menu_mode();
