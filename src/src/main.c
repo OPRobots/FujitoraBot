@@ -70,6 +70,23 @@ int main(void) {
       // printf("%ld\t%ld\n", get_encoder_x_position(), get_encoder_y_position());
       // delay(1);
       // }
+
+       /* if (get_start_btn()) {
+          set_ideal_motors_ms_speed(0.0);
+          delay(100);
+        }
+        if (get_menu_down_btn()) {
+          set_ideal_motors_ms_speed(1.0);
+          delay(100);
+        }
+        if (get_menu_up_btn()) {
+          set_ideal_motors_ms_speed(3.0);
+          delay(100);
+        }
+        if (get_menu_mode_btn()) {
+          set_ideal_motors_ms_speed(2.0);
+          delay(100);
+        }*/
     }
   }
 }

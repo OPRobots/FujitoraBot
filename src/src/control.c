@@ -90,16 +90,16 @@ void pid_speed_timer_custom_isr() {
       if (velocidadIdealMs > 0 || velocidadObjetivoMs > 0 || velocidad > 0) {
         if (velocidadObjetivoMs < velocidadIdealMs) {
           if (get_encoder_avg_speed() >= 1) {
-          velocidadObjetivoMs += MAX_ACCEL_MS2 / 1000.0;
+            velocidadObjetivoMs += MAX_ACCEL_MS2 / 1000.0;
           } else {
             velocidadObjetivoMs += MIN_ACCEL_MS2 / 1000.0;
           }
         } else if (velocidadObjetivoMs > velocidadIdealMs) {
           if (get_encoder_avg_speed() >= 1) {
-          velocidadObjetivoMs -= MAX_ACCEL_MS2 / 1000.0;
+            velocidadObjetivoMs -= MAX_ACCEL_MS2 / 1000.0;
           } else {
             velocidadObjetivoMs -= MIN_ACCEL_MS2 / 1000.0;
-        }
+          }
         }
         if (velocidadIdealMs != velocidadObjetivoMs && abs(velocidadIdealMs * 100 - velocidadObjetivoMs * 100) < 2) {
           velocidadObjetivoMs = velocidadIdealMs;
@@ -110,6 +110,9 @@ void pid_speed_timer_custom_isr() {
         } else if (velocidad < 0) {
           velocidad = 0;
         }
+        /*if (get_clock_ticks() % 20 == 0) {
+          printf("%.2f\t%.2f\t%.2f\t%.2f\n", velocidadIdealMs, velocidadObjetivoMs, get_encoder_avg_speed(), velocidad / 10.0f);
+        }*/
       } else {
         calc_ms_pid_correction(get_encoder_avg_speed());
         velocidad = 0;
