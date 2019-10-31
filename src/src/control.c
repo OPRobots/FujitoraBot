@@ -35,7 +35,7 @@ float calc_ms_pid_correction(float velocidadActualMs) {
   float d = 0;
   float error_ms = velocidadObjetivoMs - velocidadActualMs;
 
-  if (velocidadIdealMs <= 1.0 && velocidadActualMs < velocidadIdealMs && velocidadIdealMs > 0) {
+  if (velocidadObjetivoMs <= 1.0 && velocidadActualMs < velocidadIdealMs && velocidadIdealMs > 0) {
     if (KI_MS * suma_error_ms < 20.0) {
       set_status_led(false);
       suma_error_ms += error_ms;
