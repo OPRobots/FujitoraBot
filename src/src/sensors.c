@@ -188,6 +188,7 @@ void calc_sensor_line_position() {
     if (get_clock_ticks() > (ultimaLinea + get_offtrack_time())) {
       set_competicion_iniciada(false);
       pause_pid_speed_timer();
+      line_position = 0;
     }
     if (abs(line_position) < 800) {
       return;
