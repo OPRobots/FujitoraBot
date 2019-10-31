@@ -21,9 +21,9 @@
 #define KI 0
 #define KD 2.5
 
-#define KP_MS 0.2
-#define KI_MS 0.02
-#define KD_MS 0.5
+#define KP_MS 10.0
+#define KI_MS 1.2
+#define KD_MS 20.0
 
 #define MILLIS_INICIO 2000
 #define TIEMPO_SIN_PISTA 150
@@ -33,7 +33,7 @@
 
 #define MIN_SPEED_PERCENT 15
 #define MAX_ACCEL_PERCENT 45.0
-#define MAX_ACCEL_MS2 6.0
+#define MAX_ACCEL_MS2 12.0
 
 #define CONFIG_RUN_RACE 1
 #define CONFIG_RUN_DEBUG 0

@@ -10,6 +10,7 @@
 #include <usart.h>
 #include <stdio.h>
 #include <utils.h>
+#include <leds.h>
 
 
 bool is_competicion_iniciada();

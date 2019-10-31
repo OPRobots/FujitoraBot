@@ -34,14 +34,19 @@ float calc_ms_pid_correction(float velocidadActualMs) {
   float i = 0;
   float d = 0;
   float error_ms = velocidadObjetivoMs - velocidadActualMs;
-  if (error_ms > 0.1) {
-    if (abs(suma_error_ms) < 8) {
+
+  if (velocidadIdealMs <= 1.0 && velocidadActualMs < velocidadIdealMs && velocidadIdealMs > 0) {
+    if (KI_MS * suma_error_ms < 20.0) {
+      set_status_led(false);
       suma_error_ms += error_ms;
+    } else {
+      set_status_led(true);
     }
   } else {
-    suma_error_ms = 0;
+    suma_error_ms += error_ms;
+    set_status_led(false);
   }
-  p = KP_MS * error_ms;
+  // p = KP_MS * error_ms;
   i = KI_MS * suma_error_ms;
   // d = KD_MS * (error_ms - error_anterior_ms);
   error_anterior_ms = error_ms;
@@ -91,8 +96,8 @@ void pid_speed_timer_custom_isr() {
         if (velocidadIdealMs != velocidadObjetivoMs && abs(velocidadIdealMs * 100 - velocidadObjetivoMs * 100) < 2) {
           velocidadObjetivoMs = velocidadIdealMs;
         }
-        velocidad += calc_ms_pid_correction(get_encoder_avg_speed());
-        if(velocidad > 100){
+        velocidad = calc_ms_pid_correction(get_encoder_avg_speed());
+        if (velocidad > 100) {
           velocidad = 100;
         }
       } else {
