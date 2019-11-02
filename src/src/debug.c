@@ -5,8 +5,11 @@ uint32_t last_print_debug = 0;
 
 static void debug_sensors_raw() {
   if (get_clock_ticks() > last_print_debug + 50) {
-    for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
+    for (uint8_t sensor = get_sensors_num()-1; sensor >0 ; sensor--) {
       printf("%d\t", get_sensor_raw(sensor));
+      if(sensor == get_sensors_num()-4){
+        printf("\t");
+      }
     }
     printf("\n");
     last_print_debug = get_clock_ticks();
@@ -15,8 +18,11 @@ static void debug_sensors_raw() {
 
 static void debug_sensors_calibrated() {
   if (get_clock_ticks() > last_print_debug + 50) {
-    for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
+    for (uint8_t sensor = get_sensors_num()-1; sensor >0 ; sensor--) {
       printf("%d\t", get_sensor_calibrated(sensor));
+      if(sensor == get_sensors_num()-1){
+        printf("\t");
+      }
     }
     printf("\n");
     last_print_debug = get_clock_ticks();
