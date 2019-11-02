@@ -27,5 +27,6 @@ void set_ideal_motors_ms_speed(float ms);
 void set_ideal_fan_speed(int32_t v);
 void resume_pid_speed_timer();
 void pause_pid_speed_timer();
+void debug_accel();
 
 #endif

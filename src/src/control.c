@@ -89,32 +89,36 @@ void pid_speed_timer_custom_isr() {
     if (get_config_speed() == CONFIG_SPEED_MS) {
       if (velocidadIdealMs > 0 || velocidadObjetivoMs > 0 || velocidad > 0) {
         if (velocidadObjetivoMs < velocidadIdealMs) {
-          if (get_encoder_avg_speed() >= 1) {
-            velocidadObjetivoMs += MAX_ACCEL_MS2 / 1000.0;
-          } else {
+          if (velocidadObjetivoMs < 1 && velocidadIdealMs > 0) {
             velocidadObjetivoMs += MIN_ACCEL_MS2 / 1000.0;
+          } else {
+            velocidadObjetivoMs += MAX_ACCEL_MS2 / 1000.0;
           }
         } else if (velocidadObjetivoMs > velocidadIdealMs) {
-          if (get_encoder_avg_speed() >= 1) {
-            velocidadObjetivoMs -= MAX_ACCEL_MS2 / 1000.0;
-          } else {
+          if (velocidadObjetivoMs < 1 && velocidadIdealMs > 0) {
             velocidadObjetivoMs -= MIN_ACCEL_MS2 / 1000.0;
+          } else {
+            velocidadObjetivoMs -= MAX_ACCEL_MS2 / 1000.0;
           }
         }
         if (velocidadIdealMs != velocidadObjetivoMs && abs(velocidadIdealMs * 100 - velocidadObjetivoMs * 100) < 2) {
           velocidadObjetivoMs = velocidadIdealMs;
         }
-        velocidad = calc_ms_pid_correction(get_encoder_avg_speed());
+        if (get_encoder_avg_speed() > 0.5) {
+          velocidad = MIN_SPEED_PERCENT + calc_ms_pid_correction(get_encoder_avg_speed());
+        } else {
+          suma_error_ms = 0;
+        }
         if (velocidad > 100) {
           velocidad = 100;
         } else if (velocidad < 0) {
+          suma_error_ms = 0;
           velocidad = 0;
         }
-        /*if (get_clock_ticks() % 20 == 0) {
-          printf("%.2f\t%.2f\t%.2f\t%.2f\n", velocidadIdealMs, velocidadObjetivoMs, get_encoder_avg_speed(), velocidad / 10.0f);
-        }*/
+        if (get_clock_ticks() % 20 == 0) {
+          debug_accel();
+        }
       } else {
-        calc_ms_pid_correction(get_encoder_avg_speed());
         velocidad = 0;
         set_motors_speed(0, 0);
         return;
@@ -189,4 +193,8 @@ void pause_pid_speed_timer() {
   set_motors_speed(0, 0);
   set_fan_speed(0);
   all_leds_clear();
+}
+
+void debug_accel() {
+  printf("%.2f\t%.2f\t%.2f\t%.2f\n", velocidadIdealMs, velocidadObjetivoMs, get_encoder_avg_speed(), velocidad / 10.0f);
 }

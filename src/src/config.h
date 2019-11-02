@@ -33,7 +33,7 @@
 
 #define MIN_SPEED_PERCENT 15
 #define MAX_ACCEL_PERCENT 45.0
-#define MIN_ACCEL_MS2 6.0
+#define MIN_ACCEL_MS2 3.0
 #define MAX_ACCEL_MS2 20.0
 
 #define CONFIG_RUN_RACE 1

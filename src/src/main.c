@@ -71,22 +71,24 @@ int main(void) {
       // delay(1);
       // }
 
-       /* if (get_start_btn()) {
-          set_ideal_motors_ms_speed(0.0);
-          delay(100);
-        }
-        if (get_menu_down_btn()) {
-          set_ideal_motors_ms_speed(1.0);
-          delay(100);
-        }
-        if (get_menu_up_btn()) {
-          set_ideal_motors_ms_speed(3.0);
-          delay(100);
-        }
-        if (get_menu_mode_btn()) {
-          set_ideal_motors_ms_speed(2.0);
-          delay(100);
-        }*/
+      /* if (get_start_btn()) {
+        set_ideal_motors_ms_speed(0.0);
+        delay(100);
+      }
+      if (get_menu_down_btn()) {
+        set_ideal_motors_ms_speed(1.0);
+        delay(100);
+      }
+      if (get_menu_up_btn()) {
+        set_ideal_motors_ms_speed(3.0);
+        delay(100);
+      }
+      if (get_menu_mode_btn()) {
+        set_ideal_motors_ms_speed(2.0);
+        delay(100);
+      }*/
+      debug_accel();
+      delay(20);
     }
   }
 }
