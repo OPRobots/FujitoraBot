@@ -51,7 +51,7 @@ int main(void) {
             g = map(millisPasados, 0, 1000, 0, 255);
             set_RGB_color(r, g, 0);
             if ((millisPasados > MILLIS_INICIO * 0.75 || MILLIS_INICIO == 0) && get_base_fan_speed() > 0) {
-              set_fan_speed(20);
+              set_fan_speed(get_base_fan_speed() / 2);
             }
           }
           set_competicion_iniciada(true);
