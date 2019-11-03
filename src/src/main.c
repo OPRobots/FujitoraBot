@@ -8,6 +8,7 @@
 #include <leds.h>
 #include <menu.h>
 #include <motors.h>
+#include <robotracer.h>
 #include <sensors.h>
 #include <setup.h>
 #include <usart.h>
@@ -24,7 +25,7 @@ int main(void) {
   setup();
   set_all_configs();
 
-  calibrate_sensors();
+  // calibrate_sensors();
   // int32_t last_micrometers_l = 0;
   // int32_t last_micrometers_r = 0;
   while (1) {
@@ -87,8 +88,20 @@ int main(void) {
         set_ideal_motors_ms_speed(2.0);
         delay(100);
       }*/
-      debug_accel();
-      delay(20);
+
+      if (get_menu_down_btn()) {
+        left_mark();
+        delay(500);
+      }
+
+      if (get_menu_up_btn()) {
+        right_mark();
+        delay(500);
+      }
+      check_sector_radius();
+      delay(1);
+      // debug_accel();
+      // delay(20);
     }
   }
 }
