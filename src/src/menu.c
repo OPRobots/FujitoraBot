@@ -39,54 +39,54 @@ static void handle_menu_value() {
     case MODE_SPEED:
       switch (valorConfig[modoConfig]) {
         case 0:
-          set_RGB_color(0, 10, 10);
+          set_RGB_color(0, 10, 10); // Cian
           velocidadBase = 0;
           velocidadMsBase = 0.0;
           break;
         case 1:
-          set_RGB_color(0, 10, 0);
+          set_RGB_color(0, 10, 0); // Verde ↓
           velocidadBase = 10;
           velocidadMsBase = 1.0;
           break;
         case 2:
-          set_RGB_color(0, 255, 0);
+          set_RGB_color(0, 255, 0); // Verde ↑
           velocidadBase = 20;
-          velocidadMsBase = 1.5;
-          break;
-        case 3:
-          set_RGB_color(10, 10, 0);
-          velocidadBase = 25;
           velocidadMsBase = 2.0;
           break;
-        case 4:
-          set_RGB_color(255, 225, 0);
-          velocidadBase = 30;
+        case 3:
+          set_RGB_color(10, 10, 0); // Amarillo ↓
+          velocidadBase = 25;
           velocidadMsBase = 2.5;
           break;
-        case 5:
-          set_RGB_color(10, 0, 0);
-          velocidadBase = 35;
+        case 4:
+          set_RGB_color(255, 225, 0); // Amarillo ↑
+          velocidadBase = 30;
           velocidadMsBase = 3.0;
           break;
+        case 5:
+          set_RGB_color(10, 0, 0); // Rojo ↓
+          velocidadBase = 35;
+          velocidadMsBase = 3.25;
+          break;
         case 6:
-          set_RGB_color(255, 0, 0);
+          set_RGB_color(255, 0, 0); // Rojo ↑
           velocidadBase = 40;
           velocidadMsBase = 3.5;
           break;
         case 7:
-          set_RGB_color(10, 0, 10);
+          set_RGB_color(10, 0, 10); // Haki ↓
           velocidadBase = 45;
-          velocidadMsBase = 4.0;
+          velocidadMsBase = 3.75;
           break;
         case 8:
-          set_RGB_color(255, 0, 255);
+          set_RGB_color(255, 0, 255); // Haki ↑
           velocidadBase = 50;
-          velocidadMsBase = 4.5;
+          velocidadMsBase = 4.0;
           break;
         case 9:
-          set_RGB_color(255, 255, 255);
+          set_RGB_color(255, 255, 255); // Party Mode
           velocidadBase = 55;
-          velocidadMsBase = 5.0;
+          velocidadMsBase = 4.25;
           break;
       }
       break;
