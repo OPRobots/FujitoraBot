@@ -92,3 +92,16 @@ uint16_t get_offtrack_time(void){
     return TIEMPO_SIN_PISTA;
   }
 }
+
+/**
+ * @brief Calcula el tiempo máximo fuera de pista en función de la configuración de carrera/debug
+ * 
+ * @return uint16_t Tiempo máximo fuera de pista
+ */
+uint16_t get_start_millis(void){
+  if(get_config_run() == CONFIG_RUN_RACE){
+    return MILLIS_INICIO_RUN;
+  }else{
+    return MILLIS_INICIO_DEBUG;
+  }
+}
