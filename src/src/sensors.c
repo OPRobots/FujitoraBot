@@ -146,6 +146,7 @@ void calc_sensor_line_position() {
   uint32_t suma_sensores_ponderados = 0;
   uint32_t suma_sensores = 0;
   uint8_t sensores_detectando = 0;
+  uint8_t sensores_detectando_sin_filtro = 0;
   // Obtener los sensores importantes para el cálculo de posición
   int8_t sensor_ini_linea = -1;
   int8_t sensor_fin_linea = -1;
@@ -172,7 +173,10 @@ void calc_sensor_line_position() {
   for (uint8_t sensor = 0; sensor < NUM_SENSORS_LINE; sensor++) {
     uint16_t sensor_value = get_sensor_calibrated(sensor);
 
-    if(sensor < sensor_ini_linea || sensor > sensor_fin_linea){
+    if (sensor_value >= sensores_umb[sensor]) {
+      sensores_detectando_sin_filtro++;
+    }
+    if (sensor < sensor_ini_linea || sensor > sensor_fin_linea) {
       sensor_value = LECTURA_MINIMO_SENSORES_LINEA;
     }
     if (sensor_value >= sensores_umb[sensor]) {
@@ -181,8 +185,8 @@ void calc_sensor_line_position() {
     suma_sensores_ponderados += (sensor + 1) * sensor_value * 1000;
     suma_sensores += sensor_value;
   }
-  
-  if (sensores_detectando > 0 && sensores_detectando < NUM_SENSORS_LINE / 2) {
+
+  if (sensores_detectando > 0 && sensores_detectando_sin_filtro < NUM_SENSORS_LINE / 2) {
     ultimaLinea = get_clock_ticks();
   } else {
     if (get_clock_ticks() > (ultimaLinea + get_offtrack_time())) {
