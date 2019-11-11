@@ -45,47 +45,47 @@ static void handle_menu_value() {
           break;
         case 1:
           set_RGB_color(0, 10, 0); // Verde ↓
-          velocidadBase = 10;
+          velocidadBase = 30;
           velocidadMsBase = 1.0;
           break;
         case 2:
           set_RGB_color(0, 255, 0); // Verde ↑
-          velocidadBase = 20;
+          velocidadBase = 40;
           velocidadMsBase = 2.0;
           break;
         case 3:
           set_RGB_color(10, 10, 0); // Amarillo ↓
-          velocidadBase = 25;
+          velocidadBase = 50;
           velocidadMsBase = 2.5;
           break;
         case 4:
           set_RGB_color(255, 225, 0); // Amarillo ↑
-          velocidadBase = 30;
+          velocidadBase = 60;
           velocidadMsBase = 3.0;
           break;
         case 5:
           set_RGB_color(10, 0, 0); // Rojo ↓
-          velocidadBase = 35;
+          velocidadBase = 70;
           velocidadMsBase = 3.25;
           break;
         case 6:
           set_RGB_color(255, 0, 0); // Rojo ↑
-          velocidadBase = 40;
+          velocidadBase = 78;
           velocidadMsBase = 3.5;
           break;
         case 7:
           set_RGB_color(10, 0, 10); // Haki ↓
-          velocidadBase = 45;
+          velocidadBase = 85;
           velocidadMsBase = 3.75;
           break;
         case 8:
           set_RGB_color(255, 0, 255); // Haki ↑
-          velocidadBase = 50;
+          velocidadBase = 90;
           velocidadMsBase = 4.0;
           break;
         case 9:
           set_RGB_color(255, 255, 255); // Party Mode
-          velocidadBase = 55;
+          velocidadBase = 95;
           velocidadMsBase = 4.25;
           break;
       }
