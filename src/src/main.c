@@ -22,11 +22,17 @@ void sys_tick_handler(void) {
 
 int main(void) {
   setup();
-  set_all_configs();
 
   calibrate_sensors();
   // int32_t last_micrometers_l = 0;
   // int32_t last_micrometers_r = 0;
+  /* while (1) {
+
+    if (get_start_btn()) {
+      toggle_tipo_morro();
+      delay(250);
+    }
+  } */
   while (1) {
     // printf("%d\n", get_toggle_ticks());
     // delay(25);

@@ -5,23 +5,45 @@ uint32_t last_print_debug = 0;
 
 static void debug_sensors_raw() {
   if (get_clock_ticks() > last_print_debug + 50) {
-    for (uint8_t sensor = get_sensors_num()-1; sensor >0 ; sensor--) {
+
+    for (int8_t sensor = get_sensors_line_num() - 1; sensor >= 0; sensor--) {
       printf("%d\t", get_sensor_raw(sensor));
-      if(sensor == get_sensors_num()-4){
-        printf("\t");
+    }
+
+    if (get_config_track() == CONFIG_TRACK_ROBOTRACER) {
+      printf("\t");
+      if (get_tipo_morro() == TIPO_MORRO_CORTO) {
+        for (int8_t sensor = get_sensors_line_num(); sensor < get_sensors_num(); sensor++) {
+          printf("%d\t", get_sensor_raw(sensor));
+        }
+      } else {
+        for (int8_t sensor = get_sensors_line_num(); sensor < get_sensors_num() - 4; sensor++) {
+          printf("%d\t", get_sensor_raw(sensor));
+        }
       }
     }
     printf("\n");
     last_print_debug = get_clock_ticks();
+
   }
 }
 
 static void debug_sensors_calibrated() {
   if (get_clock_ticks() > last_print_debug + 50) {
-    for (uint8_t sensor = get_sensors_num()-1; sensor >0 ; sensor--) {
+     for (int8_t sensor = get_sensors_line_num() - 1; sensor >= 0; sensor--) {
       printf("%d\t", get_sensor_calibrated(sensor));
-      if(sensor == get_sensors_num()-1){
-        printf("\t");
+    }
+
+    if (get_config_track() == CONFIG_TRACK_ROBOTRACER) {
+      printf("\t");
+      if (get_tipo_morro() == TIPO_MORRO_CORTO) {
+        for (int8_t sensor = get_sensors_line_num(); sensor < get_sensors_num(); sensor++) {
+          printf("%d\t", get_sensor_calibrated(sensor));
+        }
+      } else {
+        for (int8_t sensor = get_sensors_line_num(); sensor < get_sensors_num() - 4; sensor++) {
+          printf("%d\t", get_sensor_calibrated(sensor));
+        }
       }
     }
     printf("\n");
