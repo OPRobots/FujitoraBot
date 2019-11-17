@@ -306,11 +306,11 @@ void calc_sensor_line_position() {
   // Obtener los sensores importantes para el cálculo de posición
   int8_t sensor_ini_linea = -1;
   int8_t sensor_fin_linea = -1;
-  int8_t sensor_inicial = round(map(line_position, -1000, 1000, -1, 12));
+  int8_t sensor_inicial = round(map(line_position, -1000, 1000, -1, get_sensors_line_num()));
   if (sensor_inicial <= 0) {
     sensor_ini_linea = 0;
     sensor_fin_linea = 3;
-  } else if (sensor_inicial >= 11) {
+  } else if (sensor_inicial >= get_sensors_line_num()-1) {
     sensor_ini_linea = get_sensors_line_num() - 4;
     sensor_fin_linea = get_sensors_line_num() - 1;
   } else {
@@ -322,14 +322,11 @@ void calc_sensor_line_position() {
     }
     if (sensor_fin_linea >= get_sensors_line_num()) {
       sensor_ini_linea -= abs(sensor_fin_linea - get_sensors_line_num());
-      sensor_fin_linea = 11;
+      sensor_fin_linea = get_sensors_line_num()-1;
     }
   }
 
-  uint8_t sensores_desfase = 0;
-  if (get_config_track() == CONFIG_TRACK_ROBOTRACER && tipo_morro == TIPO_MORRO_LARGO) {
-    sensores_desfase = 2;
-  }
+  // printf("%d - %d\t|\t", sensor_ini_linea, sensor_fin_linea);
 
   for (uint8_t sensor = 0; sensor < get_sensors_line_num(); sensor++) {
     uint16_t sensor_value = get_sensor_calibrated(sensor);
@@ -340,11 +337,11 @@ void calc_sensor_line_position() {
       }
     } else {
       if (tipo_morro == TIPO_MORRO_CORTO) {
-        if (sensor_value >= sensores_umb_robotracer_corto[sensor + sensores_desfase]) {
+        if (sensor_value >= sensores_umb_robotracer_corto[sensor]) {
           sensores_detectando_sin_filtro++;
         }
       } else {
-        if (sensor_value >= sensores_umb_robotracer_largo[sensor + sensores_desfase]) {
+        if (sensor_value >= sensores_umb_robotracer_largo[sensor + 2]) {
           sensores_detectando_sin_filtro++;
         }
       }
@@ -361,11 +358,11 @@ void calc_sensor_line_position() {
     } else {
 
       if (tipo_morro == TIPO_MORRO_CORTO) {
-        if (sensor_value >= sensores_umb_robotracer_corto[sensor + sensores_desfase]) {
+        if (sensor_value >= sensores_umb_robotracer_corto[sensor]) {
           sensores_detectando++;
         }
       } else {
-        if (sensor_value >= sensores_umb_robotracer_largo[sensor + sensores_desfase]) {
+        if (sensor_value >= sensores_umb_robotracer_largo[sensor + 2]) {
           sensores_detectando++;
         }
       }
@@ -376,7 +373,7 @@ void calc_sensor_line_position() {
 
   if (sensores_detectando > 0 && sensores_detectando_sin_filtro < get_sensors_line_num() / 2) {
     ultimaLinea = get_clock_ticks();
-  } else {
+  } else if(is_competicion_iniciada()) {
     if (get_clock_ticks() > (ultimaLinea + get_offtrack_time())) {
       set_competicion_iniciada(false);
       pause_pid_speed_timer();
