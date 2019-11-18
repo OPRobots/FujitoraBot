@@ -51,22 +51,22 @@ static void handle_menu_value() {
         case 2:
           set_RGB_color(0, 255, 0); // Verde ↑
           velocidadBase = 40;
-          velocidadMsBase = 2.0;
+          velocidadMsBase = 1.25;
           break;
         case 3:
           set_RGB_color(10, 10, 0); // Amarillo ↓
           velocidadBase = 50;
-          velocidadMsBase = 2.5;
+          velocidadMsBase = 1.5;
           break;
         case 4:
           set_RGB_color(255, 225, 0); // Amarillo ↑
           velocidadBase = 60;
-          velocidadMsBase = 3.0;
+          velocidadMsBase = 1.75;
           break;
         case 5:
           set_RGB_color(10, 0, 0); // Rojo ↓
           velocidadBase = 70;
-          velocidadMsBase = 3.25;
+          velocidadMsBase = 2.0;
           break;
         case 6:
           set_RGB_color(255, 0, 0); // Rojo ↑

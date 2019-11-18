@@ -310,7 +310,7 @@ void calc_sensor_line_position() {
   if (sensor_inicial <= 0) {
     sensor_ini_linea = 0;
     sensor_fin_linea = 3;
-  } else if (sensor_inicial >= get_sensors_line_num()-1) {
+  } else if (sensor_inicial >= get_sensors_line_num() - 1) {
     sensor_ini_linea = get_sensors_line_num() - 4;
     sensor_fin_linea = get_sensors_line_num() - 1;
   } else {
@@ -322,7 +322,7 @@ void calc_sensor_line_position() {
     }
     if (sensor_fin_linea >= get_sensors_line_num()) {
       sensor_ini_linea -= abs(sensor_fin_linea - get_sensors_line_num());
-      sensor_fin_linea = get_sensors_line_num()-1;
+      sensor_fin_linea = get_sensors_line_num() - 1;
     }
   }
 
@@ -373,7 +373,7 @@ void calc_sensor_line_position() {
 
   if (sensores_detectando > 0 && sensores_detectando_sin_filtro < get_sensors_line_num() / 2) {
     ultimaLinea = get_clock_ticks();
-  } else if(is_competicion_iniciada()) {
+  } else if (is_competicion_iniciada()) {
     if (get_clock_ticks() > (ultimaLinea + get_offtrack_time())) {
       set_competicion_iniciada(false);
       pause_pid_speed_timer();
