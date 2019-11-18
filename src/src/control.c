@@ -104,9 +104,10 @@ void pid_speed_timer_custom_isr() {
         if (velocidadIdealMs != velocidadObjetivoMs && abs(velocidadIdealMs * 100 - velocidadObjetivoMs * 100) < 2) {
           velocidadObjetivoMs = velocidadIdealMs;
         }
-        if (get_encoder_avg_speed() > 0.5) {
+        if (get_encoder_avg_speed() > 0.25) {
           velocidad = MIN_SPEED_PERCENT + calc_ms_pid_correction(get_encoder_avg_speed());
         } else {
+          velocidad = 15;
           suma_error_ms = 0;
         }
         if (velocidad > 100) {
@@ -115,9 +116,9 @@ void pid_speed_timer_custom_isr() {
           suma_error_ms = 0;
           velocidad = 0;
         }
-        if (get_clock_ticks() % 20 == 0) {
-          debug_accel();
-        }
+        // if (get_clock_ticks() % 20 == 0) {
+        //   debug_accel();
+        // }
       } else {
         velocidad = 0;
         set_motors_speed(0, 0);
@@ -145,13 +146,13 @@ void pid_speed_timer_custom_isr() {
     float velD = velocidad + correccion_velocidad;
 
     if (velD < MIN_SPEED_PERCENT) {
-      velI += MIN_SPEED_PERCENT - velD;
+      // velI += MIN_SPEED_PERCENT - velD;
       velD = MIN_SPEED_PERCENT;
     } else if (velD > 100) {
       velD = 100;
     }
     if (velI < MIN_SPEED_PERCENT) {
-      velD += MIN_SPEED_PERCENT - velI;
+      // velD += MIN_SPEED_PERCENT - velI;
       velI = MIN_SPEED_PERCENT;
     } else if (velI > 100) {
       velI = 100;
@@ -184,12 +185,13 @@ void set_ideal_fan_speed(int32_t v) {
 void resume_pid_speed_timer() {
   resume_speed_ms = get_clock_ticks();
   velocidad = 0;
+  correccion_velocidad = 0;
+  velocidadObjetivoMs = 0;
   timer_enable_irq(TIM5, TIM_DIER_CC1IE);
 }
 
 void pause_pid_speed_timer() {
   timer_disable_irq(TIM5, TIM_DIER_CC1IE);
-  correccion_velocidad = 0;
   set_motors_speed(0, 0);
   set_fan_speed(0);
   all_leds_clear();

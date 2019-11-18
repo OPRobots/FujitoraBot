@@ -3,7 +3,6 @@
 #include <buttons.h>
 #include <stdio.h>
 
-
 #define SYSCLK_FREQUENCY_HZ 168000000
 #define SYSTICK_FREQUENCY_HZ 1000
 #define MICROMETERS_PER_METER 1000000
@@ -17,24 +16,31 @@
 #define LEDS_MAX_PWM 1024
 #define MOTORES_MAX_PWM 1024
 
-#define KP 0.03
+// LINEFOLLOWER
+// #define KP 0.03
+// #define KI 0
+// #define KD 2.5
+
+// ROBOTRACER - MORRO CORTO
+#define KP 0.03 //0.02 //0.022
 #define KI 0
-#define KD 2.5
+#define KD 2.5 //0.4 //0.25
 
 #define KP_MS 10.0
 #define KI_MS 1.2
 #define KD_MS 20.0
 
-#define MILLIS_INICIO 2000
+#define MILLIS_INICIO_DEBUG 2000
+#define MILLIS_INICIO_RUN 5000
 #define TIEMPO_SIN_PISTA 150
 
 #define MICROMETERS_PER_TICK 78.3699
 #define WHEELS_SEPARATION 0.1169
 
-#define MIN_SPEED_PERCENT 15
+#define MIN_SPEED_PERCENT 5
 #define MAX_ACCEL_PERCENT 45.0
 #define MIN_ACCEL_MS2 3.0
-#define MAX_ACCEL_MS2 20.0
+#define MAX_ACCEL_MS2 10.0
 
 #define CONFIG_RUN_RACE 1
 #define CONFIG_RUN_DEBUG 0
@@ -51,5 +57,6 @@ uint16_t get_config_speed(void);
 uint16_t get_config_track(void);
 
 uint16_t get_offtrack_time(void);
+uint16_t get_start_millis(void);
 
 #endif

@@ -23,11 +23,17 @@ void sys_tick_handler(void) {
 
 int main(void) {
   setup();
-  set_all_configs();
 
   // calibrate_sensors();
   // int32_t last_micrometers_l = 0;
   // int32_t last_micrometers_r = 0;
+  /* while (1) {
+
+    if (get_start_btn()) {
+      toggle_tipo_morro();
+      delay(250);
+    }
+  } */
   while (1) {
     // printf("%d\n", get_toggle_ticks());
     // delay(25);
@@ -45,14 +51,14 @@ int main(void) {
           }
           int32_t millisInicio = get_clock_ticks();
           int16_t millisPasados = 5;
-          while (get_clock_ticks() < (millisInicio + MILLIS_INICIO)) {
+          while (get_clock_ticks() < (millisInicio + get_start_millis())) {
             millisPasados = get_clock_ticks() - millisInicio;
             uint8_t r = 0, g = 0;
-            r = map(millisPasados, 0, MILLIS_INICIO, 255, 0);
+            r = map(millisPasados, 0, get_start_millis(), 255, 0);
             g = map(millisPasados, 0, 1000, 0, 255);
             set_RGB_color(r, g, 0);
-            if ((millisPasados > MILLIS_INICIO * 0.75 || MILLIS_INICIO == 0) && get_base_fan_speed() > 0) {
-              set_fan_speed(get_base_fan_speed() / 2);
+            if ((millisPasados > get_start_millis() * 0.75 || get_start_millis() == 0) && get_base_fan_speed() > 0) {
+              set_fan_speed(get_base_fan_speed() * 0.75);
             }
           }
           set_competicion_iniciada(true);
