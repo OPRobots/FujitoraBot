@@ -6,9 +6,9 @@ bool mapeo_realizado = false;
 uint32_t last_left_ticks = 0;
 uint32_t last_right_ticks = 0;
 
-#define MAX_CURRENT_SECTOR_SAMPLES 20
+#define MAX_CURRENT_SECTOR_SAMPLES 30
 uint8_t current_sector_radius_samples = 0;
-uint16_t current_sector_radius[MAX_CURRENT_SECTOR_SAMPLES];
+float current_sector_radius[MAX_CURRENT_SECTOR_SAMPLES];
 
 uint32_t *pista_sectores;
 uint8_t *sectores_tipos;
@@ -45,27 +45,34 @@ static void save_last_sector() {
 }
 
 void check_sector_radius() {
-  float radius = (get_encoder_avg_speed() / get_encoder_angular_speed()) * 100;
-  if (isnan(radius) || isinf(radius)) {
+  float radius = (1.0f / get_encoder_angular_speed()) * 100; // radius;
+  if (isnan(radius) || isinf(radius) || abs(get_encoder_angular_speed()) < 3) {
     radius = 0;
   }
   if (current_sector_radius_samples < MAX_CURRENT_SECTOR_SAMPLES) {
     current_sector_radius[current_sector_radius_samples] = radius;
     current_sector_radius_samples++;
   } else {
-    for (uint8_t sector_sample = 0; sector_sample < MAX_CURRENT_SECTOR_SAMPLES - 1; sector_sample++) {
-      current_sector_radius[sector_sample + 1] = current_sector_radius[sector_sample];
+    for (uint8_t sector_sample = MAX_CURRENT_SECTOR_SAMPLES - 1; sector_sample > 0; sector_sample--) {
+      current_sector_radius[sector_sample] = current_sector_radius[sector_sample - 1];
     }
     current_sector_radius[0] = radius;
   }
-  uint16_t sum_radius = 0;
+  float sum_radius = 0;
   for (uint8_t sector_sample = 0; sector_sample < current_sector_radius_samples; sector_sample++) {
     sum_radius += current_sector_radius[sector_sample];
   }
-  printf("r=%.4f\n", radius);
+  float radius_filter = sum_radius / current_sector_radius_samples;
+  if (abs(radius_filter) > 5.0f) {
+    set_status_led(true);
+  } else {
+    set_status_led(false);
+    radius_filter = 0;
+  }
+  printf("35\t-35\t%.4f\n", /* get_encoder_angular_speed(), */ radius_filter);
 }
 
-void left_mark() {
+void map_left_mark() {
   if (mapeo_realizado) {
     // TODO: Resolución
   } else {
@@ -73,7 +80,7 @@ void left_mark() {
   }
 }
 
-void right_mark() {
+void map_right_mark() {
   if (mapeo_iniciado) {
     // TODO: consolidar_sector
     end_map();

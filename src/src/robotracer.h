@@ -11,7 +11,7 @@ enum SectorType { STRAIGHT,
                   R10 };
 
 void check_sector_radius();
-void left_mark();
-void right_mark();
+void map_left_mark();
+void map_right_mark();
 
 #endif
