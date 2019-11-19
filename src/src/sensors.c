@@ -28,6 +28,7 @@ static int32_t line_position = 0;
 static uint32_t ultimaLinea = 0;
 static bool left_mark = false;
 static bool right_mark = false;
+static int32_t ticks_ultima_interseccion = 0;
 
 static uint8_t tipo_morro;
 
@@ -345,6 +346,10 @@ void calc_sensor_line_position() {
           sensores_detectando_sin_filtro++;
         }
       }
+
+      if (sensores_detectando_sin_filtro > 3) {
+        ticks_ultima_interseccion = (get_encoder_left_total_ticks() + get_encoder_right_total_ticks()) / 2;
+      }
     }
     if (sensor < sensor_ini_linea || sensor > sensor_fin_linea) {
       sensor_value = LECTURA_MINIMO_SENSORES_LINEA;
@@ -410,7 +415,7 @@ void check_side_marks() {
   bool right = side_marks[0] || side_marks[1];
 
   left_mark = left && !(left && right);
-  right_mark = right && !(left && right);
+  right_mark = right && !(left && right) && (abs(max_likelihood_counter_diff((get_encoder_left_total_ticks() + get_encoder_right_total_ticks()) / 2, ticks_ultima_interseccion)) > MICROMETERS_PER_METER * 0.25 / MICROMETERS_PER_TICK || ticks_ultima_interseccion == 0);
 }
 
 bool is_left_mark() {

@@ -4,13 +4,13 @@
 #include <buttons.h>
 #include <config.h>
 #include <delay.h>
+#include <encoders.h>
 #include <leds.h>
 #include <libopencm3/stm32/adc.h>
-#include <motors.h>
-#include <stdint.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/rcc.h>
-
+#include <motors.h>
+#include <stdint.h>
 
 #define TIPO_MORRO_LARGO 1
 #define TIPO_MORRO_CORTO 2
