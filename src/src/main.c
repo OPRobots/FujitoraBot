@@ -24,7 +24,7 @@ void sys_tick_handler(void) {
 int main(void) {
   setup();
 
-  // calibrate_sensors();
+  calibrate_sensors();
   // int32_t last_micrometers_l = 0;
   // int32_t last_micrometers_r = 0;
   /* while (1) {
@@ -95,7 +95,7 @@ int main(void) {
         delay(100);
       }*/
 
-      if (get_menu_down_btn()) {
+      /*if (get_menu_down_btn()) {
         left_mark();
         delay(500);
       }
@@ -103,9 +103,9 @@ int main(void) {
       if (get_menu_up_btn()) {
         right_mark();
         delay(500);
-      }
-      check_sector_radius();
-      delay(1);
+      }*/
+      // check_sector_radius();
+      // delay(1);
       // debug_accel();
       // delay(20);
     }

@@ -37,14 +37,11 @@ float calc_ms_pid_correction(float velocidadActualMs) {
 
   if (velocidadObjetivoMs <= 1.0 && velocidadActualMs < velocidadIdealMs && velocidadIdealMs > 0) {
     if (KI_MS * suma_error_ms < 20.0) {
-      set_status_led(false);
       suma_error_ms += error_ms;
     } else {
-      set_status_led(true);
     }
   } else {
     suma_error_ms += error_ms;
-    set_status_led(false);
   }
   // p = KP_MS * error_ms;
   i = KI_MS * suma_error_ms;
@@ -60,30 +57,44 @@ bool is_competicion_iniciada() {
 void set_competicion_iniciada(bool state) {
   competicionIniciada = state;
 }
-
+static bool vuelta_iniciada = false;
 void pid_speed_timer_custom_isr() {
   calc_sensor_line_position();
   correccion_velocidad = calc_pid_correction(get_sensor_line_position());
   check_side_marks();
-  // if (!right_mark && is_right_mark()) {
-  //   if (!vuelta_iniciada) {
-  //     vuelta_iniciada = true;
-  //     set_status_led(true);
-  //   } else {
-  //     vuelta_iniciada = false;
-  //     all_leds_clear();
-  //     set_competicion_iniciada(false);
-  //     pause_pid_speed_timer();
-  //   }
-  // }
+  // check_sector_radius();
+  check_next_sector_radius();
+  if (!right_mark && is_right_mark()) {
+    vuelta_iniciada = true;
+    robotracer_right_mark();
+  }
+  if (robotracer_can_stop()) {
+    vuelta_iniciada = false;
+    set_competicion_iniciada(false);
+    pause_pid_speed_timer();
+    set_status_led(false);
+    set_neon_fade(0);
+    set_RGB_color(0, 0, 0);
+    all_leds_clear();
+  }
 
-  // if (is_left_mark() || is_right_mark()) {
-  //   set_neon_fade(1024);
-  // } else {
-  //   set_neon_fade(0);
-  // }
+  robotracer_check_sector_ends_before_mark();
+
+  if (!left_mark && is_left_mark() /*  || is_right_mark() */) {
+    set_neon_fade(1024);
+    set_RGB_color(50, 0, 50);
+  } else if (!is_left_mark()) {
+    set_neon_fade(0);
+    set_RGB_color(0, 0, 0);
+  }
+  if (left_mark && !is_left_mark()){
+    robotracer_left_mark();
+
+  }
+
   left_mark = is_left_mark();
   right_mark = is_right_mark();
+
 
   if (is_competicion_iniciada()) {
     if (get_config_speed() == CONFIG_SPEED_MS) {

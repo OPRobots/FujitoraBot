@@ -10,8 +10,11 @@ enum SectorType { STRAIGHT,
                   TURN,
                   R10 };
 
-void check_sector_radius();
-void map_left_mark();
-void map_right_mark();
+// void check_sector_radius();
+void check_next_sector_radius();
+void robotracer_left_mark();
+void robotracer_right_mark();
+bool robotracer_can_stop();
+void robotracer_check_sector_ends_before_mark();
 
 #endif

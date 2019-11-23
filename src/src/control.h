@@ -12,6 +12,7 @@
 #include <utils.h>
 #include <delay.h>
 #include <leds.h>
+#include <robotracer.h>
 
 
 bool is_competicion_iniciada();
