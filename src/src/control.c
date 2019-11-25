@@ -10,7 +10,6 @@ volatile static float correccion_velocidad = 0;
 volatile static float error_anterior = 0;
 volatile static float suma_error_ms = 0;
 volatile static float error_anterior_ms = 0;
-// static bool vuelta_iniciada = false;
 static bool left_mark = false;
 static bool right_mark = false;
 
@@ -57,7 +56,6 @@ bool is_competicion_iniciada() {
 void set_competicion_iniciada(bool state) {
   competicionIniciada = state;
 }
-static bool vuelta_iniciada = false;
 void pid_speed_timer_custom_isr() {
   calc_sensor_line_position();
   correccion_velocidad = calc_pid_correction(get_sensor_line_position());
@@ -65,14 +63,11 @@ void pid_speed_timer_custom_isr() {
   // check_sector_radius();
   check_next_sector_radius();
   if (!right_mark && is_right_mark()) {
-    vuelta_iniciada = true;
     robotracer_right_mark();
   }
   if (robotracer_can_stop()) {
-    vuelta_iniciada = false;
     set_competicion_iniciada(false);
     pause_pid_speed_timer();
-    set_status_led(false);
     set_neon_fade(0);
     set_RGB_color(0, 0, 0);
     all_leds_clear();
@@ -80,21 +75,15 @@ void pid_speed_timer_custom_isr() {
 
   robotracer_check_sector_ends_before_mark();
 
-  if (!left_mark && is_left_mark() /*  || is_right_mark() */) {
-    set_neon_fade(1024);
-    set_RGB_color(50, 0, 50);
-  } else if (!is_left_mark()) {
-    set_neon_fade(0);
-    set_RGB_color(0, 0, 0);
-  }
-  if (left_mark && !is_left_mark()){
+  if (left_mark && !is_left_mark()) {
     robotracer_left_mark();
-
+    set_neon_fade(50);
+  }else{
+    set_neon_fade(0);
   }
 
   left_mark = is_left_mark();
   right_mark = is_right_mark();
-
 
   if (is_competicion_iniciada()) {
     if (get_config_speed() == CONFIG_SPEED_MS) {
@@ -109,7 +98,7 @@ void pid_speed_timer_custom_isr() {
           if (velocidadObjetivoMs < 1 && velocidadIdealMs > 0) {
             velocidadObjetivoMs -= MIN_ACCEL_MS2 / 1000.0;
           } else {
-            velocidadObjetivoMs -= MAX_ACCEL_MS2 / 1000.0;
+            velocidadObjetivoMs -= MAX_BREAK_MS2 / 1000.0;
           }
         }
         if (velocidadIdealMs != velocidadObjetivoMs && abs(velocidadIdealMs * 100 - velocidadObjetivoMs * 100) < 2) {
@@ -198,6 +187,7 @@ void resume_pid_speed_timer() {
   velocidad = 0;
   correccion_velocidad = 0;
   velocidadObjetivoMs = 0;
+  robotracer_restart();
   timer_enable_irq(TIM5, TIM_DIER_CC1IE);
 }
 
