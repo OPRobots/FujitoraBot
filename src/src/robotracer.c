@@ -24,6 +24,7 @@ float current_sector_radius[MAX_CURRENT_SECTOR_SAMPLES];
 float current_sector_radius_filter = 0;
 
 uint32_t pista_sectores[1000];
+uint32_t pista_sectores_run[1000];
 float sectores_tipos[1000];
 
 static void reset_encoders() {
@@ -55,12 +56,12 @@ static void end_map() {
   reset_encoders();
 }
 
-static void robotracer_last_sector() {
+static void robotracer_map_last_sector() {
   uint32_t avg_ticks_sector = (max_likelihood_counter_diff(get_encoder_left_total_ticks(), last_left_ticks) + max_likelihood_counter_diff(get_encoder_right_total_ticks(), last_right_ticks)) / 2;
 
   float left_distance_meters = max_likelihood_counter_diff(get_encoder_left_total_ticks(), last_left_ticks) * MICROMETERS_PER_TICK / MICROMETERS_PER_METER;
   float right_distance_meters = max_likelihood_counter_diff(get_encoder_right_total_ticks(), last_right_ticks) * MICROMETERS_PER_TICK / MICROMETERS_PER_METER;
-  float radius = (((WHEELS_SEPARATION * left_distance_meters) / (left_distance_meters - right_distance_meters)) - (WHEELS_SEPARATION / 2.0f)) * 100;
+  float radius = (WHEELS_SEPARATION / 2.0f) * (left_distance_meters + right_distance_meters) / (left_distance_meters - right_distance_meters) * 100;
   if (isnan(radius) || isinf(radius) || abs(radius) > 40) {
     radius = 0;
   }
@@ -108,7 +109,7 @@ static void end_run() {
 
 static void run_next_sector() {
   uint32_t avg_ticks_sector = (max_likelihood_counter_diff(get_encoder_left_total_ticks(), last_left_ticks) + max_likelihood_counter_diff(get_encoder_right_total_ticks(), last_right_ticks)) / 2;
-  if (avg_ticks_sector > pista_sectores[run_sector_actual] * 0.80f) {
+  if (avg_ticks_sector > pista_sectores_run[run_sector_actual] * 0.80f) {
     reset_encoders();
     run_sector_actual++;
     set_ideal_speed_sector_actual();
@@ -123,18 +124,18 @@ void check_next_sector_radius() {
         float time_to_stop = (TURN_SPEED - get_encoder_avg_speed()) / -MAX_BREAK_MS2;
         float meters_to_stop = (get_encoder_avg_speed() * time_to_stop) - (0.5 * MAX_BREAK_MS2 * (time_to_stop * time_to_stop));
         meters_to_stop += (avg_speed - TURN_SPEED) * 0.09; // Añade una distancia de seguridad a la frenada
-        int32_t ticks_to_stop = (meters_to_stop) * MICROMETERS_PER_METER / MICROMETERS_PER_TICK;
+        int32_t ticks_to_stop = (meters_to_stop)*MICROMETERS_PER_METER / MICROMETERS_PER_TICK;
         int32_t avg_ticks_sector = (max_likelihood_counter_diff(get_encoder_left_total_ticks(), last_left_ticks) + max_likelihood_counter_diff(get_encoder_right_total_ticks(), last_right_ticks)) / 2;
 
-        uint32_t ticks_recto = (pista_sectores[run_sector_actual] - avg_ticks_sector);
+        uint32_t ticks_recto = (pista_sectores_run[run_sector_actual] - avg_ticks_sector);
         uint16_t sector_check = run_sector_actual + 1;
         while (sector_check < map_sector_actual && (sectores_tipos[sector_check] == 0 || sectores_tipos[sector_check] >= 80)) {
-          ticks_recto += pista_sectores[sector_check];
+          ticks_recto += pista_sectores_run[sector_check];
           sector_check++;
         }
         if (ticks_recto <= ticks_to_stop) {
-            set_ideal_motors_ms_speed(TURN_SPEED);
-            set_RGB_color(255, 0, 0);
+          set_ideal_motors_ms_speed(TURN_SPEED);
+          set_RGB_color(255, 0, 0);
           set_fans_speed(50, 50);
           set_status_led(true);
         }
@@ -148,7 +149,7 @@ void robotracer_left_mark() {
   if (map_realizado) {
     run_next_sector();
   } else {
-    robotracer_last_sector();
+    robotracer_map_last_sector();
   }
 }
 
@@ -156,7 +157,7 @@ void robotracer_right_mark() {
   // return;
   if (!map_realizado) {
     if (map_iniciado) {
-      robotracer_last_sector();
+      robotracer_map_last_sector();
       end_map();
       vuelta_finalizada = true;
     } else {
@@ -191,9 +192,17 @@ bool robotracer_can_stop() {
 void robotracer_check_sector_ends_before_mark() {
   if (run_iniciado && !run_realizado) {
     uint32_t avg_ticks_sector = (max_likelihood_counter_diff(get_encoder_left_total_ticks(), last_left_ticks) + max_likelihood_counter_diff(get_encoder_right_total_ticks(), last_right_ticks)) / 2;
-    if (avg_ticks_sector >= pista_sectores[run_sector_actual] * 1.20f) {
-      run_sector_actual++;
+
+    uint32_t ticks_max = (uint32_t)(0.15 * MICROMETERS_PER_METER / MICROMETERS_PER_TICK);
+    if (avg_ticks_sector >= (pista_sectores_run[run_sector_actual] + ticks_max)) {
       reset_encoders();
+      run_sector_actual++;
+      if (pista_sectores_run[run_sector_actual] - ticks_max > 0) {
+        pista_sectores_run[run_sector_actual] -= ticks_max;
+      } else {
+        pista_sectores_run[run_sector_actual] = 0;
+        // ¿Debería de pasar al siguiente sector?
+      }
       set_ideal_speed_sector_actual();
     }
   }
@@ -204,5 +213,11 @@ void robotracer_restart() {
     run_sector_actual = 0;
     run_iniciado = false;
     run_realizado = false;
+    vuelta_finalizada = false;
+  }
+  if (map_realizado) {
+    for (uint16_t sector = 0; sector < map_sector_actual; sector++) {
+      pista_sectores_run[sector] = pista_sectores[sector];
+    }
   }
 }

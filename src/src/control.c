@@ -78,7 +78,7 @@ void pid_speed_timer_custom_isr() {
   if (left_mark && !is_left_mark()) {
     robotracer_left_mark();
     set_neon_fade(50);
-  }else{
+  } else {
     set_neon_fade(0);
   }
 
@@ -159,7 +159,7 @@ void pid_speed_timer_custom_isr() {
     }
     set_motors_speed(velD, velI);
     if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
-    set_fan_speed(velocidadVentiladorIdeal);
+      set_fan_speed(velocidadVentiladorIdeal);
     }
 
   } else {
