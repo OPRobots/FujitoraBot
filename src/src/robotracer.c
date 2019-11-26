@@ -82,9 +82,13 @@ static void robotracer_last_sector() {
 static void set_ideal_speed_sector_actual() {
   if (abs(sectores_tipos[run_sector_actual]) < 5) {
     set_ideal_motors_ms_speed(STRAIGHT_SPEED);
+    set_fans_speed(15, 15);
+    set_status_led(false);
     set_RGB_color(0, 255, 0);
   } else {
     set_ideal_motors_ms_speed(TURN_SPEED);
+    set_fans_speed(50, 50);
+    set_status_led(true);
     set_RGB_color(0, 0, 255);
   }
 }
@@ -131,6 +135,8 @@ void check_next_sector_radius() {
         if (ticks_recto <= ticks_to_stop) {
             set_ideal_motors_ms_speed(TURN_SPEED);
             set_RGB_color(255, 0, 0);
+          set_fans_speed(50, 50);
+          set_status_led(true);
         }
       }
     }

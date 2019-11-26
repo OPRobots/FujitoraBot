@@ -158,7 +158,9 @@ void pid_speed_timer_custom_isr() {
       velI = 100;
     }
     set_motors_speed(velD, velI);
+    if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
     set_fan_speed(velocidadVentiladorIdeal);
+    }
 
   } else {
     velocidad = 0;
@@ -194,7 +196,7 @@ void resume_pid_speed_timer() {
 void pause_pid_speed_timer() {
   timer_disable_irq(TIM5, TIM_DIER_CC1IE);
   set_motors_speed(0, 0);
-  set_fan_speed(0);
+  set_fans_speed(0, 0);
   all_leds_clear();
 }
 
