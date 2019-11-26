@@ -14,6 +14,11 @@ uint8_t velocidadBase = 0;
 float velocidadMsBase = 0;
 uint8_t velocidadVentiladorBase = 0;
 
+float velocidadRobotracerMsBase = 0;
+float velocidadRobotracerMsStraight = 0;
+float aceleracionRobotracerMss = MAX_ACCEL_MS2;
+float deceleracionRobotracerMss = MAX_BREAK_MS2;
+
 static void handle_menu_mode() {
   switch (modoConfig) {
     case MODE_NOTHING:
@@ -47,26 +52,46 @@ static void handle_menu_value() {
           set_RGB_color(0, 10, 0); // Verde ↓
           velocidadBase = 30;
           velocidadMsBase = 1.0;
+          velocidadRobotracerMsBase = 1.0;
+          aceleracionRobotracerMss = 8.0;
+          deceleracionRobotracerMss = 10.0;
+          velocidadRobotracerMsStraight = 4.0;
           break;
         case 2:
           set_RGB_color(0, 255, 0); // Verde ↑
           velocidadBase = 40;
-          velocidadMsBase = 1.25;
+          velocidadMsBase = 2.0;
+          velocidadRobotracerMsBase = 1.25;
+          aceleracionRobotracerMss = 10.0;
+          deceleracionRobotracerMss = 12.0;
+          velocidadRobotracerMsStraight = 4.0;
           break;
         case 3:
           set_RGB_color(10, 10, 0); // Amarillo ↓
           velocidadBase = 50;
-          velocidadMsBase = 1.5;
+          velocidadMsBase = 2.5;
+          velocidadRobotracerMsBase = 1.5;
+          aceleracionRobotracerMss = 12.0;
+          deceleracionRobotracerMss = 14.0;
+          velocidadRobotracerMsStraight = 4.0;
           break;
         case 4:
           set_RGB_color(255, 225, 0); // Amarillo ↑
           velocidadBase = 60;
-          velocidadMsBase = 1.75;
+          velocidadMsBase = 3.0;
+          velocidadRobotracerMsBase = 1.75;
+          aceleracionRobotracerMss = 14.0;
+          deceleracionRobotracerMss = 16.0;
+          velocidadRobotracerMsStraight = 4.0;
           break;
         case 5:
           set_RGB_color(10, 0, 0); // Rojo ↓
           velocidadBase = 70;
-          velocidadMsBase = 2.0;
+          velocidadMsBase = 3.25;
+          velocidadRobotracerMsBase = 2.0;
+          aceleracionRobotracerMss = 16.0;
+          deceleracionRobotracerMss = 18.0;
+          velocidadRobotracerMsStraight = 4.0;
           break;
         case 6:
           set_RGB_color(255, 0, 0); // Rojo ↑
@@ -243,9 +268,31 @@ uint8_t get_base_speed() {
   return velocidadBase;
 }
 
-
 float get_base_ms_speed() {
-  return velocidadMsBase;
+  if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+    return velocidadMsBase;
+  } else {
+    return velocidadRobotracerMsBase;
+  }
+}
+
+float get_robotracer_straight_ms_speed() {
+    return velocidadRobotracerMsStraight;
+}
+
+float get_base_acceleration_mss() {
+  if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+    return MAX_ACCEL_MS2;
+  } else {
+    return aceleracionRobotracerMss;
+  }
+}
+float get_base_deceleration_mss() {
+  if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+    return MAX_BREAK_MS2;
+  } else {
+    return deceleracionRobotracerMss;
+  }
 }
 
 uint8_t get_base_fan_speed() {
@@ -256,6 +303,6 @@ bool in_debug_mode() {
   return modoConfig == MODE_DEBUG;
 }
 
-void reset_menu_mode(){
+void reset_menu_mode() {
   modoConfig = MODE_NOTHING;
 }

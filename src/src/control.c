@@ -4,6 +4,8 @@ static float velocidad = 0;
 static int32_t velocidadIdeal = 0;
 static float velocidadIdealMs = 0.0;
 static float velocidadObjetivoMs = 0.0;
+static float accelerationMss = 0.0;
+static float decelerationMss = 0.0;
 static int32_t velocidadVentiladorIdeal = 0;
 static bool competicionIniciada = false;
 volatile static float correccion_velocidad = 0;
@@ -92,13 +94,13 @@ void pid_speed_timer_custom_isr() {
           if (velocidadObjetivoMs < 1 && velocidadIdealMs > 0) {
             velocidadObjetivoMs += MIN_ACCEL_MS2 / 1000.0;
           } else {
-            velocidadObjetivoMs += MAX_ACCEL_MS2 / 1000.0;
+            velocidadObjetivoMs += accelerationMss / 1000.0;
           }
         } else if (velocidadObjetivoMs > velocidadIdealMs) {
           if (velocidadObjetivoMs < 1 && velocidadIdealMs > 0) {
             velocidadObjetivoMs -= MIN_ACCEL_MS2 / 1000.0;
           } else {
-            velocidadObjetivoMs -= MAX_BREAK_MS2 / 1000.0;
+            velocidadObjetivoMs -= decelerationMss / 1000.0;
           }
         }
         if (velocidadIdealMs != velocidadObjetivoMs && abs(velocidadIdealMs * 100 - velocidadObjetivoMs * 100) < 2) {
@@ -178,6 +180,13 @@ void set_ideal_motors_speed(int32_t v) {
 
 void set_ideal_motors_ms_speed(float ms) {
   velocidadIdealMs = ms;
+}
+
+void set_acceleration_mss(float mss) {
+  accelerationMss = mss;
+}
+void set_deceleration_mss(float mss) {
+  decelerationMss = mss;
 }
 
 void set_ideal_fan_speed(int32_t v) {

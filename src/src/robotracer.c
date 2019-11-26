@@ -1,7 +1,9 @@
 #include <robotracer.h>
 
-static float TURN_SPEED = 1.25f;
-static float STRAIGHT_SPEED = 4.0f;
+static float acceleration_mss = MAX_ACCEL_MS2;
+static float deceleration_mss = MAX_BREAK_MS2;
+static float turn_speed = 1.25f;
+static float straight_speed = 4.0f;
 
 bool map_iniciado = false;
 bool map_realizado = false;
@@ -82,12 +84,12 @@ static void robotracer_map_last_sector() {
 
 static void set_ideal_speed_sector_actual() {
   if (abs(sectores_tipos[run_sector_actual]) < 5) {
-    set_ideal_motors_ms_speed(STRAIGHT_SPEED);
+    set_ideal_motors_ms_speed(straight_speed);
     set_fans_speed(15, 15);
     set_status_led(false);
     set_RGB_color(0, 255, 0);
   } else {
-    set_ideal_motors_ms_speed(TURN_SPEED);
+    set_ideal_motors_ms_speed(turn_speed);
     set_fans_speed(50, 50);
     set_status_led(true);
     set_RGB_color(0, 0, 255);
@@ -120,10 +122,10 @@ void check_next_sector_radius() {
   if (map_realizado && run_iniciado) {
     if (sectores_tipos[run_sector_actual] == 0 || sectores_tipos[run_sector_actual] >= 80) {
       float avg_speed = get_encoder_avg_speed();
-      if (avg_speed > TURN_SPEED) {
-        float time_to_stop = (TURN_SPEED - get_encoder_avg_speed()) / -MAX_BREAK_MS2;
-        float meters_to_stop = (get_encoder_avg_speed() * time_to_stop) - (0.5 * MAX_BREAK_MS2 * (time_to_stop * time_to_stop));
-        meters_to_stop += (avg_speed - TURN_SPEED) * 0.09; // Añade una distancia de seguridad a la frenada
+      if (avg_speed > turn_speed) {
+        float time_to_stop = (turn_speed - get_encoder_avg_speed()) / -deceleration_mss;
+        float meters_to_stop = (get_encoder_avg_speed() * time_to_stop) - (0.5 * deceleration_mss * (time_to_stop * time_to_stop));
+        meters_to_stop += (avg_speed - turn_speed) * 0.09; // Añade una distancia de seguridad a la frenada
         int32_t ticks_to_stop = (meters_to_stop)*MICROMETERS_PER_METER / MICROMETERS_PER_TICK;
         int32_t avg_ticks_sector = (max_likelihood_counter_diff(get_encoder_left_total_ticks(), last_left_ticks) + max_likelihood_counter_diff(get_encoder_right_total_ticks(), last_right_ticks)) / 2;
 
@@ -134,7 +136,7 @@ void check_next_sector_radius() {
           sector_check++;
         }
         if (ticks_recto <= ticks_to_stop) {
-          set_ideal_motors_ms_speed(TURN_SPEED);
+          set_ideal_motors_ms_speed(turn_speed);
           set_RGB_color(255, 0, 0);
           set_fans_speed(50, 50);
           set_status_led(true);
@@ -220,4 +222,20 @@ void robotracer_restart() {
       pista_sectores_run[sector] = pista_sectores[sector];
     }
   }
+}
+
+void robotracer_set_turn_speed(float ms) {
+  turn_speed = ms;
+}
+
+void robotracer_set_straight_speed(float ms) {
+  straight_speed = ms;
+}
+
+void robotracer_set_acceleration_mss(float mss) {
+  acceleration_mss = mss;
+}
+
+void robotracer_set_deceleration_mss(float mss) {
+  deceleration_mss = mss;
 }

@@ -65,6 +65,14 @@ int main(void) {
           set_RGB_color(0, 0, 0);
           set_ideal_motors_speed(get_base_speed());
           set_ideal_motors_ms_speed(get_base_ms_speed());
+          set_acceleration_mss(get_base_acceleration_mss());
+          set_deceleration_mss(get_base_deceleration_mss());
+          if (get_config_track() == CONFIG_TRACK_ROBOTRACER) {
+            robotracer_set_turn_speed(get_base_ms_speed());
+            robotracer_set_straight_speed(get_robotracer_straight_ms_speed());
+            robotracer_set_acceleration_mss(get_base_acceleration_mss());
+            robotracer_set_deceleration_mss(get_base_deceleration_mss());
+          }
           set_ideal_fan_speed(get_base_fan_speed());
           set_fan_speed(get_base_fan_speed());
           resume_pid_speed_timer();
