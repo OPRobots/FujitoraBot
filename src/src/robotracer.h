@@ -4,7 +4,7 @@
 #include <encoders.h>
 #include <usart.h>
 #include <math.h>
-#include <vector.h>
+#include <motors.h>
 
 enum SectorType { STRAIGHT,
                   TURN,
@@ -21,5 +21,6 @@ void robotracer_set_turn_speed(float ms);
 void robotracer_set_straight_speed(float ms);
 void robotracer_set_acceleration_mss(float mss);
 void robotracer_set_deceleration_mss(float mss);
+void robotracer_set_turn_acceleration_mss(float mss);
 
 #endif

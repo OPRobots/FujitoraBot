@@ -124,6 +124,7 @@ void pid_speed_timer_custom_isr() {
       } else {
         velocidad = 0;
         set_motors_speed(0, 0);
+        set_fans_speed(0, 0);
         return;
       }
     } else {
@@ -140,6 +141,7 @@ void pid_speed_timer_custom_isr() {
       } else {
         velocidad = 0;
         set_motors_speed(0, 0);
+        set_fans_speed(0, 0);
         return;
       }
     }
@@ -204,8 +206,8 @@ void resume_pid_speed_timer() {
 
 void pause_pid_speed_timer() {
   timer_disable_irq(TIM5, TIM_DIER_CC1IE);
+  set_fan_speed(0);
   set_motors_speed(0, 0);
-  set_fans_speed(0, 0);
   all_leds_clear();
 }
 

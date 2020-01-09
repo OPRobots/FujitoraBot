@@ -24,13 +24,13 @@ static void debug_sensors_raw() {
     }
     printf("\n");
     last_print_debug = get_clock_ticks();
-
+    
   }
 }
 
 static void debug_sensors_calibrated() {
   if (get_clock_ticks() > last_print_debug + 50) {
-     for (int8_t sensor = get_sensors_line_num() - 1; sensor >= 0; sensor--) {
+    for (int8_t sensor = get_sensors_line_num() - 1; sensor >= 0; sensor--) {
       printf("%d\t", get_sensor_calibrated(sensor));
     }
 
@@ -100,7 +100,11 @@ static void debug_motors() {
 
 static void debug_fans() {
   if (is_esc_inited()) {
-    set_fan_speed(50);
+    if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+      set_fan_speed(50);
+    } else {
+      set_fans_speed(50, 50);
+    }
   }
 }
 
