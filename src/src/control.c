@@ -17,6 +17,15 @@ static bool right_mark = false;
 
 static uint32_t resume_speed_ms = 0;
 
+
+/**
+ * @brief Calcula la corrección de posición en línea mediante PID
+ * 
+ * @param posicion Posición actual actual del robot sobre la línea
+ * 
+ * @return float Corrección aplicada sobre la velocidad
+ */
+
 float calc_pid_correction(int32_t posicion) {
   float p = 0;
   float i = 0;
@@ -29,6 +38,14 @@ float calc_pid_correction(int32_t posicion) {
 
   return p + i + d;
 }
+
+/**
+ * @brief Calcula la corrección de la velocidad en m/s mediante PID
+ * 
+ * @param velocidadActualMs Velocidad actual en m/s obtenida de los encoders
+ * 
+ * @return float Velocidad aplicada a los motores en %
+ */
 
 float calc_ms_pid_correction(float velocidadActualMs) {
   float p = 0;
@@ -52,12 +69,30 @@ float calc_ms_pid_correction(float velocidadActualMs) {
   return p + i + d;
 }
 
+/**
+ * @brief Comprueba si el robot está en funcionamiento
+ * 
+ * @return bool 
+ */
+
 bool is_competicion_iniciada() {
   return competicionIniciada;
 }
+
+/**
+ * @brief Establece el estado actual del robot
+ * 
+ * @param state Estado actual del robot
+ */
+
 void set_competicion_iniciada(bool state) {
   competicionIniciada = state;
 }
+
+/**
+ * @brief Función ISR del Timer5 encargada del control de posición, velocidad y mapeo de pista en caso de robotracer
+ * 
+ */
 void pid_speed_timer_custom_isr() {
   calc_sensor_line_position();
   correccion_velocidad = calc_pid_correction(get_sensor_line_position());
@@ -153,12 +188,14 @@ void pid_speed_timer_custom_isr() {
       // velI += MIN_SPEED_PERCENT - velD;
       velD = MIN_SPEED_PERCENT;
     } else if (velD > 100) {
+      // velI -= velD - 100;
       velD = 100;
     }
     if (velI < MIN_SPEED_PERCENT) {
       // velD += MIN_SPEED_PERCENT - velI;
       velI = MIN_SPEED_PERCENT;
     } else if (velI > 100) {
+      // velD -= velI - 100;
       velI = 100;
     }
     set_motors_speed(velD, velI);
