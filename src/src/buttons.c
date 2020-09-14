@@ -1,4 +1,5 @@
 #include <buttons.h>
+#include <delay.h>
 
 /**
  * @brief Obtiene el estado del botón de inicio
@@ -6,7 +7,10 @@
  * @return bool
  */
 bool get_start_btn() {
-  return (bool)gpio_get(GPIOB, GPIO15);
+  bool state1 = (bool)gpio_get(GPIOB, GPIO15);
+  delay(50);
+  bool state2 = (bool)gpio_get(GPIOB, GPIO15);
+  return state1 && state2;
 }
 
 /**
@@ -15,7 +19,10 @@ bool get_start_btn() {
  * @return bool
  */
 bool get_menu_up_btn() {
-  return (bool)gpio_get(GPIOC, GPIO11);
+  bool state1 = (bool)gpio_get(GPIOC, GPIO11);
+  delay(50);
+  bool state2 = (bool)gpio_get(GPIOC, GPIO11);
+  return state1 && state2;
 }
 
 /**
@@ -24,7 +31,10 @@ bool get_menu_up_btn() {
  * @return bool
  */
 bool get_menu_down_btn() {
-  return (bool)gpio_get(GPIOA, GPIO15);
+  bool state1 = (bool)gpio_get(GPIOA, GPIO15);
+  delay(50);
+  bool state2 = (bool)gpio_get(GPIOA, GPIO15);
+  return state1 && state2;
 }
 
 /**
@@ -33,7 +43,10 @@ bool get_menu_down_btn() {
  * @return bool
  */
 bool get_menu_mode_btn() {
-  return (bool)gpio_get(GPIOC, GPIO10);
+  bool state1 = (bool)gpio_get(GPIOC, GPIO10);
+  delay(50);
+  bool state2 = (bool)gpio_get(GPIOC, GPIO10);
+  return state1 && state2;
 }
 
 /**
