@@ -12,6 +12,7 @@
 #include <utils.h>
 #include <delay.h>
 #include <leds.h>
+#include <robotracer.h>
 
 
 bool is_competicion_iniciada();
@@ -24,6 +25,8 @@ void speed_timer_custom_isr();
 float get_speed_correction();
 void set_ideal_motors_speed(int32_t v);
 void set_ideal_motors_ms_speed(float ms);
+void set_acceleration_mss(float mss);
+void set_deceleration_mss(float mss);
 void set_ideal_fan_speed(int32_t v);
 void resume_pid_speed_timer();
 void pause_pid_speed_timer();

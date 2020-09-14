@@ -8,6 +8,7 @@
 #include <leds.h>
 #include <menu.h>
 #include <motors.h>
+#include <robotracer.h>
 #include <sensors.h>
 #include <setup.h>
 #include <usart.h>
@@ -22,11 +23,17 @@ void sys_tick_handler(void) {
 
 int main(void) {
   setup();
-  set_all_configs();
 
   calibrate_sensors();
   // int32_t last_micrometers_l = 0;
   // int32_t last_micrometers_r = 0;
+  /* while (1) {
+
+    if (get_start_btn()) {
+      toggle_tipo_morro();
+      delay(250);
+    }
+  } */
   while (1) {
     // printf("%d\n", get_toggle_ticks());
     // delay(25);
@@ -58,8 +65,18 @@ int main(void) {
           set_RGB_color(0, 0, 0);
           set_ideal_motors_speed(get_base_speed());
           set_ideal_motors_ms_speed(get_base_ms_speed());
+          set_acceleration_mss(get_base_acceleration_mss());
+          set_deceleration_mss(get_base_deceleration_mss());
           set_ideal_fan_speed(get_base_fan_speed());
           set_fan_speed(get_base_fan_speed());
+          if (get_config_track() == CONFIG_TRACK_ROBOTRACER) {
+            robotracer_set_turn_speed(get_base_ms_speed());
+            robotracer_set_straight_speed(get_robotracer_straight_ms_speed());
+            robotracer_set_acceleration_mss(get_base_acceleration_mss());
+            robotracer_set_deceleration_mss(get_base_deceleration_mss());
+            robotracer_set_turn_acceleration_mss(get_base_turn_acceleration_mss());
+            set_fans_speed(35, 35);
+          }
           resume_pid_speed_timer();
         }
       }
@@ -87,6 +104,18 @@ int main(void) {
         set_ideal_motors_ms_speed(2.0);
         delay(100);
       }*/
+
+      /*if (get_menu_down_btn()) {
+        left_mark();
+        delay(500);
+      }
+
+      if (get_menu_up_btn()) {
+        right_mark();
+        delay(500);
+      }*/
+      // check_sector_radius();
+      // delay(1);
       // debug_accel();
       // delay(20);
     }

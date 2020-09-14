@@ -16,9 +16,15 @@
 #define LEDS_MAX_PWM 1024
 #define MOTORES_MAX_PWM 1024
 
-#define KP 0.03
+// LINEFOLLOWER
+// #define KP 0.03
+// #define KI 0
+// #define KD 2.5
+
+// ROBOTRACER - MORRO CORTO
+#define KP 0.07 //0.04 //0.02 //0.022
 #define KI 0
-#define KD 2.5
+#define KD 5.0 //2.5 //0.4 //0.25
 
 #define KP_MS 10.0
 #define KI_MS 1.2
@@ -31,10 +37,11 @@
 #define MICROMETERS_PER_TICK 78.3699
 #define WHEELS_SEPARATION 0.1169
 
-#define MIN_SPEED_PERCENT 15
+#define MIN_SPEED_PERCENT 5
 #define MAX_ACCEL_PERCENT 45.0
 #define MIN_ACCEL_MS2 3.0
-#define MAX_ACCEL_MS2 10.0
+#define MAX_ACCEL_MS2 8.0
+#define MAX_BREAK_MS2 10.0
 
 #define CONFIG_RUN_RACE 1
 #define CONFIG_RUN_DEBUG 0
