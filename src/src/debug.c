@@ -3,6 +3,10 @@
 bool debug_enabled = false;
 uint32_t last_print_debug = 0;
 
+/**
+ * @brief Imprime los valores de los sensores sin aplicar ninguna corrección
+ * 
+ */
 static void debug_sensors_raw() {
   if (get_clock_ticks() > last_print_debug + 50) {
 
@@ -28,6 +32,10 @@ static void debug_sensors_raw() {
   }
 }
 
+/**
+ * @brief Imprime los valores de los sensores calibrándolos y escalandolos
+ * 
+ */
 static void debug_sensors_calibrated() {
   if (get_clock_ticks() > last_print_debug + 50) {
     for (int8_t sensor = get_sensors_line_num() - 1; sensor >= 0; sensor--) {
@@ -119,38 +127,6 @@ static void check_debug_btn() {
     set_neon_heartbeat();
   } else {
     set_neon_fade(0);
-  }
-}
-
-void debug_from_switch() {
-  if (get_switch_decimal() == 0) {
-    return;
-  }
-  if (get_switch_decimal() != 7) {
-    all_leds_clear();
-  }
-  switch (get_switch_decimal()) {
-    case 1:
-      debug_sensors_raw();
-      break;
-    case 2:
-      debug_sensors_calibrated();
-      break;
-    case 3:
-      debug_digital_io();
-      break;
-    case 4:
-      debug_line_position();
-      break;
-    case 5:
-      debug_encoders();
-      break;
-    case 6:
-      debug_motors();
-      break;
-    case 7:
-      debug_all_leds();
-      break;
   }
 }
 

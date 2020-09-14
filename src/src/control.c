@@ -209,29 +209,65 @@ void pid_speed_timer_custom_isr() {
   }
 }
 
+/**
+ * @brief Obtiene la corrección de la Velocidad mediante PID para tareas de depuración
+ * 
+ * @return float 
+ */
 float get_speed_correction() {
   return correccion_velocidad;
 }
 
+/**
+ * @brief Establece la velocidad ideal de los motores desde configuración
+ * 
+ * @param v Velocidad en % de PWM
+ */
 void set_ideal_motors_speed(int32_t v) {
   velocidadIdeal = v;
 }
 
+/**
+ * @brief Establece la velocidad ideal de los motores desde configuración
+ * 
+ * @param ms Velocidad en m/s
+ */
 void set_ideal_motors_ms_speed(float ms) {
   velocidadIdealMs = ms;
 }
 
+/**
+ * @brief Establece la aceleración máxima al incrementar velocidad
+ * 
+ * @param mss Aceleración en m/s/s
+ */
 void set_acceleration_mss(float mss) {
   accelerationMss = mss;
 }
+
+/**
+ * @brief Establece la aceleración máxima al reducir velocidad
+ * 
+ * @param mss Aceleración en m/s/s
+ */
 void set_deceleration_mss(float mss) {
   decelerationMss = mss;
 }
 
+/**
+ * @brief Establece la velocidad del ventilador de succión / soplar
+ * 
+ * @param v Velocidad en % de PWM
+ */
 void set_ideal_fan_speed(int32_t v) {
   velocidadVentiladorIdeal = v;
 }
 
+
+/**
+ * @brief Reanuda la ejecución del Timer encargado del PID
+ * 
+ */
 void resume_pid_speed_timer() {
   resume_speed_ms = get_clock_ticks();
   velocidad = 0;
@@ -241,6 +277,10 @@ void resume_pid_speed_timer() {
   timer_enable_irq(TIM5, TIM_DIER_CC1IE);
 }
 
+/**
+ * @brief Pausa la ejecución del Timer encargado del PID
+ * 
+ */
 void pause_pid_speed_timer() {
   timer_disable_irq(TIM5, TIM_DIER_CC1IE);
   set_fan_speed(0);
@@ -248,6 +288,10 @@ void pause_pid_speed_timer() {
   all_leds_clear();
 }
 
+/**
+ * @brief Imprime valores clave para depurar la aceleración
+ * 
+ */
 void debug_accel() {
   printf("%.2f\t%.2f\t%.2f\t%.2f\n", velocidadIdealMs, velocidadObjetivoMs, get_encoder_avg_speed(), velocidad / 10.0f);
 }

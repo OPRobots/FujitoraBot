@@ -23,8 +23,6 @@
 #define DEBUG_TYPE_FANS_DEMO 9
 
 
-
-void debug_from_switch();
 void debug_from_config(uint8_t type);
 
 #endif

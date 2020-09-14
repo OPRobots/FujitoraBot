@@ -8,6 +8,11 @@ int rainbowColorAsc = 1;
 int lastTicksHeartbeat = 0;
 int lastTicksWarning = 0;
 
+/**
+ * @brief Establece el estado del led de estado
+ * 
+ * @param state Estado del led
+ */
 void set_status_led(bool state) {
   if (state) {
     gpio_set(GPIOA, GPIO12);
@@ -16,10 +21,19 @@ void set_status_led(bool state) {
   }
 }
 
+/**
+ * @brief Aleterna el estado del led de estado
+ * 
+ */
 void toggle_status_led() {
   gpio_toggle(GPIOA, GPIO12);
 }
 
+/**
+ * @brief Activa el modo warning del led de estado
+ * 
+ * @param ms Tiempo entre cambios de estado del modo warning
+ */
 void warning_status_led(uint16_t ms) {
   if (get_clock_ticks() > lastTicksWarning + ms) {
     toggle_status_led();
@@ -27,6 +41,13 @@ void warning_status_led(uint16_t ms) {
   }
 }
 
+/**
+ * @brief Set the RGB color object
+ * 
+ * @param r 
+ * @param g 
+ * @param b 
+ */
 void set_RGB_color(uint32_t r, uint32_t g, uint32_t b) {
   timer_set_oc_value(TIM1, TIM_OC4, r);
   timer_set_oc_value(TIM1, TIM_OC3, g);
