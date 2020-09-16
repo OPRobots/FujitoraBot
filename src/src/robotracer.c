@@ -6,6 +6,9 @@ static float turn_speed = 1.25f;
 static float straight_speed = 4.0f;
 static float turn_acceleration_mss = 0.8038f;
 
+static bool left_mark = false;
+static bool right_mark = false;
+
 bool map_iniciado = false;
 bool map_realizado = false;
 bool vuelta_finalizada = false;
@@ -138,17 +141,16 @@ static void run_next_sector() {
   }
 }
 
-void check_next_sector_radius() {
+static void check_next_sector_radius() {
   if (map_realizado && run_iniciado) {
 
     float avg_speed = get_encoder_avg_speed();
 
     uint16_t sector_check_radius = run_sector_actual + 1;
-    while(sectores_tipos[sector_check_radius] == 0 && sector_check_radius < map_sector_actual){
-      sector_check_radius ++;
+    while (sectores_tipos[sector_check_radius] == 0 && sector_check_radius < map_sector_actual) {
+      sector_check_radius++;
     }
     float next_turn_radius = sectores_tipos[sector_check_radius];
-
 
     float next_turn_speed = (sector_check_radius < map_sector_actual) ? calc_run_max_turn_speed(next_turn_radius, pista_sectores_run[run_sector_actual + 1]) : turn_speed;
     if (avg_speed > next_turn_speed) {
@@ -202,7 +204,7 @@ void check_next_sector_radius() {
   }
 } */
 
-void robotracer_left_mark() {
+static void robotracer_left_mark() {
   // return;
   if (map_realizado) {
     run_next_sector();
@@ -211,7 +213,7 @@ void robotracer_left_mark() {
   }
 }
 
-void robotracer_right_mark() {
+static void robotracer_right_mark() {
   // return;
   if (!map_realizado) {
     if (map_iniciado) {
@@ -231,7 +233,7 @@ void robotracer_right_mark() {
   }
 }
 
-bool robotracer_can_stop() {
+static bool robotracer_can_stop() {
   // return false;
   if (((map_iniciado && map_realizado && !run_iniciado && !run_realizado) || (map_iniciado && map_realizado && run_iniciado && run_realizado)) && vuelta_finalizada) {
     uint32_t avg_ticks_after_finish = (max_likelihood_counter_diff(get_encoder_left_total_ticks(), last_left_ticks) + max_likelihood_counter_diff(get_encoder_right_total_ticks(), last_right_ticks)) / 2;
@@ -248,7 +250,7 @@ bool robotracer_can_stop() {
   }
 }
 
-void robotracer_check_sector_ends_before_mark() {
+static void robotracer_check_sector_ends_before_mark() {
   if (run_iniciado && !run_realizado) {
     uint32_t avg_ticks_sector = (max_likelihood_counter_diff(get_encoder_left_total_ticks(), last_left_ticks) + max_likelihood_counter_diff(get_encoder_right_total_ticks(), last_right_ticks)) / 2;
 
@@ -265,6 +267,34 @@ void robotracer_check_sector_ends_before_mark() {
       set_ideal_speed_sector_actual();
     }
   }
+}
+
+void robotracer_loop_flow() {
+  check_side_marks();
+  // check_sector_radius();
+  check_next_sector_radius();
+  if (!right_mark && is_right_mark()) {
+    robotracer_right_mark();
+  }
+  if (robotracer_can_stop()) {
+    set_competicion_iniciada(false);
+    pause_pid_speed_timer();
+    set_neon_fade(0);
+    set_RGB_color(0, 0, 0);
+    all_leds_clear();
+  }
+
+  robotracer_check_sector_ends_before_mark();
+
+  if (left_mark && !is_left_mark()) {
+    robotracer_left_mark();
+    set_neon_fade(50);
+  } else {
+    set_neon_fade(0);
+  }
+
+  left_mark = is_left_mark();
+  right_mark = is_right_mark();
 }
 
 void robotracer_restart() {

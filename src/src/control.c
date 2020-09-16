@@ -12,11 +12,8 @@ volatile static float correccion_velocidad = 0;
 volatile static float error_anterior = 0;
 volatile static float suma_error_ms = 0;
 volatile static float error_anterior_ms = 0;
-static bool left_mark = false;
-static bool right_mark = false;
 
 static uint32_t resume_speed_ms = 0;
-
 
 /**
  * @brief Calcula la corrección de posición en línea mediante PID
@@ -96,31 +93,10 @@ void set_competicion_iniciada(bool state) {
 void pid_speed_timer_custom_isr() {
   calc_sensor_line_position();
   correccion_velocidad = calc_pid_correction(get_sensor_line_position());
-  check_side_marks();
-  // check_sector_radius();
-  check_next_sector_radius();
-  if (!right_mark && is_right_mark()) {
-    robotracer_right_mark();
-  }
-  if (robotracer_can_stop()) {
-    set_competicion_iniciada(false);
-    pause_pid_speed_timer();
-    set_neon_fade(0);
-    set_RGB_color(0, 0, 0);
-    all_leds_clear();
-  }
 
-  robotracer_check_sector_ends_before_mark();
-
-  if (left_mark && !is_left_mark()) {
-    robotracer_left_mark();
-    set_neon_fade(50);
-  } else {
-    set_neon_fade(0);
+  if (get_config_track() == CONFIG_TRACK_ROBOTRACER) {
+    robotracer_loop_flow();
   }
-
-  left_mark = is_left_mark();
-  right_mark = is_right_mark();
 
   if (is_competicion_iniciada()) {
     if (get_config_speed() == CONFIG_SPEED_MS) {
@@ -263,7 +239,6 @@ void set_ideal_fan_speed(int32_t v) {
   velocidadVentiladorIdeal = v;
 }
 
-
 /**
  * @brief Reanuda la ejecución del Timer encargado del PID
  * 
@@ -273,7 +248,9 @@ void resume_pid_speed_timer() {
   velocidad = 0;
   correccion_velocidad = 0;
   velocidadObjetivoMs = 0;
-  robotracer_restart();
+  if (get_config_track() == CONFIG_TRACK_ROBOTRACER) {
+    robotracer_restart();
+  }
   timer_enable_irq(TIM5, TIM_DIER_CC1IE);
 }
 
