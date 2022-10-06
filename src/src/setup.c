@@ -76,7 +76,7 @@ static void setup_gpio() {
   gpio_mode_setup(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO15);  
   set_all_configs();
 
-  if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+  if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
     // Entradas analógicas sensores de línea
     gpio_mode_setup(GPIOA, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, GPIO0 | GPIO1 | GPIO2 | GPIO3 | GPIO4 | GPIO5 | GPIO6 | GPIO7);
     gpio_mode_setup(GPIOC, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, GPIO4 | GPIO5);

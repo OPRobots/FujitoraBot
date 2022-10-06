@@ -9,7 +9,7 @@
 #define MICROSECONDS_PER_SECOND 1000000
 #define PI 3.1415
 
-#define MS_CALIBRACION_LINEA 2000
+#define MS_CALIBRACION_LINEA 5000
 #define LECTURA_MAXIMO_SENSORES_LINEA 4096
 #define LECTURA_MINIMO_SENSORES_LINEA 0
 
@@ -17,9 +17,9 @@
 #define MOTORES_MAX_PWM 1024
 
 // LINEFOLLOWER
-// #define KP 0.03
+// #define KP 0.02
 // #define KI 0
-// #define KD 2.5
+// #define KD 1.25
 
 // ROBOTRACER - MORRO CORTO
 #define KP 0.07 //0.04 //0.02 //0.022
@@ -52,10 +52,18 @@
 #define CONFIG_TRACK_ROBOTRACER 1
 #define CONFIG_TRACK_LINEFOLLOWER 0
 
+#define CONFIG_ROBOT_ROBOTRACER 1
+#define CONFIG_ROBOT_LINEFOLLOWER 0
+
+#define CONFIG_LINE_WHITE 1
+#define CONFIG_LINE_BLACK 0
+
 void set_all_configs(void);
 uint16_t get_config_run(void);
 uint16_t get_config_speed(void);
 uint16_t get_config_track(void);
+uint16_t get_config_robot(void);
+uint16_t get_config_line(void);
 
 uint16_t get_offtrack_time(void);
 uint16_t get_start_millis(void);

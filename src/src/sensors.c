@@ -33,7 +33,7 @@ static int32_t ticks_ultima_interseccion = 0;
 static uint8_t tipo_morro;
 
 uint8_t *get_sensors() {
-  if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+  if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
     return sensores_linefollower;
   } else {
     return sensores_robotracer;
@@ -41,7 +41,7 @@ uint8_t *get_sensors() {
 }
 
 uint8_t get_sensors_num() {
-  if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+  if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
     return NUM_SENSORES_LINEFOLLOWER;
   } else {
     return NUM_SENSORES_ROBOTRACER_CORTO + NUM_SENSORES_ROBOTRACER_MARCAS;
@@ -49,13 +49,12 @@ uint8_t get_sensors_num() {
 }
 
 uint8_t get_sensors_line_num() {
-  if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+  if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
     return NUM_SENSORES_LINEFOLLOWER;
   } else {
     if (tipo_morro == TIPO_MORRO_CORTO) {
       return NUM_SENSORES_ROBOTRACER_CORTO;
     } else {
-
       return NUM_SENSORES_ROBOTRACER_LARGO;
     }
   }
@@ -67,7 +66,7 @@ volatile uint16_t *get_sensors_raw() {
 
 uint16_t get_sensor_raw(uint8_t pos) {
   if (pos < NUM_SENSORES_MAX) {
-    if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+    if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
       return sensores_raw[pos];
     } else {
       if (tipo_morro == TIPO_MORRO_CORTO) {
@@ -91,7 +90,7 @@ uint16_t get_sensor_calibrated(uint8_t pos) {
   if (pos < NUM_SENSORES_MAX) {
     uint16_t sensor_calibrado = get_sensor_raw(pos);
 
-    if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+    if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
       if (sensor_calibrado >= sensores_umb_linefollower[pos]) {
         sensor_calibrado = LECTURA_MAXIMO_SENSORES_LINEA;
       } else {
@@ -118,7 +117,7 @@ uint16_t get_sensor_calibrated(uint8_t pos) {
       }
     }
 
-    if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+    if (get_config_line() == CONFIG_LINE_BLACK) {
       return sensor_calibrado;
     } else {
       return LECTURA_MAXIMO_SENSORES_LINEA - sensor_calibrado;
@@ -171,7 +170,7 @@ void calibrate_sensors() {
   while (ms_inicio + MS_CALIBRACION_LINEA >= get_clock_ticks()) {
     for (int sensor = 0; sensor < NUM_SENSORES_MAX; sensor++) {
       // printf("%d\t", sensores_raw[sensor]);
-      if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+      if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
         if (sensores_raw[sensor] < sensores_min_linefollower[sensor]) {
           sensores_min_linefollower[sensor] = sensores_raw[sensor];
         }
@@ -203,8 +202,8 @@ void calibrate_sensors() {
     }
     // printf("\n");
 
-    if (get_config_track() == CONFIG_TRACK_ROBOTRACER) {
-      // toggle_tipo_morro();
+    if (get_config_robot() == CONFIG_ROBOT_ROBOTRACER) {
+      toggle_tipo_morro();
     }
   }
   if (auto_move) {
@@ -213,7 +212,7 @@ void calibrate_sensors() {
 
   bool calibrationOK = true;
   bool marksOK = true;
-  if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+  if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
     for (int sensor = 0; sensor < get_sensors_num(); sensor++) {
       if (abs(sensores_max_linefollower[sensor] - sensores_min_linefollower[sensor]) < 1000) {
         calibrationOK = false;
@@ -227,13 +226,13 @@ void calibrate_sensors() {
       if (abs(sensores_max_robotracer_corto[sensor] - sensores_min_robotracer_corto[sensor]) < 1000) {
         if (sensor < get_sensors_line_num()) {
           calibrationOK = false;
-        } else {
+        } else if (get_config_track() == CONFIG_TRACK_ROBOTRACER) {
           marksOK = false;
         }
       }
       sensores_umb_robotracer_corto[sensor] = (sensores_max_robotracer_corto[sensor] + sensores_min_robotracer_corto[sensor]) / 2.;
     }
-    /*  activar_morro_largo();
+    activar_morro_largo();
     for (int sensor = 2; sensor < get_sensors_line_num() + 2; sensor++) {
       if (abs(sensores_max_robotracer_largo[sensor] - sensores_min_robotracer_largo[sensor]) < 1000) {
         calibrationOK = false;
@@ -241,14 +240,14 @@ void calibrate_sensors() {
       sensores_umb_robotracer_largo[sensor] = (sensores_max_robotracer_largo[sensor] + sensores_min_robotracer_largo[sensor]) / 2.;
     }
     for (int sensor = get_sensors_line_num() + 4; sensor < get_sensors_num(); sensor++) {
-      if (abs(sensores_max_robotracer_largo[sensor] - sensores_min_robotracer_largo[sensor]) < 1000) {
+      if (get_config_track() == CONFIG_TRACK_ROBOTRACER && abs(sensores_max_robotracer_largo[sensor] - sensores_min_robotracer_largo[sensor]) < 1000) {
         marksOK = false;
       }
       sensores_umb_robotracer_largo[sensor] = (sensores_max_robotracer_largo[sensor] + sensores_min_robotracer_largo[sensor]) / 2.;
-    } */
+    }
   }
 
-  if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+  if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
     for (int sensor = 0; sensor < get_sensors_line_num(); sensor++) {
       printf("sensores_max_linefollower[%d] = %d\n", sensor, sensores_max_linefollower[sensor]);
       printf("sensores_min_linefollower[%d] = %d\n", sensor, sensores_min_linefollower[sensor]);
@@ -332,7 +331,7 @@ void calc_sensor_line_position() {
   for (uint8_t sensor = 0; sensor < get_sensors_line_num(); sensor++) {
     uint16_t sensor_value = get_sensor_calibrated(sensor);
 
-    if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+    if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
       if (sensor_value >= sensores_umb_linefollower[sensor]) {
         sensores_detectando_sin_filtro++;
       }
@@ -351,7 +350,7 @@ void calc_sensor_line_position() {
       sensor_value = LECTURA_MINIMO_SENSORES_LINEA;
     }
 
-    if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+    if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
 
       if (sensor_value >= sensores_umb_linefollower[sensor]) {
         sensores_detectando++;

@@ -3,6 +3,8 @@
 uint16_t _run_mode;
 uint16_t _speed_mode;
 uint16_t _track_mode;
+uint16_t _robot_type;
+uint16_t _line_type;
 
 /**
  * @brief Establece la configuración de Carrera
@@ -29,6 +31,24 @@ static void set_config_speed(uint16_t speed_mode) {
  */
 static void set_config_track(uint16_t track_mode) {
   _track_mode = track_mode;
+}
+
+/**
+ * @brief Establece la configuración de Robot
+ * 
+ * @param robot_type CONFIG_ROBOT_ROBOTRACER | CONFIG_ROBOT_LINEFOLLOWER
+ */
+static void set_config_robot(uint16_t robot_type) {
+  _robot_type = robot_type;
+}
+
+/**
+ * @brief Establece la configuración de Línea
+ * 
+ * @param line_type CONFIG_LINE_WHITE | CONFIG_LINE_BLACK
+ */
+static void set_config_line(uint16_t line_type) {
+  _line_type = line_type;
 }
 
 /**
@@ -59,6 +79,24 @@ uint16_t get_config_track(void) {
 }
 
 /**
+ * @brief Obtiene la configuración de Robot
+ * 
+ * @return uint16_t CONFIG_ROBOT_ROBOTRACER | CONFIG_ROBOT_LINEFOLLOWER
+ */
+uint16_t get_config_robot(void) {
+  return _robot_type;
+}
+
+/**
+ * @brief Obtiene la configuración de Línea
+ * 
+ * @return uint16_t CONFIG_LINE_WHITE | CONFIG_LINE_BLACK
+ */
+uint16_t get_config_line(void) {
+  return _line_type;
+}
+
+/**
  * @brief Establece todas las configuraciones (CARRERA, VELOCIDAD, PISTA) en funcion de los Switches
  * 
  */
@@ -73,11 +111,15 @@ void set_all_configs(void) {
   } else {
     set_config_speed(CONFIG_SPEED_PWM);
   }
-  if (get_swtich_3()) {
-    set_config_track(CONFIG_TRACK_ROBOTRACER);
-  } else {
-    set_config_track(CONFIG_TRACK_LINEFOLLOWER);
-  }
+
+  // set_config_track(CONFIG_TRACK_ROBOTRACER);
+  set_config_track(CONFIG_TRACK_LINEFOLLOWER);
+
+  set_config_robot(CONFIG_ROBOT_ROBOTRACER);
+  // set_config_robot(CONFIG_ROBOT_LINEFOLLOWER);
+
+  set_config_line(CONFIG_LINE_BLACK);
+  // set_config_line(CONFIG_LINE_WHITE);
 }
 
 /**
@@ -85,10 +127,10 @@ void set_all_configs(void) {
  * 
  * @return uint16_t Tiempo máximo fuera de pista
  */
-uint16_t get_offtrack_time(void){
-  if(get_config_run() == CONFIG_RUN_RACE){
+uint16_t get_offtrack_time(void) {
+  if (get_config_run() == CONFIG_RUN_RACE) {
     return (uint16_t)(TIEMPO_SIN_PISTA * 1.33);
-  }else{
+  } else {
     return TIEMPO_SIN_PISTA;
   }
 }
@@ -98,10 +140,10 @@ uint16_t get_offtrack_time(void){
  * 
  * @return uint16_t Tiempo máximo fuera de pista
  */
-uint16_t get_start_millis(void){
-  if(get_config_run() == CONFIG_RUN_RACE){
+uint16_t get_start_millis(void) {
+  if (get_config_run() == CONFIG_RUN_RACE) {
     return MILLIS_INICIO_RUN;
-  }else{
+  } else {
     return MILLIS_INICIO_DEBUG;
   }
 }

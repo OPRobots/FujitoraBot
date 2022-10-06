@@ -14,7 +14,7 @@ static void debug_sensors_raw() {
       printf("%d\t", get_sensor_raw(sensor));
     }
 
-    if (get_config_track() == CONFIG_TRACK_ROBOTRACER) {
+    if (get_config_robot() == CONFIG_ROBOT_ROBOTRACER) {
       printf("\t");
       if (get_tipo_morro() == TIPO_MORRO_CORTO) {
         for (int8_t sensor = get_sensors_line_num(); sensor < get_sensors_num(); sensor++) {
@@ -42,7 +42,7 @@ static void debug_sensors_calibrated() {
       printf("%d\t", get_sensor_calibrated(sensor));
     }
 
-    if (get_config_track() == CONFIG_TRACK_ROBOTRACER) {
+    if (get_config_robot() == CONFIG_ROBOT_ROBOTRACER) {
       printf("\t");
       if (get_tipo_morro() == TIPO_MORRO_CORTO) {
         for (int8_t sensor = get_sensors_line_num(); sensor < get_sensors_num(); sensor++) {
@@ -108,7 +108,7 @@ static void debug_motors() {
 
 static void debug_fans() {
   if (is_esc_inited()) {
-    if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
+    if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
       set_fan_speed(50);
     } else {
       set_fans_speed(50, 50);
