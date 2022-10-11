@@ -31,6 +31,7 @@ static bool right_mark = false;
 static int32_t ticks_ultima_interseccion = 0;
 
 static uint8_t tipo_morro;
+static bool morro_auto;
 
 uint8_t *get_sensors() {
   if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
@@ -429,6 +430,14 @@ bool is_right_mark() {
 
 uint8_t get_tipo_morro() {
   return tipo_morro;
+}
+
+void set_morro_auto(bool active) {
+  morro_auto = active;
+}
+
+bool is_morro_auto() {
+  return morro_auto;
 }
 
 void toggle_tipo_morro() {

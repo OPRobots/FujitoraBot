@@ -4,11 +4,13 @@ uint8_t modoConfig = 0;
 #define MODE_NOTHING 0
 #define MODE_SPEED 1
 #define MODE_FANS 2
-#define MODE_DEBUG 3
+#define MODE_TIPO_MORRO 3
+#define MODE_DEBUG 4
 #define NUM_MODOS_RACE 3
-#define NUM_MODOS_DEBUG 4
-int8_t valorConfig[NUM_MODOS_DEBUG] = {0, 0, 0};
+#define NUM_MODOS_DEBUG 5
+int8_t valorConfig[NUM_MODOS_DEBUG] = {0, 0, 0, 0, 0};
 #define NUM_VALORES 9
+#define NUM_VALORES_TIPO_MORRO 2
 
 uint8_t velocidadBase = 0;
 float velocidadMsBase = 0;
@@ -130,7 +132,7 @@ static void handle_menu_value() {
           aceleracionCurvaRobotracerMss = 0.8;
           break;
         case 9:
-          set_RGB_color(255, 255, 255); // Party Mode
+          set_RGB_color(255, 255, 255); // Ultra instinto
           velocidadBase = 95;
           velocidadMsBase = 4.25;
           break;
@@ -180,6 +182,24 @@ static void handle_menu_value() {
           break;
       }
       break;
+    case MODE_TIPO_MORRO:
+      switch (valorConfig[modoConfig]) {
+        case 0: // MORRO AUTOMATICO
+          set_RGB_color(75, 0, 75);
+          set_morro_auto(true);
+          break;
+        case 1: // MORRO CORTO
+          set_RGB_color(0, 75, 0);
+          activar_morro_corto();
+          set_morro_auto(false);
+          break;
+        case 2: // MORRO LARGO
+          set_RGB_color(75, 0, 0);
+          activar_morro_largo();
+          set_morro_auto(false);
+          break;
+      }
+      break;
     case MODE_DEBUG:
       switch (valorConfig[modoConfig]) {
         case 0:
@@ -222,7 +242,7 @@ static uint8_t get_num_modos() {
   if (get_config_run() == CONFIG_RUN_RACE) {
     return NUM_MODOS_RACE; // NOTHING - VELOCIDAD - VENTILADORES
   } else {
-    return NUM_MODOS_DEBUG; // NOTHING - VELOCIDAD - VENTILADORES - DEBUG
+    return NUM_MODOS_DEBUG; // NOTHING - VELOCIDAD - VENTILADORES - TIPO MORRO - DEBUG
   }
 }
 
@@ -255,8 +275,18 @@ void check_menu_button() {
   // Comprueba aumento de valor de configuración
   if (get_menu_up_btn()) {
     valorConfig[modoConfig]++;
-    if (valorConfig[modoConfig] > NUM_VALORES) {
-      valorConfig[modoConfig] = NUM_VALORES;
+
+    switch (modoConfig) {
+      case MODE_TIPO_MORRO:
+        if (valorConfig[modoConfig] > NUM_VALORES_TIPO_MORRO) {
+          valorConfig[modoConfig] = NUM_VALORES_TIPO_MORRO;
+        }
+        break;
+      default:
+        if (valorConfig[modoConfig] > NUM_VALORES) {
+          valorConfig[modoConfig] = NUM_VALORES;
+        }
+        break;
     }
     while (get_menu_up_btn()) {
       handle_menu_value();
@@ -298,7 +328,7 @@ float get_base_ms_speed() {
 }
 
 float get_robotracer_straight_ms_speed() {
-    return velocidadRobotracerMsStraight;
+  return velocidadRobotracerMsStraight;
 }
 float get_base_turn_acceleration_mss() {
   if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
@@ -323,7 +353,6 @@ float get_base_acceleration_mss() {
     return aceleracionRobotracerMss;
   }
 }
-
 
 uint8_t get_base_fan_speed() {
   return velocidadVentiladorBase;

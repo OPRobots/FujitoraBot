@@ -28,6 +28,8 @@ void check_side_marks();
 bool is_left_mark();
 bool is_right_mark();
 
+void set_morro_auto(bool active);
+bool is_morro_auto();
 uint8_t get_tipo_morro();
 void toggle_tipo_morro();
 void activar_morro_largo();

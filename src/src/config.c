@@ -118,8 +118,8 @@ void set_all_configs(void) {
   set_config_robot(CONFIG_ROBOT_ROBOTRACER);
   // set_config_robot(CONFIG_ROBOT_LINEFOLLOWER);
 
-  set_config_line(CONFIG_LINE_BLACK);
-  // set_config_line(CONFIG_LINE_WHITE);
+  // set_config_line(CONFIG_LINE_BLACK);
+  set_config_line(CONFIG_LINE_WHITE);
 }
 
 /**
