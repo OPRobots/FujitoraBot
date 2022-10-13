@@ -34,7 +34,8 @@
 #define MILLIS_INICIO_RUN 5000
 #define TIEMPO_SIN_PISTA 150
 
-#define MICROMETERS_PER_TICK 19.5925//78.3699
+#define MICROMETERS_PER_TICK_ROBOTRACER 78.3699
+#define MICROMETERS_PER_TICK_LINEFOLLOWER 19.5925
 #define WHEELS_SEPARATION 0.1169
 
 #define MIN_SPEED_PERCENT 5
@@ -64,6 +65,7 @@ uint16_t get_config_speed(void);
 uint16_t get_config_track(void);
 uint16_t get_config_robot(void);
 uint16_t get_config_line(void);
+float get_micrometers_per_tick(void);
 
 uint16_t get_offtrack_time(void);
 uint16_t get_start_millis(void);

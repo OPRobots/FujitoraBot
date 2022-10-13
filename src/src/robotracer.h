@@ -5,6 +5,7 @@
 #include <usart.h>
 #include <math.h>
 #include <motors.h>
+#include <config.h>
 
 enum SectorType { STRAIGHT,
                   TURN,

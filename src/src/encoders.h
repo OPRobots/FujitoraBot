@@ -8,8 +8,6 @@
 #include "config.h"
 #include "setup.h"
 
-float get_micrometers_per_tick(void);
-void set_micrometers_per_tick(float value);
 float get_wheels_separation(void);
 void set_wheels_separation(float value);
 int32_t get_encoder_left_diff_ticks(void);

@@ -1,7 +1,6 @@
 #include "encoders.h"
 
 /* Physical variables for calibration */
-static volatile float micrometers_per_tick = MICROMETERS_PER_TICK;
 static volatile float wheels_separation = WHEELS_SEPARATION;
 
 /* Difference between the current count and the latest count */
@@ -30,14 +29,6 @@ static volatile float current_angle = 0;
 /* Cartesian position, in micrometers*/
 static volatile float position_x = 0;
 static volatile float position_y = 0;
-
-float get_micrometers_per_tick(void) {
-  return micrometers_per_tick;
-}
-
-void set_micrometers_per_tick(float value) {
-  micrometers_per_tick = value;
-}
 
 float get_wheels_separation(void) {
   return wheels_separation;
@@ -220,11 +211,14 @@ void update_encoder_readings(void) {
   left_total_ticks += left_diff_ticks;
   right_total_ticks += right_diff_ticks;
 
-  left_micrometers = (int32_t)(left_total_ticks * micrometers_per_tick);
-  right_micrometers = (int32_t)(right_total_ticks * micrometers_per_tick);
+  left_micrometers = (int32_t)(left_total_ticks * get_micrometers_per_tick());
+  right_micrometers = (int32_t)(right_total_ticks * get_micrometers_per_tick());
 
-  left_speed = left_diff_ticks * (micrometers_per_tick / MICROMETERS_PER_METER) * SYSTICK_FREQUENCY_HZ;
-  right_speed = right_diff_ticks * (micrometers_per_tick / MICROMETERS_PER_METER) * SYSTICK_FREQUENCY_HZ;
+  left_speed = left_diff_ticks * (get_micrometers_per_tick() / MICROMETERS_PER_METER) * SYSTICK_FREQUENCY_HZ;
+  right_speed = right_diff_ticks * (get_micrometers_per_tick() / MICROMETERS_PER_METER) * SYSTICK_FREQUENCY_HZ;
+  // if (get_clock_ticks() % 20 == 0) {
+  //   printf("%ld * ( %.4f / %d ) * %d = %.2f\n", left_diff_ticks, get_micrometers_per_tick(), MICROMETERS_PER_METER, SYSTICK_FREQUENCY_HZ, left_speed);
+  // }
 
   angular_speed = (left_speed - right_speed) / wheels_separation;
 

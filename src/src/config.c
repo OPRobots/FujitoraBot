@@ -5,6 +5,7 @@ uint16_t _speed_mode;
 uint16_t _track_mode;
 uint16_t _robot_type;
 uint16_t _line_type;
+float _micrometers_per_tick;
 
 /**
  * @brief Establece la configuración de Carrera
@@ -52,6 +53,18 @@ static void set_config_line(uint16_t line_type) {
 }
 
 /**
+ * @brief Establece la configuración de encoders
+ * 
+ */
+static void set_micrometers_per_tick() {
+  if(_robot_type == CONFIG_ROBOT_ROBOTRACER){
+    _micrometers_per_tick = MICROMETERS_PER_TICK_ROBOTRACER;
+  }else{
+    _micrometers_per_tick = MICROMETERS_PER_TICK_LINEFOLLOWER;
+  }
+}
+
+/**
  * @brief Obtiene la configuración de Carrera
  * 
  * @return uint16_t CONFIG_RUN_RACE | CONFIG_RUN_DEBUG
@@ -95,6 +108,14 @@ uint16_t get_config_robot(void) {
 uint16_t get_config_line(void) {
   return _line_type;
 }
+/**
+ * @brief Obtiene la configuración de encoders
+ * 
+ * @return uint16_t MICROMETERS_PER_TICK_ROBOTRACER | MICROMETERS_PER_TICK_LINEFOLLOWER
+ */
+float get_micrometers_per_tick(void) {
+  return _micrometers_per_tick;
+}
 
 /**
  * @brief Establece todas las configuraciones (CARRERA, VELOCIDAD, PISTA) en funcion de los Switches
@@ -120,6 +141,8 @@ void set_all_configs(void) {
 
   // set_config_line(CONFIG_LINE_BLACK);
   set_config_line(CONFIG_LINE_WHITE);
+
+  set_micrometers_per_tick();
 }
 
 /**

@@ -414,7 +414,7 @@ void check_side_marks() {
   bool left = side_marks[2] || side_marks[3];
   bool right = side_marks[0] || side_marks[1];
 
-  bool linea_simple = (abs(max_likelihood_counter_diff((get_encoder_left_total_ticks() + get_encoder_right_total_ticks()) / 2, ticks_ultima_interseccion)) > MICROMETERS_PER_METER * 0.10 / MICROMETERS_PER_TICK || ticks_ultima_interseccion == 0);
+  bool linea_simple = (abs(max_likelihood_counter_diff((get_encoder_left_total_ticks() + get_encoder_right_total_ticks()) / 2, ticks_ultima_interseccion)) > MICROMETERS_PER_METER * 0.10 / get_micrometers_per_tick() || ticks_ultima_interseccion == 0);
 
   left_mark = left && !(left && right) /* && linea_simple */;
   right_mark = right && !(left && right) && linea_simple;
