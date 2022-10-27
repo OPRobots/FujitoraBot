@@ -56,6 +56,9 @@
 #define CONFIG_ROBOT_ROBOTRACER 1
 #define CONFIG_ROBOT_LINEFOLLOWER 0
 
+#define CONFIG_TRACK_TYPE_ENHANCED 1
+#define CONFIG_TRACK_TYPE_NORMAL 0
+
 #define CONFIG_LINE_WHITE 1
 #define CONFIG_LINE_BLACK 0
 
@@ -63,6 +66,7 @@ void set_all_configs(void);
 uint16_t get_config_run(void);
 uint16_t get_config_speed(void);
 uint16_t get_config_track(void);
+uint16_t get_config_track_type(void);
 uint16_t get_config_robot(void);
 uint16_t get_config_line(void);
 float get_micrometers_per_tick(void);

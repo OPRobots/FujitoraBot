@@ -31,7 +31,7 @@ static bool right_mark = false;
 static int32_t ticks_ultima_interseccion = 0;
 
 static uint8_t tipo_morro;
-static bool morro_auto;
+static bool morro_auto = false;
 
 uint8_t *get_sensors() {
   if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
@@ -167,6 +167,7 @@ void calibrate_sensors() {
     sensores_umb_robotracer_corto[sensor] = LECTURA_MINIMO_SENSORES_LINEA;
   }
 
+  bool morro_cambiado = false;
   uint32_t ms_inicio = get_clock_ticks();
   while (ms_inicio + MS_CALIBRACION_LINEA >= get_clock_ticks()) {
     for (int sensor = 0; sensor < NUM_SENSORES_MAX; sensor++) {
@@ -194,6 +195,12 @@ void calibrate_sensors() {
             sensores_max_robotracer_largo[sensor] = sensores_raw[sensor];
           }
         }
+
+        // Cambiar de tipo de morro para calibración
+        if (ms_inicio + MS_CALIBRACION_LINEA / 2 >= get_clock_ticks() && !morro_cambiado) {
+          toggle_tipo_morro();
+          morro_cambiado = true;
+        }
       }
 
       set_RGB_rainbow();
@@ -201,7 +208,6 @@ void calibrate_sensors() {
         set_motors_speed(20, -20);
       }
     }
-    // printf("\n");
 
     if (get_config_robot() == CONFIG_ROBOT_ROBOTRACER) {
       toggle_tipo_morro();
@@ -273,6 +279,11 @@ void calibrate_sensors() {
       printf("sensores_umb_robotracer_largo[%d] = %d\n", sensor - 4, sensores_umb_robotracer_largo[sensor]);
     } 
     activar_morro_corto();*/
+  }
+
+  // Establece el tipo de morro por defecto
+  if (get_config_robot() == CONFIG_ROBOT_ROBOTRACER) {
+    activar_morro_corto();
   }
 
   while (!get_start_btn()) {

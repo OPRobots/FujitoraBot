@@ -4,6 +4,7 @@ uint16_t _run_mode;
 uint16_t _speed_mode;
 uint16_t _track_mode;
 uint16_t _robot_type;
+uint16_t _track_type;
 uint16_t _line_type;
 float _micrometers_per_tick;
 
@@ -35,6 +36,15 @@ static void set_config_track(uint16_t track_mode) {
 }
 
 /**
+ * @brief Establece la configuración de Tipo de Pista
+ * 
+ * @param track_type CONFIG_TRACK_TYPE_ENHANCED | CONFIG_TRACK_TYPE_NORMAL
+ */
+static void set_config_track_type(uint16_t track_type) {
+  _track_type = track_type;
+}
+
+/**
  * @brief Establece la configuración de Robot
  * 
  * @param robot_type CONFIG_ROBOT_ROBOTRACER | CONFIG_ROBOT_LINEFOLLOWER
@@ -57,9 +67,9 @@ static void set_config_line(uint16_t line_type) {
  * 
  */
 static void set_micrometers_per_tick() {
-  if(_robot_type == CONFIG_ROBOT_ROBOTRACER){
+  if (_robot_type == CONFIG_ROBOT_ROBOTRACER) {
     _micrometers_per_tick = MICROMETERS_PER_TICK_ROBOTRACER;
-  }else{
+  } else {
     _micrometers_per_tick = MICROMETERS_PER_TICK_LINEFOLLOWER;
   }
 }
@@ -89,6 +99,15 @@ uint16_t get_config_speed(void) {
  */
 uint16_t get_config_track(void) {
   return _track_mode;
+}
+
+/**
+ * @brief Obtiene la configuración de Tipo de Pista
+ * 
+ * @return uint16_t CONFIG_TRACK_TYPE_ENHANCED | CONFIG_TRACK_TYPE_NORMAL
+ */
+uint16_t get_config_track_type(void) {
+  return _track_type;
 }
 
 /**
@@ -135,6 +154,9 @@ void set_all_configs(void) {
 
   // set_config_track(CONFIG_TRACK_ROBOTRACER);
   set_config_track(CONFIG_TRACK_LINEFOLLOWER);
+
+  set_config_track_type(CONFIG_TRACK_TYPE_ENHANCED);
+  // set_config_track_type(CONFIG_TRACK_TYPE_NORMAL);
 
   set_config_robot(CONFIG_ROBOT_ROBOTRACER);
   // set_config_robot(CONFIG_ROBOT_LINEFOLLOWER);
