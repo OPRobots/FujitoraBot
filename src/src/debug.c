@@ -109,7 +109,7 @@ static void debug_motors() {
 static void debug_fans() {
   if (is_esc_inited()) {
     if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
-      set_fan_speed(50);
+      set_fan_speed(80);
     } else {
       set_fans_speed(50, 50);
     }
