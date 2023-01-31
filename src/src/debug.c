@@ -28,7 +28,13 @@ static void debug_sensors_raw() {
     }
     printf("\n");
     last_print_debug = get_clock_ticks();
-    
+  }
+}
+
+static void debug_sensors_calibration() {
+  if (get_clock_ticks() > last_print_debug + 1000) {
+    print_sensors_calibrations();
+    last_print_debug = get_clock_ticks();
   }
 }
 
@@ -164,6 +170,9 @@ void debug_from_config(uint8_t type) {
     }
   } else {
     switch (type) {
+      case DEBUG_TYPE_SENSORS_RAW:
+        debug_sensors_calibration();
+        break;
       case DEBUG_TYPE_MOTORS:
         set_motors_speed(0, 0);
         break;

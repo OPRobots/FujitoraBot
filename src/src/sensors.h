@@ -15,6 +15,7 @@
 #define TIPO_MORRO_LARGO 1
 #define TIPO_MORRO_CORTO 2
 
+void print_sensors_calibrations();
 void calibrate_sensors();
 uint8_t *get_sensors();
 uint8_t get_sensors_num();
