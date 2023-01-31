@@ -35,4 +35,6 @@ void toggle_tipo_morro();
 void activar_morro_largo();
 void activar_morro_corto();
 
+void emergency_stop();
+
 #endif

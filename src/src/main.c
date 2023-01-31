@@ -34,6 +34,7 @@ int main(void) {
       delay(250);
     }
   } */
+  uint32_t millis_iniciado = 0;
   while (1) {
     // printf("%d\n", get_toggle_ticks());
     // delay(25);
@@ -62,6 +63,7 @@ int main(void) {
             }
           }
           set_competicion_iniciada(true);
+          millis_iniciado = get_clock_ticks();
           set_RGB_color(0, 0, 0);
           set_ideal_motors_speed(get_base_speed());
           set_ideal_motors_ms_speed(get_base_ms_speed());
@@ -81,6 +83,9 @@ int main(void) {
         }
       }
     } else {
+      if(get_config_run() == CONFIG_RUN_RACE && get_clock_ticks() - millis_iniciado > 5000) {
+        emergency_stop();
+      }
       // if (last_micrometers_r == 0 || last_micrometers_l == 0 || abs(last_micrometers_r - get_encoder_right_micrometers()) >= 10000 || abs(last_micrometers_l - get_encoder_left_micrometers()) >= 10000) {
       // last_micrometers_r = get_encoder_right_micrometers();
       // last_micrometers_l = get_encoder_left_micrometers();
@@ -117,6 +122,7 @@ int main(void) {
       // check_sector_radius();
       // delay(1);
       // debug_accel();
+      // printf("%ld (%.2f - %.2f)\n", get_sensor_line_position(), get_encoder_left_speed(), get_encoder_right_speed());
       // delay(20);
     }
   }

@@ -129,27 +129,66 @@ uint16_t get_sensor_calibrated(uint8_t pos) {
 }
 
 void calibrate_sensors() {
-  bool auto_move = get_config_run() == CONFIG_RUN_RACE; // En modo carrera, se calibra automáticamente por defecto.
+  bool skip_calibration = get_config_run() == CONFIG_RUN_RACE; // En modo carrera, se calibra automáticamente por defecto.
   bool pushFlag = false;
   while (!get_start_btn()) {
     set_neon_heartbeat();
     if (get_menu_mode_btn()) {
       if (!pushFlag) {
-        auto_move = !auto_move;
+        skip_calibration = !skip_calibration;
         pushFlag = true;
       }
     } else {
       pushFlag = false;
     }
-    set_status_led(auto_move);
+    set_status_led(skip_calibration);
   }
   while (get_start_btn()) {
     set_neon_heartbeat();
   }
-  while (auto_move && !is_esc_inited()) {
+  while (skip_calibration && !is_esc_inited()) {
   }
   set_neon_fade(0);
   set_status_led(false);
+  if (skip_calibration) {
+    sensores_max_linefollower[0] = 3933;
+    sensores_min_linefollower[0] = 2764;
+    sensores_umb_linefollower[0] = 3348;
+    sensores_max_linefollower[1] = 3965;
+    sensores_min_linefollower[1] = 2716;
+    sensores_umb_linefollower[1] = 3340;
+    sensores_max_linefollower[2] = 3945;
+    sensores_min_linefollower[2] = 2677;
+    sensores_umb_linefollower[2] = 3311;
+    sensores_max_linefollower[3] = 3889;
+    sensores_min_linefollower[3] = 2234;
+    sensores_umb_linefollower[3] = 3061;
+    sensores_max_linefollower[4] = 3879;
+    sensores_min_linefollower[4] = 2397;
+    sensores_umb_linefollower[4] = 3138;
+    sensores_max_linefollower[5] = 3887;
+    sensores_min_linefollower[5] = 2399;
+    sensores_umb_linefollower[5] = 3143;
+    sensores_max_linefollower[6] = 3877;
+    sensores_min_linefollower[6] = 2308;
+    sensores_umb_linefollower[6] = 3092;
+    sensores_max_linefollower[7] = 3899;
+    sensores_min_linefollower[7] = 2492;
+    sensores_umb_linefollower[7] = 3195;
+    sensores_max_linefollower[8] = 3869;
+    sensores_min_linefollower[8] = 2289;
+    sensores_umb_linefollower[8] = 3079;
+    sensores_max_linefollower[9] = 3903;
+    sensores_min_linefollower[9] = 2496;
+    sensores_umb_linefollower[9] = 3199;
+    sensores_max_linefollower[10] = 3950;
+    sensores_min_linefollower[10] = 2715;
+    sensores_umb_linefollower[10] = 3332;
+    sensores_max_linefollower[11] = 3961;
+    sensores_min_linefollower[11] = 2949;
+    sensores_umb_linefollower[11] = 3455;
+    return;
+  }
   delay(1000);
 
   // Resetear los valores máximos, mínimos y umbrales
@@ -204,7 +243,7 @@ void calibrate_sensors() {
       }
 
       set_RGB_rainbow();
-      if (auto_move) {
+      if (skip_calibration) {
         set_motors_speed(20, -20);
       }
     }
@@ -213,7 +252,7 @@ void calibrate_sensors() {
       toggle_tipo_morro();
     }
   }
-  if (auto_move) {
+  if (skip_calibration) {
     set_motors_speed(0, 0);
   }
 
@@ -256,16 +295,16 @@ void calibrate_sensors() {
 
   if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
     for (int sensor = 0; sensor < get_sensors_line_num(); sensor++) {
-      printf("sensores_max_linefollower[%d] = %d\n", sensor, sensores_max_linefollower[sensor]);
-      printf("sensores_min_linefollower[%d] = %d\n", sensor, sensores_min_linefollower[sensor]);
-      printf("sensores_umb_linefollower[%d] = %d\n", sensor, sensores_umb_linefollower[sensor]);
+      printf("sensores_max_linefollower[%d] = %d;\n", sensor, sensores_max_linefollower[sensor]);
+      printf("sensores_min_linefollower[%d] = %d;\n", sensor, sensores_min_linefollower[sensor]);
+      printf("sensores_umb_linefollower[%d] = %d;\n", sensor, sensores_umb_linefollower[sensor]);
     }
   } else {
     activar_morro_corto();
     for (int sensor = 0; sensor < get_sensors_num(); sensor++) {
-      printf("sensores_max_robotracer_corto[%d] = %d\n", sensor, sensores_max_robotracer_corto[sensor]);
-      printf("sensores_min_robotracer_corto[%d] = %d\n", sensor, sensores_min_robotracer_corto[sensor]);
-      printf("sensores_umb_robotracer_corto[%d] = %d\n", sensor, sensores_umb_robotracer_corto[sensor]);
+      printf("sensores_max_robotracer_corto[%d] = %d;\n", sensor, sensores_max_robotracer_corto[sensor]);
+      printf("sensores_min_robotracer_corto[%d] = %d;\n", sensor, sensores_min_robotracer_corto[sensor]);
+      printf("sensores_umb_robotracer_corto[%d] = %d;\n", sensor, sensores_umb_robotracer_corto[sensor]);
     }
     /* activar_morro_largo();
     for (int sensor = 2; sensor < get_sensors_line_num() + 2; sensor++) {
@@ -391,9 +430,7 @@ void calc_sensor_line_position() {
     ultimaLinea = get_clock_ticks();
   } else if (is_competicion_iniciada()) {
     if (get_clock_ticks() > (ultimaLinea + get_offtrack_time())) {
-      set_competicion_iniciada(false);
-      pause_pid_speed_timer();
-      line_position = 0;
+      emergency_stop();
     }
     if (abs(line_position) < 800) {
       return;
@@ -471,4 +508,10 @@ void activar_morro_corto() {
   gpio_clear(GPIOA, GPIO1);
   gpio_set(GPIOA, GPIO0);
   tipo_morro = TIPO_MORRO_CORTO;
+}
+
+void emergency_stop() {
+      set_competicion_iniciada(false);
+      pause_pid_speed_timer();
+      line_position = 0;
 }
