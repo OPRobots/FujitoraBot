@@ -83,7 +83,7 @@ int main(void) {
         }
       }
     } else {
-      if(get_config_run() == CONFIG_RUN_RACE && get_clock_ticks() - millis_iniciado > 5000) {
+      if(get_config_run() != CONFIG_RUN_RACE && get_clock_ticks() - millis_iniciado > 5000) {
         emergency_stop();
       }
       // if (last_micrometers_r == 0 || last_micrometers_l == 0 || abs(last_micrometers_r - get_encoder_right_micrometers()) >= 10000 || abs(last_micrometers_l - get_encoder_left_micrometers()) >= 10000) {
@@ -123,7 +123,8 @@ int main(void) {
       // delay(1);
       // debug_accel();
       // printf("%ld (%.2f - %.2f)\n", get_sensor_line_position(), get_encoder_left_speed(), get_encoder_right_speed());
-      // delay(20);
+      
+     
     }
   }
 }
