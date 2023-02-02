@@ -38,78 +38,42 @@ static bool morro_auto = false;
  * 
  */
 static void assign_sensors_calibrations() {
-  sensores_max_linefollower[0] = 3688;
-  sensores_min_linefollower[0] = 215;
-  sensores_umb_linefollower[0] = 1951;
-  sensores_max_linefollower[1] = 3839;
-  sensores_min_linefollower[1] = 218;
-  sensores_umb_linefollower[1] = 2028;
-  sensores_max_linefollower[2] = 3815;
-  sensores_min_linefollower[2] = 219;
-  sensores_umb_linefollower[2] = 2017;
-  sensores_max_linefollower[3] = 3741;
-  sensores_min_linefollower[3] = 195;
-  sensores_umb_linefollower[3] = 1968;
-  sensores_max_linefollower[4] = 3787;
-  sensores_min_linefollower[4] = 195;
-  sensores_umb_linefollower[4] = 1991;
-  sensores_max_linefollower[5] = 2813;
-  sensores_min_linefollower[5] = 612;
-  sensores_umb_linefollower[5] = 1712;
-  sensores_max_linefollower[6] = 3734;
-  sensores_min_linefollower[6] = 182;
-  sensores_umb_linefollower[6] = 1958;
-  sensores_max_linefollower[7] = 3830;
-  sensores_min_linefollower[7] = 194;
-  sensores_umb_linefollower[7] = 2012;
-  sensores_max_linefollower[8] = 3977;
-  sensores_min_linefollower[8] = 182;
-  sensores_umb_linefollower[8] = 2079;
-  sensores_max_linefollower[9] = 3682;
-  sensores_min_linefollower[9] = 193;
-  sensores_umb_linefollower[9] = 1937;
-  sensores_max_linefollower[10] = 3699;
-  sensores_min_linefollower[10] = 182;
-  sensores_umb_linefollower[10] = 1940;
-  sensores_max_linefollower[11] = 3778;
-  sensores_min_linefollower[11] = 199;
-  sensores_umb_linefollower[11] = 1988;
-  sensores_max_linefollower[0] = 3688;
-  sensores_min_linefollower[0] = 215;
-  sensores_umb_linefollower[0] = 1951;
-  sensores_max_linefollower[1] = 3839;
-  sensores_min_linefollower[1] = 218;
-  sensores_umb_linefollower[1] = 2028;
-  sensores_max_linefollower[2] = 3815;
-  sensores_min_linefollower[2] = 219;
-  sensores_umb_linefollower[2] = 2017;
-  sensores_max_linefollower[3] = 3741;
-  sensores_min_linefollower[3] = 195;
-  sensores_umb_linefollower[3] = 1968;
-  sensores_max_linefollower[4] = 3787;
-  sensores_min_linefollower[4] = 195;
-  sensores_umb_linefollower[4] = 1991;
-  sensores_max_linefollower[5] = 2813;
-  sensores_min_linefollower[5] = 612;
-  sensores_umb_linefollower[5] = 1712;
-  sensores_max_linefollower[6] = 3734;
-  sensores_min_linefollower[6] = 182;
-  sensores_umb_linefollower[6] = 1958;
-  sensores_max_linefollower[7] = 3830;
-  sensores_min_linefollower[7] = 194;
-  sensores_umb_linefollower[7] = 2012;
-  sensores_max_linefollower[8] = 3977;
-  sensores_min_linefollower[8] = 182;
-  sensores_umb_linefollower[8] = 2079;
-  sensores_max_linefollower[9] = 3682;
-  sensores_min_linefollower[9] = 193;
-  sensores_umb_linefollower[9] = 1937;
-  sensores_max_linefollower[10] = 3699;
-  sensores_min_linefollower[10] = 182;
-  sensores_umb_linefollower[10] = 1940;
-  sensores_max_linefollower[11] = 3778;
-  sensores_min_linefollower[11] = 199;
-  sensores_umb_linefollower[11] = 1988;
+  sensores_max_linefollower[0] = 3735;
+  sensores_min_linefollower[0] = 289;
+  sensores_umb_linefollower[0] = 2586;
+  sensores_max_linefollower[1] = 3918;
+  sensores_min_linefollower[1] = 421;
+  sensores_umb_linefollower[1] = 2752;
+  sensores_max_linefollower[2] = 3911;
+  sensores_min_linefollower[2] = 606;
+  sensores_umb_linefollower[2] = 2809;
+  sensores_max_linefollower[3] = 3865;
+  sensores_min_linefollower[3] = 243;
+  sensores_umb_linefollower[3] = 2657;
+  sensores_max_linefollower[4] = 3867;
+  sensores_min_linefollower[4] = 260;
+  sensores_umb_linefollower[4] = 2664;
+  sensores_max_linefollower[5] = 2883;
+  sensores_min_linefollower[5] = 624;
+  sensores_umb_linefollower[5] = 2130;
+  sensores_max_linefollower[6] = 3743;
+  sensores_min_linefollower[6] = 221;
+  sensores_umb_linefollower[6] = 2569;
+  sensores_max_linefollower[7] = 3881;
+  sensores_min_linefollower[7] = 249;
+  sensores_umb_linefollower[7] = 2670;
+  sensores_max_linefollower[8] = 3841;
+  sensores_min_linefollower[8] = 222;
+  sensores_umb_linefollower[8] = 2634;
+  sensores_max_linefollower[9] = 2905;
+  sensores_min_linefollower[9] = 562;
+  sensores_umb_linefollower[9] = 2124;
+  sensores_max_linefollower[10] = 3762;
+  sensores_min_linefollower[10] = 242;
+  sensores_umb_linefollower[10] = 2588;
+  sensores_max_linefollower[11] = 3887;
+  sensores_min_linefollower[11] = 326;
+  sensores_umb_linefollower[11] = 2700;
 }
 
 void print_sensors_calibrations() {
@@ -278,7 +242,7 @@ void calibrate_sensors() {
 
       uint8_t countSensorsChecked = 0;
       for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
-        if(sensorsChecked[sensor]) {
+        if (sensorsChecked[sensor]) {
           countSensorsChecked++;
         }
       }
@@ -368,7 +332,7 @@ void calibrate_sensors() {
       if (abs(sensores_max_linefollower[sensor] - sensores_min_linefollower[sensor]) < 1000) {
         calibrationOK = false;
       }
-      sensores_umb_linefollower[sensor] = (sensores_max_linefollower[sensor] + sensores_min_linefollower[sensor]) / 2.;
+      sensores_umb_linefollower[sensor] = sensores_min_linefollower[sensor] + ((sensores_max_linefollower[sensor] - sensores_min_linefollower[sensor]) * 2 / 3);
     }
   } else {
 
