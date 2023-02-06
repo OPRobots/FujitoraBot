@@ -43,6 +43,15 @@ static void handle_menu_value() {
   switch (modoConfig) {
     case MODE_NOTHING:
       set_RGB_color(0, 0, 0);
+      if(get_menu_up_btn()){
+        debug_sensors_calibration();
+        set_status_led(true);
+      }else if(get_menu_down_btn()){
+        // TODO: debug_log();
+        set_status_led(true);
+      }else{
+        set_status_led(false);
+      }
       break;
     case MODE_SPEED:
       switch (valorConfig[modoConfig]) {

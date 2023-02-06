@@ -31,13 +31,6 @@ static void debug_sensors_raw() {
   }
 }
 
-static void debug_sensors_calibration() {
-  if (get_clock_ticks() > last_print_debug + 1000) {
-    print_sensors_calibrations();
-    last_print_debug = get_clock_ticks();
-  }
-}
-
 /**
  * @brief Imprime los valores de los sensores calibrándolos y escalandolos
  * 
@@ -170,9 +163,6 @@ void debug_from_config(uint8_t type) {
     }
   } else {
     switch (type) {
-      case DEBUG_TYPE_SENSORS_RAW:
-        debug_sensors_calibration();
-        break;
       case DEBUG_TYPE_MOTORS:
         set_motors_speed(0, 0);
         break;
@@ -184,4 +174,20 @@ void debug_from_config(uint8_t type) {
         break;
     }
   }
+}
+
+
+void debug_sensors_calibration() {
+  if (get_clock_ticks() > last_print_debug + 1000) {
+    print_sensors_calibrations();
+    last_print_debug = get_clock_ticks();
+  }
+}
+
+void update_log(){
+  
+}
+
+void debug_log(){
+
 }
