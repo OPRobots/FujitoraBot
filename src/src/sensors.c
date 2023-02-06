@@ -230,8 +230,10 @@ void calibrate_sensors() {
       sensorsChecked[sensor] = false;
     }
 
-    while (!get_start_btn()) {
-
+    uint8_t countSensorsChecked = 0;
+    uint32_t millisSensorsChecked = 0;
+    while (!get_start_btn() && (countSensorsChecked < get_sensors_num() || get_clock_ticks() - millisSensorsChecked < 500)) {
+      
       for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
         if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
           if (get_sensor_calibrated(sensor) >= sensores_umb_linefollower[sensor]) {
@@ -239,8 +241,8 @@ void calibrate_sensors() {
           }
         }
       }
-
-      uint8_t countSensorsChecked = 0;
+      
+      countSensorsChecked = 0;
       for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
         if (sensorsChecked[sensor]) {
           countSensorsChecked++;
@@ -253,6 +255,9 @@ void calibrate_sensors() {
         set_RGB_color(125, 125, 0);
       } else {
         set_RGB_color(0, 125, 0);
+        if(millisSensorsChecked == 0){
+          millisSensorsChecked = get_clock_ticks();
+        }
       }
     }
 

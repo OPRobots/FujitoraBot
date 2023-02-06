@@ -24,23 +24,23 @@ void sys_tick_handler(void) {
 int main(void) {
   setup();
 
-  calibrate_sensors();
-  // int32_t last_micrometers_l = 0;
-  // int32_t last_micrometers_r = 0;
-  /* while (1) {
+  do {
+    check_menu_button();
+  } while (in_debug_mode() || !get_start_btn());
+  do {
+    reset_menu_mode();
+    set_RGB_color(0, 0, 0);
+  } while (get_start_btn());
 
-    if (get_start_btn()) {
-      toggle_tipo_morro();
-      delay(250);
-    }
-  } */
+  calibrate_sensors();
+
+  do {
+    set_RGB_color(0, 0, 0);
+    set_status_led(false);
+  } while (get_start_btn());
+
   uint32_t millis_iniciado = 0;
   while (1) {
-    // printf("%d\n", get_toggle_ticks());
-    // delay(25);
-    // printf("%d\n", get_speed_correction());
-    // delay(25);
-
     if (!is_competicion_iniciada()) {
       check_menu_button();
       if (!in_debug_mode()) {
@@ -83,7 +83,7 @@ int main(void) {
         }
       }
     } else {
-      if(get_config_run() != CONFIG_RUN_RACE && get_clock_ticks() - millis_iniciado > 5000) {
+      if (get_config_run() != CONFIG_RUN_RACE && get_clock_ticks() - millis_iniciado > 5000) {
         emergency_stop();
       }
       // if (last_micrometers_r == 0 || last_micrometers_l == 0 || abs(last_micrometers_r - get_encoder_right_micrometers()) >= 10000 || abs(last_micrometers_l - get_encoder_left_micrometers()) >= 10000) {
@@ -123,8 +123,6 @@ int main(void) {
       // delay(1);
       // debug_accel();
       // printf("%ld (%.2f - %.2f)\n", get_sensor_line_position(), get_encoder_left_speed(), get_encoder_right_speed());
-      
-     
     }
   }
 }

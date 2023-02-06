@@ -152,17 +152,18 @@ void set_all_configs(void) {
     set_config_speed(CONFIG_SPEED_PWM);
   }
 
+
   // set_config_track(CONFIG_TRACK_ROBOTRACER);
   set_config_track(CONFIG_TRACK_LINEFOLLOWER);
 
-  set_config_track_type(CONFIG_TRACK_TYPE_ENHANCED);
-  // set_config_track_type(CONFIG_TRACK_TYPE_NORMAL);
+  // set_config_track_type(CONFIG_TRACK_TYPE_ENHANCED);
+  set_config_track_type(CONFIG_TRACK_TYPE_NORMAL);
 
-  set_config_robot(CONFIG_ROBOT_ROBOTRACER);
-  // set_config_robot(CONFIG_ROBOT_LINEFOLLOWER);
+  // set_config_robot(CONFIG_ROBOT_ROBOTRACER);
+  set_config_robot(CONFIG_ROBOT_LINEFOLLOWER);
 
-  // set_config_line(CONFIG_LINE_BLACK);
-  set_config_line(CONFIG_LINE_WHITE);
+  set_config_line(CONFIG_LINE_BLACK);
+  // set_config_line(CONFIG_LINE_WHITE);
 
   set_micrometers_per_tick();
 }
