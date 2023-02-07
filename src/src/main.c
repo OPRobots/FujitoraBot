@@ -19,6 +19,9 @@ void sys_tick_handler(void) {
     init_esc();
   }
   update_encoder_readings();
+  if (is_competicion_iniciada()) {
+    update_log();
+  }
 }
 
 int main(void) {
@@ -83,8 +86,9 @@ int main(void) {
         }
       }
     } else {
+
       if (get_config_run() != CONFIG_RUN_RACE && get_clock_ticks() - millis_iniciado > 5000) {
-        emergency_stop();
+        // emergency_stop();
       }
       // if (last_micrometers_r == 0 || last_micrometers_l == 0 || abs(last_micrometers_r - get_encoder_right_micrometers()) >= 10000 || abs(last_micrometers_l - get_encoder_left_micrometers()) >= 10000) {
       // last_micrometers_r = get_encoder_right_micrometers();

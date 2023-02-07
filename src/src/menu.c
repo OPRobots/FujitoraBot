@@ -47,7 +47,7 @@ static void handle_menu_value() {
         debug_sensors_calibration();
         set_status_led(true);
       }else if(get_menu_down_btn()){
-        // TODO: debug_log();
+        debug_log();
         set_status_led(true);
       }else{
         set_status_led(false);

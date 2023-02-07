@@ -8,6 +8,7 @@ static float accelerationMss = 0.0;
 static float decelerationMss = 0.0;
 static int32_t velocidadVentiladorIdeal = 0;
 static bool competicionIniciada = false;
+static uint32_t competicionIniciadaMillis = 0;
 volatile static float correccion_velocidad = 0;
 volatile static float error_anterior = 0;
 volatile static float suma_error_ms = 0;
@@ -84,6 +85,15 @@ bool is_competicion_iniciada() {
 
 void set_competicion_iniciada(bool state) {
   competicionIniciada = state;
+  if(state) {
+    competicionIniciadaMillis = get_clock_ticks();
+  }else{
+    competicionIniciadaMillis = 0;
+  }
+}
+
+uint32_t get_competicion_iniciada_millis() {
+  return competicionIniciadaMillis;
 }
 
 /**

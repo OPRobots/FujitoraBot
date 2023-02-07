@@ -3,6 +3,14 @@
 bool debug_enabled = false;
 uint32_t last_print_debug = 0;
 
+#define LOG_SIZE 1000
+#define LOG_FIELDS 2
+#define LOG_INTERVAL 1
+uint32_t last_log_millis = 0;
+uint16_t arr_log_index = 0;
+
+int32_t arr_log[LOG_SIZE][LOG_FIELDS];
+
 /**
  * @brief Imprime los valores de los sensores sin aplicar ninguna corrección
  * 
@@ -176,7 +184,6 @@ void debug_from_config(uint8_t type) {
   }
 }
 
-
 void debug_sensors_calibration() {
   if (get_clock_ticks() > last_print_debug + 1000) {
     print_sensors_calibrations();
@@ -184,10 +191,29 @@ void debug_sensors_calibration() {
   }
 }
 
-void update_log(){
-  
+void update_log() {
+  if (get_clock_ticks() > last_log_millis + LOG_INTERVAL) {
+    if (arr_log_index >= LOG_SIZE - 1) {
+      for (uint16_t i = 0; i < LOG_SIZE - 1; i++) {
+        for (uint16_t j = 0; j < LOG_FIELDS - 1; j++) {
+          arr_log[i][j] = arr_log[i + 1][j];
+        }
+      }
+    }
+
+    arr_log[arr_log_index][0] = get_sensor_line_position();
+    arr_log[arr_log_index][1] = get_encoder_avg_speed()*100;
+
+    if (arr_log_index < LOG_SIZE - 1) {
+      arr_log_index++;
+    }
+    last_log_millis = get_clock_ticks();
+  }
 }
 
-void debug_log(){
-
+void debug_log() {
+  printf("%s;%s;%s\n", "time", "line_position", "avg_speed_ms");
+  for (uint16_t i = 0; i <= arr_log_index; i++) {
+    printf("%d;%ld;%ld\n", i*LOG_INTERVAL, arr_log[i][0], arr_log[i][1]);
+  }
 }

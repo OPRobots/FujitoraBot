@@ -24,7 +24,7 @@ static uint16_t sensores_max_robotracer_largo[NUM_SENSORES_MAX];
 static uint16_t sensores_min_robotracer_largo[NUM_SENSORES_MAX];
 static uint16_t sensores_umb_robotracer_largo[NUM_SENSORES_MAX];
 
-static int32_t line_position = 0;
+static volatile int32_t line_position = 0;
 static uint32_t ultimaLinea = 0;
 static bool left_mark = false;
 static bool right_mark = false;

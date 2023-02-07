@@ -17,6 +17,7 @@
 
 bool is_competicion_iniciada();
 void set_competicion_iniciada(bool state);
+uint32_t get_competicion_iniciada_millis();
 
 void pid_speed_timer_custom_isr();
 float calc_pid_correction(int32_t posicion);
