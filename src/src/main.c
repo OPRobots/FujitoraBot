@@ -47,7 +47,7 @@ int main(void) {
     if (!is_competicion_iniciada()) {
       check_menu_button();
       if (!in_debug_mode()) {
-        if (get_start_btn()) {
+        if (get_start_btn() && get_swtich_3()) {
           reset_menu_mode();
           set_status_led(false);
           while (get_start_btn()) {
@@ -87,8 +87,8 @@ int main(void) {
       }
     } else {
 
-      if (get_config_run() != CONFIG_RUN_RACE && get_clock_ticks() - millis_iniciado > 5000) {
-        // emergency_stop();
+      if ((get_config_run() == CONFIG_RUN_DEBUG && get_clock_ticks() - millis_iniciado > 5000) || !get_swtich_3()) {
+        emergency_stop();
       }
       // if (last_micrometers_r == 0 || last_micrometers_l == 0 || abs(last_micrometers_r - get_encoder_right_micrometers()) >= 10000 || abs(last_micrometers_l - get_encoder_left_micrometers()) >= 10000) {
       // last_micrometers_r = get_encoder_right_micrometers();
