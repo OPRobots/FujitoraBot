@@ -4,11 +4,11 @@ uint8_t modoConfig = 0;
 #define MODE_NOTHING 0
 #define MODE_SPEED 1
 #define MODE_FANS 2
-#define MODE_TIPO_MORRO 3
-#define MODE_DEBUG 4
+// #define MODE_TIPO_MORRO 3
+#define MODE_DEBUG 3
 #define NUM_MODOS_RACE 3
-#define NUM_MODOS_DEBUG 5
-int8_t valorConfig[NUM_MODOS_DEBUG] = {0, 0, 0, 0, 0};
+#define NUM_MODOS_DEBUG 4
+int8_t valorConfig[NUM_MODOS_DEBUG] = {0, 0, 0, 0/* , 0 */};
 #define NUM_VALORES 9
 #define NUM_VALORES_TIPO_MORRO 2
 
@@ -191,24 +191,24 @@ static void handle_menu_value() {
           break;
       }
       break;
-    case MODE_TIPO_MORRO:
-      switch (valorConfig[modoConfig]) {
-        case 0: // MORRO AUTOMATICO
-          set_RGB_color(75, 0, 75);
-          set_morro_auto(true);
-          break;
-        case 1: // MORRO CORTO
-          set_RGB_color(0, 75, 0);
-          activar_morro_corto();
-          set_morro_auto(false);
-          break;
-        case 2: // MORRO LARGO
-          set_RGB_color(75, 0, 0);
-          activar_morro_largo();
-          set_morro_auto(false);
-          break;
-      }
-      break;
+    // case MODE_TIPO_MORRO:
+    //   switch (valorConfig[modoConfig]) {
+    //     case 0: // MORRO AUTOMATICO
+    //       set_RGB_color(75, 0, 75);
+    //       set_morro_auto(true);
+    //       break;
+    //     case 1: // MORRO CORTO
+    //       set_RGB_color(0, 75, 0);
+    //       activar_morro_corto();
+    //       set_morro_auto(false);
+    //       break;
+    //     case 2: // MORRO LARGO
+    //       set_RGB_color(75, 0, 0);
+    //       activar_morro_largo();
+    //       set_morro_auto(false);
+    //       break;
+    //   }
+    //   break;
     case MODE_DEBUG:
       switch (valorConfig[modoConfig]) {
         case 0:
@@ -286,11 +286,11 @@ void check_menu_button() {
     valorConfig[modoConfig]++;
 
     switch (modoConfig) {
-      case MODE_TIPO_MORRO:
-        if (valorConfig[modoConfig] > NUM_VALORES_TIPO_MORRO) {
-          valorConfig[modoConfig] = NUM_VALORES_TIPO_MORRO;
-        }
-        break;
+      // case MODE_TIPO_MORRO:
+      //   if (valorConfig[modoConfig] > NUM_VALORES_TIPO_MORRO) {
+      //     valorConfig[modoConfig] = NUM_VALORES_TIPO_MORRO;
+      //   }
+      //   break;
       default:
         if (valorConfig[modoConfig] > NUM_VALORES) {
           valorConfig[modoConfig] = NUM_VALORES;

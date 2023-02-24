@@ -201,22 +201,23 @@ uint16_t get_sensor_calibrated(uint8_t pos) {
 }
 
 void calibrate_sensors() {
-  bool skip_calibration = get_config_run() == CONFIG_RUN_RACE; // En modo carrera, se calibra automáticamente por defecto.
-  bool pushFlag = false;
+  bool skip_calibration = false;
+  bool pushFlag = (get_config_run() == CONFIG_RUN_RACE); // En modo carrera, se calibra automáticamente por defecto.
   while (!get_start_btn()) {
     set_neon_heartbeat();
     if (get_menu_mode_btn()) {
-      if (!pushFlag) {
-        skip_calibration = !skip_calibration;
-        pushFlag = true;
+      pushFlag = !pushFlag;
+      set_status_led(pushFlag);
+      while (get_menu_mode_btn()) {
       }
-    } else {
-      pushFlag = false;
     }
-    set_status_led(skip_calibration);
+    set_status_led(pushFlag);
   }
   while (get_start_btn()) {
     set_neon_heartbeat();
+  }
+  if (pushFlag) {
+    skip_calibration = true;
   }
   while (skip_calibration && !is_esc_inited()) {
   }
@@ -233,7 +234,7 @@ void calibrate_sensors() {
     uint8_t countSensorsChecked = 0;
     uint32_t millisSensorsChecked = 0;
     while (!get_start_btn() && (countSensorsChecked < get_sensors_num() || get_clock_ticks() - millisSensorsChecked < 500)) {
-      
+
       for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
         if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
           if (get_sensor_calibrated(sensor) >= sensores_umb_linefollower[sensor]) {
@@ -241,7 +242,7 @@ void calibrate_sensors() {
           }
         }
       }
-      
+
       countSensorsChecked = 0;
       for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
         if (sensorsChecked[sensor]) {
@@ -255,7 +256,7 @@ void calibrate_sensors() {
         set_RGB_color(125, 125, 0);
       } else {
         set_RGB_color(0, 125, 0);
-        if(millisSensorsChecked == 0){
+        if (millisSensorsChecked == 0) {
           millisSensorsChecked = get_clock_ticks();
         }
       }
