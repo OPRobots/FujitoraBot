@@ -7,6 +7,7 @@ static float velocidadObjetivoMs = 0.0;
 static float accelerationMss = 0.0;
 static float decelerationMss = 0.0;
 static int32_t velocidadVentiladorIdeal = 0;
+static bool fullVelocidadVentilador = false;
 static bool competicionIniciada = false;
 static uint32_t competicionIniciadaMillis = 0;
 volatile static float correccion_velocidad = 0;
@@ -85,9 +86,9 @@ bool is_competicion_iniciada() {
 
 void set_competicion_iniciada(bool state) {
   competicionIniciada = state;
-  if(state) {
+  if (state) {
     competicionIniciadaMillis = get_clock_ticks();
-  }else{
+  } else {
     competicionIniciadaMillis = 0;
   }
 }
@@ -129,6 +130,9 @@ void pid_speed_timer_custom_isr() {
         }
         if (get_encoder_avg_speed() > 0.25) {
           velocidad = MIN_SPEED_PERCENT + calc_ms_pid_correction(get_encoder_avg_speed());
+          if (get_encoder_avg_speed() > 0.5) {
+            fullVelocidadVentilador = true;
+          }
         } else {
           velocidad = 15;
           suma_error_ms = 0;
@@ -159,6 +163,9 @@ void pid_speed_timer_custom_isr() {
         } else if (velocidad != velocidadIdeal) {
           velocidad = velocidadIdeal;
         }
+        if (velocidad > 30) {
+          fullVelocidadVentilador = true;
+        }
       } else {
         velocidad = 0;
         set_motors_speed(0, 0);
@@ -186,7 +193,7 @@ void pid_speed_timer_custom_isr() {
     }
     set_motors_speed(velD, velI);
     if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
-      set_fan_speed(velocidadVentiladorIdeal);
+      set_fan_speed(fullVelocidadVentilador ? velocidadVentiladorIdeal : (velocidadVentiladorIdeal / 2));
     }
 
   } else {
@@ -258,6 +265,7 @@ void resume_pid_speed_timer() {
   velocidad = 0;
   correccion_velocidad = 0;
   velocidadObjetivoMs = 0;
+  fullVelocidadVentilador = false;
   if (get_config_track() == CONFIG_TRACK_ROBOTRACER) {
     robotracer_restart();
   }
