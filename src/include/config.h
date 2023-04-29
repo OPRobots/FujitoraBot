@@ -23,7 +23,7 @@
 // #define KI 0
 // #define KD 1.25
 
-// ROBOTRACER - MORRO CORTO
+// ROBOTRACER
 #define KP 0.045 // 0.04 //0.02 //0.022
 #define KI 0
 #define KD 2.85 // 2.5 //0.4 //0.25
