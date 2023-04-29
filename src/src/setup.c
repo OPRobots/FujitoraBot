@@ -1,4 +1,4 @@
-#include <setup.h>
+#include "setup.h"
 
 /**
  * @brief Configura los relojes principales del robot
@@ -89,7 +89,6 @@ static void setup_gpio() {
 
     // Salidas digitales de conmutación de morros
     gpio_mode_setup(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO0 | GPIO1);
-    activar_morro_corto();
   }
 
   // Entradas analógicas sensores de marcas

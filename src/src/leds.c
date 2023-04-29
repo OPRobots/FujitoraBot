@@ -1,4 +1,4 @@
-#include <leds.h>
+#include "leds.h"
 
 int lastTicksRainbow = 0;
 uint32_t rainbowRGB[3] = {LEDS_MAX_PWM, 0, 0};
@@ -10,7 +10,7 @@ int lastTicksWarning = 0;
 
 /**
  * @brief Establece el estado del led de estado
- * 
+ *
  * @param state Estado del led
  */
 void set_status_led(bool state) {
@@ -23,7 +23,7 @@ void set_status_led(bool state) {
 
 /**
  * @brief Aleterna el estado del led de estado
- * 
+ *
  */
 void toggle_status_led() {
   gpio_toggle(GPIOA, GPIO12);
@@ -31,7 +31,7 @@ void toggle_status_led() {
 
 /**
  * @brief Activa el modo warning del led de estado
- * 
+ *
  * @param ms Tiempo entre cambios de estado del modo warning
  */
 void warning_status_led(uint16_t ms) {
@@ -43,10 +43,10 @@ void warning_status_led(uint16_t ms) {
 
 /**
  * @brief Set the RGB color object
- * 
- * @param r 
- * @param g 
- * @param b 
+ *
+ * @param r
+ * @param g
+ * @param b
  */
 void set_RGB_color(uint32_t r, uint32_t g, uint32_t b) {
   timer_set_oc_value(TIM1, TIM_OC4, r);
@@ -95,8 +95,8 @@ void set_neon_heartbeat() {
   }
 }
 
-void all_leds_clear(){
+void all_leds_clear() {
   set_neon_fade(0);
-  set_RGB_color(0,0,0);
+  set_RGB_color(0, 0, 0);
   set_status_led(false);
 }

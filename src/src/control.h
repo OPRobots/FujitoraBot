@@ -1,19 +1,19 @@
 #ifndef __CONTROL_H
 #define __CONTROL_H
 
-#include <config.h>
+#include "config.h"
+#include "delay.h"
+#include "encoders.h"
+#include "leds.h"
+#include "robotracer.h"
+#include "sensors.h"
+#include "stdio.h"
+#include "usart.h"
+#include "utils.h"
+
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/timer.h>
 #include <math.h>
-#include <sensors.h>
-#include <encoders.h>
-#include <usart.h>
-#include <stdio.h>
-#include <utils.h>
-#include <delay.h>
-#include <leds.h>
-#include <robotracer.h>
-
 
 bool is_competicion_iniciada();
 void set_competicion_iniciada(bool state);

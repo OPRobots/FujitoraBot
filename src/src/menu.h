@@ -1,11 +1,11 @@
 #ifndef __MENU_H
 #define __MENU_H
 
-#include <config.h>
-#include <debug.h>
-#include <buttons.h>
-#include <leds.h>
-#include <sensors.h>
+#include "buttons.h"
+#include "config.h"
+#include "debug.h"
+#include "leds.h"
+#include "sensors.h"
 
 void check_menu_button();
 uint8_t get_base_speed();

@@ -1,4 +1,4 @@
-#include <config.h>
+#include "config.h"
 
 uint16_t _run_mode;
 uint16_t _speed_mode;

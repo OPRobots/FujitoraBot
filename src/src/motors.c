@@ -1,4 +1,4 @@
-#include <motors.h>
+#include "motors.h"
 
 static bool escInited = false;
 static uint32_t escInitMillis = 0;
@@ -81,7 +81,6 @@ void set_fan_speed(uint8_t vel) {
   timer_set_oc_value(TIM8, TIM_OC1, ocF);
   timer_set_oc_value(TIM8, TIM_OC3, ocF);
 }
-
 
 void set_fans_speed(int8_t velI, int8_t velD) {
   if (!escInited) {

@@ -1,5 +1,4 @@
-#include <buttons.h>
-#include <delay.h>
+#include "buttons.h"
 
 /**
  * @brief Obtiene el estado del botón de inicio

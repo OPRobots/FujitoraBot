@@ -1,4 +1,4 @@
-#include <debug.h>
+#include "debug.h"
 
 bool debug_enabled = false;
 uint32_t last_print_debug = 0;
@@ -13,7 +13,7 @@ int32_t arr_log[LOG_SIZE][LOG_FIELDS];
 
 /**
  * @brief Imprime los valores de los sensores sin aplicar ninguna corrección
- * 
+ *
  */
 static void debug_sensors_raw() {
   if (get_clock_ticks() > last_print_debug + 50) {
@@ -24,14 +24,8 @@ static void debug_sensors_raw() {
 
     if (get_config_robot() == CONFIG_ROBOT_ROBOTRACER) {
       printf("\t");
-      if (get_tipo_morro() == TIPO_MORRO_CORTO) {
-        for (int8_t sensor = get_sensors_line_num(); sensor < get_sensors_num(); sensor++) {
-          printf("%d\t", get_sensor_raw(sensor));
-        }
-      } else {
-        for (int8_t sensor = get_sensors_line_num(); sensor < get_sensors_num() - 4; sensor++) {
-          printf("%d\t", get_sensor_raw(sensor));
-        }
+      for (int8_t sensor = get_sensors_line_num(); sensor < get_sensors_num(); sensor++) {
+        printf("%d\t", get_sensor_raw(sensor));
       }
     }
     printf("\n");
@@ -41,7 +35,7 @@ static void debug_sensors_raw() {
 
 /**
  * @brief Imprime los valores de los sensores calibrándolos y escalandolos
- * 
+ *
  */
 static void debug_sensors_calibrated() {
   if (get_clock_ticks() > last_print_debug + 50) {
@@ -51,14 +45,8 @@ static void debug_sensors_calibrated() {
 
     if (get_config_robot() == CONFIG_ROBOT_ROBOTRACER) {
       printf("\t");
-      if (get_tipo_morro() == TIPO_MORRO_CORTO) {
-        for (int8_t sensor = get_sensors_line_num(); sensor < get_sensors_num(); sensor++) {
-          printf("%d\t", get_sensor_calibrated(sensor));
-        }
-      } else {
-        for (int8_t sensor = get_sensors_line_num(); sensor < get_sensors_num() - 4; sensor++) {
-          printf("%d\t", get_sensor_calibrated(sensor));
-        }
+      for (int8_t sensor = get_sensors_line_num(); sensor < get_sensors_num(); sensor++) {
+        printf("%d\t", get_sensor_calibrated(sensor));
       }
     }
     printf("\n");
@@ -101,8 +89,6 @@ static void debug_line_position() {
 static void debug_encoders() {
   if (get_clock_ticks() > last_print_debug + 50) {
     printf("%ld (%ld)\t%ld (%ld)\n", get_encoder_left_total_ticks(), get_encoder_left_micrometers(), get_encoder_right_total_ticks(), get_encoder_right_micrometers());
-    // printf("%.4f\t%.4f | %.4f\n", get_encoder_x_position(), get_encoder_y_position(), get_encoder_curernt_angle());
-    // printf("%.4f | %.4f - %.4f\n", get_encoder_curernt_angle(),get_encoder_avg_micrometers(), get_encoder_angular_speed());
     last_print_debug = get_clock_ticks();
   }
 }
@@ -202,7 +188,7 @@ void update_log() {
     }
 
     arr_log[arr_log_index][0] = get_sensor_line_position();
-    arr_log[arr_log_index][1] = get_encoder_avg_speed()*100;
+    arr_log[arr_log_index][1] = get_encoder_avg_speed() * 100;
 
     if (arr_log_index < LOG_SIZE - 1) {
       arr_log_index++;
@@ -214,6 +200,6 @@ void update_log() {
 void debug_log() {
   printf("%s;%s;%s\n", "time", "line_position", "avg_speed_ms");
   for (uint16_t i = 0; i <= arr_log_index; i++) {
-    printf("%d;%ld;%ld\n", i*LOG_INTERVAL, arr_log[i][0], arr_log[i][1]);
+    printf("%d;%ld;%ld\n", i * LOG_INTERVAL, arr_log[i][0], arr_log[i][1]);
   }
 }

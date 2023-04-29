@@ -1,12 +1,11 @@
 #ifndef __ENCODERS_H
 #define __ENCODERS_H
 
-#include <stdint.h>
-
-#include <libopencm3/stm32/timer.h>
-
 #include "config.h"
 #include "setup.h"
+
+#include <libopencm3/stm32/timer.h>
+#include <stdint.h>
 
 float get_wheels_separation(void);
 void set_wheels_separation(float value);

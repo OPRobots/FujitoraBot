@@ -1,11 +1,10 @@
 #ifndef __DELAY_H
 #define __DELAY_H
 
-#include <stdint.h>
+#include "setup.h"
 
 #include <libopencm3/cm3/dwt.h>
-
-#include "setup.h"
+#include <stdint.h>
 
 void delay(uint32_t ms);
 void delay_us(uint32_t us);
