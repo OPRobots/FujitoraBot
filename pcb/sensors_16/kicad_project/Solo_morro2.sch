@@ -1,0 +1,1826 @@
+EESchema Schematic File Version 4
+LIBS:PCB_Fujitora_morro-cache
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue SM3
+U 1 1 5CCAB1C1
+P 10100 2400
+F 0 "SM3" H 10350 2550 60  0000 L CNN
+F 1 "QRE1113" H 10350 2150 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 10200 2500 60  0001 C CNN
+F 3 "" H 10200 2500 60  0000 C CNN
+	1    10100 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue SM4
+U 1 1 5CCAB1C8
+P 10100 4000
+F 0 "SM4" H 10350 4150 60  0000 L CNN
+F 1 "QRE1113" H 10350 3750 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 10200 4100 60  0001 C CNN
+F 3 "" H 10200 4100 60  0000 C CNN
+	1    10100 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R RM6
+U 1 1 5CCAB1CF
+P 9900 3250
+F 0 "RM6" V 9980 3250 50  0000 C CNN
+F 1 "47" V 9900 3250 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 9830 3250 50  0001 C CNN
+F 3 "" H 9900 3250 50  0001 C CNN
+	1    9900 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0106
+U 1 1 5CCAB1D6
+P 10300 2800
+F 0 "#PWR0106" H 10300 2550 50  0001 C CNN
+F 1 "GND" H 10300 2650 50  0000 C CNN
+F 2 "" H 10300 2800 50  0001 C CNN
+F 3 "" H 10300 2800 50  0001 C CNN
+	1    10300 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0107
+U 1 1 5CCAB1DC
+P 10300 4400
+F 0 "#PWR0107" H 10300 4150 50  0001 C CNN
+F 1 "GND" H 10300 4250 50  0000 C CNN
+F 2 "" H 10300 4400 50  0001 C CNN
+F 3 "" H 10300 4400 50  0001 C CNN
+	1    10300 4400
+	1    0    0    -1  
+$EndComp
+Text Label 10600 2150 2    60   ~ 0
+SM3
+$Comp
+L Device:R RM4
+U 1 1 5CCAB1E3
+P 10300 3550
+F 0 "RM4" V 10380 3550 50  0000 C CNN
+F 1 "20K" V 10300 3550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 10230 3550 50  0001 C CNN
+F 3 "" H 10300 3550 50  0001 C CNN
+	1    10300 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0108
+U 1 1 5CCAB1EA
+P 10300 3300
+F 0 "#PWR0108" H 10300 3150 50  0001 C CNN
+F 1 "+3.3V" H 10300 3440 50  0000 C CNN
+F 2 "" H 10300 3300 50  0001 C CNN
+F 3 "" H 10300 3300 50  0001 C CNN
+	1    10300 3300
+	1    0    0    -1  
+$EndComp
+Text Label 10600 3750 2    60   ~ 0
+SM4
+$Comp
+L Device:R RM3
+U 1 1 5CCAB1F1
+P 10300 1950
+F 0 "RM3" V 10380 1950 50  0000 C CNN
+F 1 "20K" V 10300 1950 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 10230 1950 50  0001 C CNN
+F 3 "" H 10300 1950 50  0001 C CNN
+	1    10300 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0109
+U 1 1 5CCAB1F8
+P 10300 1700
+F 0 "#PWR0109" H 10300 1550 50  0001 C CNN
+F 1 "+3.3V" H 10300 1840 50  0000 C CNN
+F 2 "" H 10300 1700 50  0001 C CNN
+F 3 "" H 10300 1700 50  0001 C CNN
+	1    10300 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0110
+U 1 1 5CCAB1FE
+P 9900 1700
+F 0 "#PWR0110" H 9900 1550 50  0001 C CNN
+F 1 "+3.3V" H 9900 1840 50  0000 C CNN
+F 2 "" H 9900 1700 50  0001 C CNN
+F 3 "" H 9900 1700 50  0001 C CNN
+	1    9900 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10300 2700 10300 2750
+Wire Wire Line
+	10300 4300 10300 4350
+Wire Wire Line
+	10300 3700 10300 3750
+Wire Wire Line
+	10300 3750 10600 3750
+Wire Wire Line
+	10300 2100 10300 2150
+Wire Wire Line
+	10300 1700 10300 1750
+Wire Wire Line
+	10300 2150 10600 2150
+Connection ~ 10300 2150
+Connection ~ 10300 3750
+Wire Wire Line
+	9900 4300 9900 4350
+Connection ~ 10300 4350
+$Comp
+L Device:C C14
+U 1 1 5CCAB213
+P 10950 2150
+F 0 "C14" H 10975 2250 50  0000 L CNN
+F 1 "0.1uF" H 10975 2050 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 10988 2000 50  0001 C CNN
+F 3 "" H 10950 2150 50  0001 C CNN
+	1    10950 2150
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	10950 2750 10950 2300
+Wire Wire Line
+	10950 1750 10950 2000
+$Comp
+L Device:C C15
+U 1 1 5CCAB21C
+P 10950 3800
+F 0 "C15" H 10975 3900 50  0000 L CNN
+F 1 "0.1uF" H 10975 3700 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 10988 3650 50  0001 C CNN
+F 3 "" H 10950 3800 50  0001 C CNN
+	1    10950 3800
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	10950 3350 10950 3650
+Wire Wire Line
+	10950 4350 10950 3950
+Connection ~ 10300 1750
+Connection ~ 10300 2750
+Wire Wire Line
+	10300 2150 10300 2200
+Wire Wire Line
+	10300 3750 10300 3800
+Wire Wire Line
+	10300 4350 10300 4400
+Wire Wire Line
+	10300 1750 10300 1800
+Wire Wire Line
+	10300 2750 10300 2800
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue SM1
+U 1 1 5CCAB233
+P 8600 2400
+F 0 "SM1" H 8850 2550 60  0000 L CNN
+F 1 "QRE1113" H 8850 2150 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 8700 2500 60  0001 C CNN
+F 3 "" H 8700 2500 60  0000 C CNN
+	1    8600 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue SM2
+U 1 1 5CCAB23A
+P 8600 4000
+F 0 "SM2" H 8850 4150 60  0000 L CNN
+F 1 "QRE1113" H 8850 3750 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 8700 4100 60  0001 C CNN
+F 3 "" H 8700 4100 60  0000 C CNN
+	1    8600 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R RM5
+U 1 1 5CCAB241
+P 8400 3250
+F 0 "RM5" V 8480 3250 50  0000 C CNN
+F 1 "47" V 8400 3250 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 8330 3250 50  0001 C CNN
+F 3 "" H 8400 3250 50  0001 C CNN
+	1    8400 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0111
+U 1 1 5CCAB248
+P 8800 2800
+F 0 "#PWR0111" H 8800 2550 50  0001 C CNN
+F 1 "GND" H 8800 2650 50  0000 C CNN
+F 2 "" H 8800 2800 50  0001 C CNN
+F 3 "" H 8800 2800 50  0001 C CNN
+	1    8800 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0112
+U 1 1 5CCAB24E
+P 8800 4400
+F 0 "#PWR0112" H 8800 4150 50  0001 C CNN
+F 1 "GND" H 8800 4250 50  0000 C CNN
+F 2 "" H 8800 4400 50  0001 C CNN
+F 3 "" H 8800 4400 50  0001 C CNN
+	1    8800 4400
+	1    0    0    -1  
+$EndComp
+Text Label 9100 2150 2    60   ~ 0
+SM1
+$Comp
+L Device:R RM2
+U 1 1 5CCAB255
+P 8800 3550
+F 0 "RM2" V 8880 3550 50  0000 C CNN
+F 1 "20K" V 8800 3550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 8730 3550 50  0001 C CNN
+F 3 "" H 8800 3550 50  0001 C CNN
+	1    8800 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0113
+U 1 1 5CCAB25C
+P 8800 3300
+F 0 "#PWR0113" H 8800 3150 50  0001 C CNN
+F 1 "+3.3V" H 8800 3440 50  0000 C CNN
+F 2 "" H 8800 3300 50  0001 C CNN
+F 3 "" H 8800 3300 50  0001 C CNN
+	1    8800 3300
+	1    0    0    -1  
+$EndComp
+Text Label 9100 3750 2    60   ~ 0
+SM2
+$Comp
+L Device:R RM1
+U 1 1 5CCAB263
+P 8800 1950
+F 0 "RM1" V 8880 1950 50  0000 C CNN
+F 1 "20K" V 8800 1950 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 8730 1950 50  0001 C CNN
+F 3 "" H 8800 1950 50  0001 C CNN
+	1    8800 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0114
+U 1 1 5CCAB26A
+P 8800 1700
+F 0 "#PWR0114" H 8800 1550 50  0001 C CNN
+F 1 "+3.3V" H 8800 1840 50  0000 C CNN
+F 2 "" H 8800 1700 50  0001 C CNN
+F 3 "" H 8800 1700 50  0001 C CNN
+	1    8800 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0115
+U 1 1 5CCAB270
+P 8400 1700
+F 0 "#PWR0115" H 8400 1550 50  0001 C CNN
+F 1 "+3.3V" H 8400 1840 50  0000 C CNN
+F 2 "" H 8400 1700 50  0001 C CNN
+F 3 "" H 8400 1700 50  0001 C CNN
+	1    8400 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8800 2700 8800 2750
+Wire Wire Line
+	8800 4300 8800 4350
+Wire Wire Line
+	8800 3700 8800 3750
+Wire Wire Line
+	8800 3750 9100 3750
+Wire Wire Line
+	8800 2100 8800 2150
+Wire Wire Line
+	8800 1700 8800 1750
+Wire Wire Line
+	8800 2150 9100 2150
+Connection ~ 8800 2150
+Connection ~ 8800 3750
+Wire Wire Line
+	8400 4300 8400 4350
+Connection ~ 8800 4350
+$Comp
+L Device:C C12
+U 1 1 5CCAB285
+P 9450 2150
+F 0 "C12" H 9475 2250 50  0000 L CNN
+F 1 "0.1uF" H 9475 2050 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 9488 2000 50  0001 C CNN
+F 3 "" H 9450 2150 50  0001 C CNN
+	1    9450 2150
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9450 2750 9450 2300
+Wire Wire Line
+	9450 1750 9450 2000
+$Comp
+L Device:C C13
+U 1 1 5CCAB28E
+P 9450 3800
+F 0 "C13" H 9475 3900 50  0000 L CNN
+F 1 "0.1uF" H 9475 3700 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 9488 3650 50  0001 C CNN
+F 3 "" H 9450 3800 50  0001 C CNN
+	1    9450 3800
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9450 3350 9450 3650
+Wire Wire Line
+	9450 4350 9450 3950
+Connection ~ 8800 1750
+Connection ~ 8800 2750
+Wire Wire Line
+	8800 2150 8800 2200
+Wire Wire Line
+	8800 3750 8800 3800
+Wire Wire Line
+	8800 4350 8800 4400
+Wire Wire Line
+	8800 1750 8800 1800
+Wire Wire Line
+	8800 2750 8800 2800
+$Comp
+L Connector:Conn_01x14_Female MORRO1
+U 1 1 5CCF40EA
+P 1750 6650
+F 0 "MORRO1" V 1822 6580 50  0000 C CNN
+F 1 "Conn_01x14_Female" V 1913 6580 50  0001 C CNN
+F 2 "Conectores SMD:conn_morro_fuji_new" H 1750 6650 50  0001 C CNN
+F 3 "~" H 1750 6650 50  0001 C CNN
+	1    1750 6650
+	-1   0    0    -1  
+$EndComp
+Text Label 2300 6150 2    60   ~ 0
+S1
+Text Label 2300 6250 2    60   ~ 0
+S2
+Text Label 2300 6350 2    60   ~ 0
+S3
+Text Label 2300 6450 2    60   ~ 0
+S4
+Text Label 2300 6550 2    60   ~ 0
+S5
+Text Label 2300 6650 2    60   ~ 0
+S6
+Text Label 2300 6750 2    60   ~ 0
+S7
+Text Label 2300 6850 2    60   ~ 0
+S8
+Text Label 2300 6950 2    60   ~ 0
+S9
+Text Label 2300 7050 2    60   ~ 0
+S10
+Text Label 2300 7150 2    60   ~ 0
+S11
+Text Label 2300 7250 2    60   ~ 0
+S12
+$Comp
+L power:GND #PWR0116
+U 1 1 5D6E42F9
+P 2300 7350
+F 0 "#PWR0116" H 2300 7100 50  0001 C CNN
+F 1 "GND" H 2300 7200 50  0000 C CNN
+F 2 "" H 2300 7350 50  0001 C CNN
+F 3 "" H 2300 7350 50  0001 C CNN
+	1    2300 7350
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+3.3V #PWR0117
+U 1 1 5D6E42FF
+P 2300 6050
+F 0 "#PWR0117" H 2300 5900 50  0001 C CNN
+F 1 "+3.3V" H 2300 6190 50  0000 C CNN
+F 2 "" H 2300 6050 50  0001 C CNN
+F 3 "" H 2300 6050 50  0001 C CNN
+	1    2300 6050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8400 1700 8400 2200
+Wire Wire Line
+	9900 1700 9900 2200
+Wire Wire Line
+	8800 3300 8800 3350
+Wire Wire Line
+	10300 3300 10300 3350
+Connection ~ 10300 3350
+Wire Wire Line
+	10300 3350 10300 3400
+Connection ~ 8800 3350
+Wire Wire Line
+	8800 3350 8800 3400
+Wire Wire Line
+	1950 6150 2300 6150
+Text Notes 8600 1350 0    236  ~ 47
+SENSORES \nDE MARCAS
+Text Notes 1000 5650 0    236  ~ 47
+CONECTORES
+Wire Wire Line
+	1950 6050 2300 6050
+$Comp
+L Connector:Conn_01x02_Female Marcas_I_2
+U 1 1 5CD5C826
+P 3400 7350
+F 0 "Marcas_I_2" H 3294 7117 50  0000 C CNN
+F 1 "Conn_01x02_Female" H 3427 7235 50  0001 L CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x01_P2.54mm_Vertical" H 3400 7350 50  0001 C CNN
+F 3 "~" H 3400 7350 50  0001 C CNN
+	1    3400 7350
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female Marcas_I_1
+U 1 1 5CD5CB37
+P 3400 7050
+F 0 "Marcas_I_1" H 3294 6817 50  0000 C CNN
+F 1 "Conn_01x02_Female" H 3294 6816 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x01_P2.54mm_Vertical" H 3400 7050 50  0001 C CNN
+F 3 "~" H 3400 7050 50  0001 C CNN
+	1    3400 7050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female Marcas_D_2
+U 1 1 5CD991BB
+P 3400 6600
+F 0 "Marcas_D_2" H 3294 6367 50  0000 C CNN
+F 1 "Conn_01x02_Female" H 3294 6366 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x01_P2.54mm_Vertical" H 3400 6600 50  0001 C CNN
+F 3 "~" H 3400 6600 50  0001 C CNN
+	1    3400 6600
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female Marcas_D_1
+U 1 1 5CD991C2
+P 3400 6300
+F 0 "Marcas_D_1" H 3294 6067 50  0000 C CNN
+F 1 "Conn_01x02_Female" H 3294 6066 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x01_P2.54mm_Vertical" H 3400 6300 50  0001 C CNN
+F 3 "~" H 3400 6300 50  0001 C CNN
+	1    3400 6300
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0101
+U 1 1 5CDD692D
+P 3700 6300
+F 0 "#PWR0101" H 3700 6050 50  0001 C CNN
+F 1 "GND" H 3700 6150 50  0000 C CNN
+F 2 "" H 3700 6300 50  0001 C CNN
+F 3 "" H 3700 6300 50  0001 C CNN
+	1    3700 6300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+3.3V #PWR0102
+U 1 1 5CDD6933
+P 3950 6200
+F 0 "#PWR0102" H 3950 6050 50  0001 C CNN
+F 1 "+3.3V" H 3950 6340 50  0000 C CNN
+F 2 "" H 3950 6200 50  0001 C CNN
+F 3 "" H 3950 6200 50  0001 C CNN
+	1    3950 6200
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3600 6200 3950 6200
+Wire Wire Line
+	3600 6300 3700 6300
+$Comp
+L power:GND #PWR0103
+U 1 1 5CF7E0E8
+P 3700 7050
+F 0 "#PWR0103" H 3700 6800 50  0001 C CNN
+F 1 "GND" H 3700 6900 50  0000 C CNN
+F 2 "" H 3700 7050 50  0001 C CNN
+F 3 "" H 3700 7050 50  0001 C CNN
+	1    3700 7050
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:+3.3V #PWR0104
+U 1 1 5CF7E0EE
+P 3950 6950
+F 0 "#PWR0104" H 3950 6800 50  0001 C CNN
+F 1 "+3.3V" H 3950 7090 50  0000 C CNN
+F 2 "" H 3950 6950 50  0001 C CNN
+F 3 "" H 3950 6950 50  0001 C CNN
+	1    3950 6950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3600 6950 3950 6950
+Wire Wire Line
+	3600 7050 3700 7050
+Wire Wire Line
+	3600 6500 4350 6500
+Wire Wire Line
+	3600 6600 4350 6600
+Text Label 4350 6500 2    50   ~ 0
+SM1
+Text Label 4350 6600 2    50   ~ 0
+SM2
+Wire Wire Line
+	3600 7250 4350 7250
+Wire Wire Line
+	3600 7350 4350 7350
+Text Label 4350 7250 2    50   ~ 0
+SM3
+Text Label 4350 7350 2    50   ~ 0
+SM4
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue S1
+U 1 1 5CC4F2A7
+P 1100 2400
+F 0 "S1" H 1350 2550 60  0000 L CNN
+F 1 "QRE1113" H 1350 2150 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 1200 2500 60  0001 C CNN
+F 3 "" H 1200 2500 60  0000 C CNN
+	1    1100 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue S2
+U 1 1 5CC4F2AE
+P 1100 4000
+F 0 "S2" H 1350 4150 60  0000 L CNN
+F 1 "QRE1113" H 1350 3750 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 1200 4100 60  0001 C CNN
+F 3 "" H 1200 4100 60  0000 C CNN
+	1    1100 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R13
+U 1 1 5CC4F2B5
+P 900 3200
+F 0 "R13" V 980 3200 50  0000 C CNN
+F 1 "47" V 900 3200 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 830 3200 50  0001 C CNN
+F 3 "" H 900 3200 50  0001 C CNN
+	1    900  3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0105
+U 1 1 5CC4F2BC
+P 1300 2750
+F 0 "#PWR0105" H 1300 2500 50  0001 C CNN
+F 1 "GND" H 1300 2600 50  0000 C CNN
+F 2 "" H 1300 2750 50  0001 C CNN
+F 3 "" H 1300 2750 50  0001 C CNN
+	1    1300 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0118
+U 1 1 5CC4F2C2
+P 1300 4400
+F 0 "#PWR0118" H 1300 4150 50  0001 C CNN
+F 1 "GND" H 1300 4250 50  0000 C CNN
+F 2 "" H 1300 4400 50  0001 C CNN
+F 3 "" H 1300 4400 50  0001 C CNN
+	1    1300 4400
+	1    0    0    -1  
+$EndComp
+Text Label 1600 2150 2    60   ~ 0
+S1
+$Comp
+L Device:R R2
+U 1 1 5CC4F2C9
+P 1300 3550
+F 0 "R2" V 1380 3550 50  0000 C CNN
+F 1 "20K" V 1300 3550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 1230 3550 50  0001 C CNN
+F 3 "" H 1300 3550 50  0001 C CNN
+	1    1300 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0119
+U 1 1 5CC4F2D0
+P 1300 3400
+F 0 "#PWR0119" H 1300 3250 50  0001 C CNN
+F 1 "+3.3V" H 1300 3540 50  0000 C CNN
+F 2 "" H 1300 3400 50  0001 C CNN
+F 3 "" H 1300 3400 50  0001 C CNN
+	1    1300 3400
+	1    0    0    -1  
+$EndComp
+Text Label 1600 3750 2    60   ~ 0
+S2
+$Comp
+L Device:R R1
+U 1 1 5CC4F2D7
+P 1300 1950
+F 0 "R1" V 1380 1950 50  0000 C CNN
+F 1 "20K" V 1300 1950 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 1230 1950 50  0001 C CNN
+F 3 "" H 1300 1950 50  0001 C CNN
+	1    1300 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0120
+U 1 1 5CC4F2DE
+P 1300 1700
+F 0 "#PWR0120" H 1300 1550 50  0001 C CNN
+F 1 "+3.3V" H 1300 1840 50  0000 C CNN
+F 2 "" H 1300 1700 50  0001 C CNN
+F 3 "" H 1300 1700 50  0001 C CNN
+	1    1300 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0121
+U 1 1 5CC4F2E4
+P 900 1700
+F 0 "#PWR0121" H 900 1550 50  0001 C CNN
+F 1 "+3.3V" H 900 1840 50  0000 C CNN
+F 2 "" H 900 1700 50  0001 C CNN
+F 3 "" H 900 1700 50  0001 C CNN
+	1    900  1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1300 4300 1300 4350
+Wire Wire Line
+	1300 3700 1300 3750
+Wire Wire Line
+	1300 3750 1600 3750
+Wire Wire Line
+	1300 2100 1300 2150
+Wire Wire Line
+	1300 2150 1600 2150
+Connection ~ 1300 2150
+Connection ~ 1300 3750
+Wire Wire Line
+	900  4300 900  4350
+Connection ~ 1300 4350
+Wire Wire Line
+	900  4350 1300 4350
+Wire Wire Line
+	1300 2150 1300 2200
+Wire Wire Line
+	1300 3750 1300 3800
+Wire Wire Line
+	1300 4350 1300 4400
+Wire Wire Line
+	1300 2700 1300 2750
+Text Notes 3300 1150 0    236  ~ 47
+SENSORES
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue S3
+U 1 1 5CC4A4E8
+P 2250 2400
+F 0 "S3" H 2500 2550 60  0000 L CNN
+F 1 "QRE1113" H 2500 2150 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 2350 2500 60  0001 C CNN
+F 3 "" H 2350 2500 60  0000 C CNN
+	1    2250 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue S4
+U 1 1 5CC4A4EF
+P 2250 4000
+F 0 "S4" H 2500 4150 60  0000 L CNN
+F 1 "QRE1113" H 2500 3750 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 2350 4100 60  0001 C CNN
+F 3 "" H 2350 4100 60  0000 C CNN
+	1    2250 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R14
+U 1 1 5CC4A4F6
+P 2050 3200
+F 0 "R14" V 2130 3200 50  0000 C CNN
+F 1 "47" V 2050 3200 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 1980 3200 50  0001 C CNN
+F 3 "" H 2050 3200 50  0001 C CNN
+	1    2050 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0122
+U 1 1 5CC4A4FD
+P 2450 2750
+F 0 "#PWR0122" H 2450 2500 50  0001 C CNN
+F 1 "GND" H 2450 2600 50  0000 C CNN
+F 2 "" H 2450 2750 50  0001 C CNN
+F 3 "" H 2450 2750 50  0001 C CNN
+	1    2450 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0123
+U 1 1 5CC4A503
+P 2450 4400
+F 0 "#PWR0123" H 2450 4150 50  0001 C CNN
+F 1 "GND" H 2450 4250 50  0000 C CNN
+F 2 "" H 2450 4400 50  0001 C CNN
+F 3 "" H 2450 4400 50  0001 C CNN
+	1    2450 4400
+	1    0    0    -1  
+$EndComp
+Text Label 2750 2150 2    60   ~ 0
+S3
+$Comp
+L Device:R R4
+U 1 1 5CC4A50A
+P 2450 3550
+F 0 "R4" V 2530 3550 50  0000 C CNN
+F 1 "20K" V 2450 3550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 2380 3550 50  0001 C CNN
+F 3 "" H 2450 3550 50  0001 C CNN
+	1    2450 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0124
+U 1 1 5CC4A511
+P 2450 3400
+F 0 "#PWR0124" H 2450 3250 50  0001 C CNN
+F 1 "+3.3V" H 2450 3540 50  0000 C CNN
+F 2 "" H 2450 3400 50  0001 C CNN
+F 3 "" H 2450 3400 50  0001 C CNN
+	1    2450 3400
+	1    0    0    -1  
+$EndComp
+Text Label 2750 3750 2    60   ~ 0
+S4
+$Comp
+L Device:R R3
+U 1 1 5CC4A518
+P 2450 1950
+F 0 "R3" V 2530 1950 50  0000 C CNN
+F 1 "20K" V 2450 1950 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 2380 1950 50  0001 C CNN
+F 3 "" H 2450 1950 50  0001 C CNN
+	1    2450 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0125
+U 1 1 5CC4A51F
+P 2450 1700
+F 0 "#PWR0125" H 2450 1550 50  0001 C CNN
+F 1 "+3.3V" H 2450 1840 50  0000 C CNN
+F 2 "" H 2450 1700 50  0001 C CNN
+F 3 "" H 2450 1700 50  0001 C CNN
+	1    2450 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0126
+U 1 1 5CC4A525
+P 2050 1700
+F 0 "#PWR0126" H 2050 1550 50  0001 C CNN
+F 1 "+3.3V" H 2050 1840 50  0000 C CNN
+F 2 "" H 2050 1700 50  0001 C CNN
+F 3 "" H 2050 1700 50  0001 C CNN
+	1    2050 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2450 4300 2450 4350
+Wire Wire Line
+	2450 3700 2450 3750
+Wire Wire Line
+	2450 3750 2750 3750
+Wire Wire Line
+	2450 2100 2450 2150
+Wire Wire Line
+	2450 2150 2750 2150
+Connection ~ 2450 2150
+Connection ~ 2450 3750
+Wire Wire Line
+	2050 4300 2050 4350
+Connection ~ 2450 4350
+Wire Wire Line
+	2050 4350 2450 4350
+Wire Wire Line
+	2450 2150 2450 2200
+Wire Wire Line
+	2450 3750 2450 3800
+Wire Wire Line
+	2450 4350 2450 4400
+Wire Wire Line
+	2450 2700 2450 2750
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue S5
+U 1 1 5CC4D6CA
+P 3450 2400
+F 0 "S5" H 3700 2550 60  0000 L CNN
+F 1 "QRE1113" H 3700 2150 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 3550 2500 60  0001 C CNN
+F 3 "" H 3550 2500 60  0000 C CNN
+	1    3450 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue S6
+U 1 1 5CC4D6D1
+P 3450 4000
+F 0 "S6" H 3700 4150 60  0000 L CNN
+F 1 "QRE1113" H 3700 3750 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 3550 4100 60  0001 C CNN
+F 3 "" H 3550 4100 60  0000 C CNN
+	1    3450 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R15
+U 1 1 5CC4D6D8
+P 3250 3200
+F 0 "R15" V 3330 3200 50  0000 C CNN
+F 1 "47" V 3250 3200 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 3180 3200 50  0001 C CNN
+F 3 "" H 3250 3200 50  0001 C CNN
+	1    3250 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0127
+U 1 1 5CC4D6DF
+P 3650 2750
+F 0 "#PWR0127" H 3650 2500 50  0001 C CNN
+F 1 "GND" H 3650 2600 50  0000 C CNN
+F 2 "" H 3650 2750 50  0001 C CNN
+F 3 "" H 3650 2750 50  0001 C CNN
+	1    3650 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0128
+U 1 1 5CC4D6E5
+P 3650 4400
+F 0 "#PWR0128" H 3650 4150 50  0001 C CNN
+F 1 "GND" H 3650 4250 50  0000 C CNN
+F 2 "" H 3650 4400 50  0001 C CNN
+F 3 "" H 3650 4400 50  0001 C CNN
+	1    3650 4400
+	1    0    0    -1  
+$EndComp
+Text Label 3950 2150 2    60   ~ 0
+S5
+$Comp
+L Device:R R6
+U 1 1 5CC4D6EC
+P 3650 3550
+F 0 "R6" V 3730 3550 50  0000 C CNN
+F 1 "20K" V 3650 3550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 3580 3550 50  0001 C CNN
+F 3 "" H 3650 3550 50  0001 C CNN
+	1    3650 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0129
+U 1 1 5CC4D6F3
+P 3650 3400
+F 0 "#PWR0129" H 3650 3250 50  0001 C CNN
+F 1 "+3.3V" H 3650 3540 50  0000 C CNN
+F 2 "" H 3650 3400 50  0001 C CNN
+F 3 "" H 3650 3400 50  0001 C CNN
+	1    3650 3400
+	1    0    0    -1  
+$EndComp
+Text Label 3950 3750 2    60   ~ 0
+S6
+$Comp
+L Device:R R5
+U 1 1 5CC4D6FA
+P 3650 1950
+F 0 "R5" V 3730 1950 50  0000 C CNN
+F 1 "20K" V 3650 1950 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 3580 1950 50  0001 C CNN
+F 3 "" H 3650 1950 50  0001 C CNN
+	1    3650 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0130
+U 1 1 5CC4D701
+P 3650 1700
+F 0 "#PWR0130" H 3650 1550 50  0001 C CNN
+F 1 "+3.3V" H 3650 1840 50  0000 C CNN
+F 2 "" H 3650 1700 50  0001 C CNN
+F 3 "" H 3650 1700 50  0001 C CNN
+	1    3650 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0131
+U 1 1 5CC4D707
+P 3250 1700
+F 0 "#PWR0131" H 3250 1550 50  0001 C CNN
+F 1 "+3.3V" H 3250 1840 50  0000 C CNN
+F 2 "" H 3250 1700 50  0001 C CNN
+F 3 "" H 3250 1700 50  0001 C CNN
+	1    3250 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3650 4300 3650 4350
+Wire Wire Line
+	3650 3700 3650 3750
+Wire Wire Line
+	3650 3750 3950 3750
+Wire Wire Line
+	3650 2100 3650 2150
+Wire Wire Line
+	3650 2150 3950 2150
+Connection ~ 3650 2150
+Connection ~ 3650 3750
+Wire Wire Line
+	3250 4300 3250 4350
+Connection ~ 3650 4350
+Wire Wire Line
+	3250 4350 3650 4350
+Wire Wire Line
+	3650 2150 3650 2200
+Wire Wire Line
+	3650 3750 3650 3800
+Wire Wire Line
+	3650 4350 3650 4400
+Wire Wire Line
+	3650 2700 3650 2750
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue S7
+U 1 1 5CC51642
+P 4650 2400
+F 0 "S7" H 4900 2550 60  0000 L CNN
+F 1 "QRE1113" H 4900 2150 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 4750 2500 60  0001 C CNN
+F 3 "" H 4750 2500 60  0000 C CNN
+	1    4650 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue S8
+U 1 1 5CC51649
+P 4650 4000
+F 0 "S8" H 4900 4150 60  0000 L CNN
+F 1 "QRE1113" H 4900 3750 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 4750 4100 60  0001 C CNN
+F 3 "" H 4750 4100 60  0000 C CNN
+	1    4650 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R16
+U 1 1 5CC51650
+P 4450 3200
+F 0 "R16" V 4530 3200 50  0000 C CNN
+F 1 "47" V 4450 3200 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 4380 3200 50  0001 C CNN
+F 3 "" H 4450 3200 50  0001 C CNN
+	1    4450 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0132
+U 1 1 5CC51657
+P 4850 2750
+F 0 "#PWR0132" H 4850 2500 50  0001 C CNN
+F 1 "GND" H 4850 2600 50  0000 C CNN
+F 2 "" H 4850 2750 50  0001 C CNN
+F 3 "" H 4850 2750 50  0001 C CNN
+	1    4850 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0133
+U 1 1 5CC5165D
+P 4850 4400
+F 0 "#PWR0133" H 4850 4150 50  0001 C CNN
+F 1 "GND" H 4850 4250 50  0000 C CNN
+F 2 "" H 4850 4400 50  0001 C CNN
+F 3 "" H 4850 4400 50  0001 C CNN
+	1    4850 4400
+	1    0    0    -1  
+$EndComp
+Text Label 5150 2150 2    60   ~ 0
+S7
+$Comp
+L Device:R R8
+U 1 1 5CC51664
+P 4850 3550
+F 0 "R8" V 4930 3550 50  0000 C CNN
+F 1 "20K" V 4850 3550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 4780 3550 50  0001 C CNN
+F 3 "" H 4850 3550 50  0001 C CNN
+	1    4850 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0134
+U 1 1 5CC5166B
+P 4850 3400
+F 0 "#PWR0134" H 4850 3250 50  0001 C CNN
+F 1 "+3.3V" H 4850 3540 50  0000 C CNN
+F 2 "" H 4850 3400 50  0001 C CNN
+F 3 "" H 4850 3400 50  0001 C CNN
+	1    4850 3400
+	1    0    0    -1  
+$EndComp
+Text Label 5150 3750 2    60   ~ 0
+S8
+$Comp
+L Device:R R7
+U 1 1 5CC51672
+P 4850 1950
+F 0 "R7" V 4930 1950 50  0000 C CNN
+F 1 "20K" V 4850 1950 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 4780 1950 50  0001 C CNN
+F 3 "" H 4850 1950 50  0001 C CNN
+	1    4850 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0135
+U 1 1 5CC51679
+P 4850 1700
+F 0 "#PWR0135" H 4850 1550 50  0001 C CNN
+F 1 "+3.3V" H 4850 1840 50  0000 C CNN
+F 2 "" H 4850 1700 50  0001 C CNN
+F 3 "" H 4850 1700 50  0001 C CNN
+	1    4850 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0136
+U 1 1 5CC5167F
+P 4450 1700
+F 0 "#PWR0136" H 4450 1550 50  0001 C CNN
+F 1 "+3.3V" H 4450 1840 50  0000 C CNN
+F 2 "" H 4450 1700 50  0001 C CNN
+F 3 "" H 4450 1700 50  0001 C CNN
+	1    4450 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 4300 4850 4350
+Wire Wire Line
+	4850 3700 4850 3750
+Wire Wire Line
+	4850 3750 5150 3750
+Wire Wire Line
+	4850 2100 4850 2150
+Wire Wire Line
+	4850 2150 5150 2150
+Connection ~ 4850 2150
+Connection ~ 4850 3750
+Wire Wire Line
+	4450 4300 4450 4350
+Connection ~ 4850 4350
+Wire Wire Line
+	4450 4350 4850 4350
+Wire Wire Line
+	4850 2150 4850 2200
+Wire Wire Line
+	4850 3750 4850 3800
+Wire Wire Line
+	4850 4350 4850 4400
+Wire Wire Line
+	4850 2700 4850 2750
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue S9
+U 1 1 5CC51696
+P 5800 2400
+F 0 "S9" H 6050 2550 60  0000 L CNN
+F 1 "QRE1113" H 6050 2150 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 5900 2500 60  0001 C CNN
+F 3 "" H 5900 2500 60  0000 C CNN
+	1    5800 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue S10
+U 1 1 5CC5169D
+P 5800 4000
+F 0 "S10" H 6050 4150 60  0000 L CNN
+F 1 "QRE1113" H 6050 3750 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 5900 4100 60  0001 C CNN
+F 3 "" H 5900 4100 60  0000 C CNN
+	1    5800 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R17
+U 1 1 5CC516A4
+P 5600 3200
+F 0 "R17" V 5680 3200 50  0000 C CNN
+F 1 "47" V 5600 3200 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 5530 3200 50  0001 C CNN
+F 3 "" H 5600 3200 50  0001 C CNN
+	1    5600 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0137
+U 1 1 5CC516AB
+P 6000 2750
+F 0 "#PWR0137" H 6000 2500 50  0001 C CNN
+F 1 "GND" H 6000 2600 50  0000 C CNN
+F 2 "" H 6000 2750 50  0001 C CNN
+F 3 "" H 6000 2750 50  0001 C CNN
+	1    6000 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0138
+U 1 1 5CC516B1
+P 6000 4400
+F 0 "#PWR0138" H 6000 4150 50  0001 C CNN
+F 1 "GND" H 6000 4250 50  0000 C CNN
+F 2 "" H 6000 4400 50  0001 C CNN
+F 3 "" H 6000 4400 50  0001 C CNN
+	1    6000 4400
+	1    0    0    -1  
+$EndComp
+Text Label 6300 2150 2    60   ~ 0
+S9
+$Comp
+L Device:R R10
+U 1 1 5CC516B8
+P 6000 3550
+F 0 "R10" V 6080 3550 50  0000 C CNN
+F 1 "20K" V 6000 3550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 5930 3550 50  0001 C CNN
+F 3 "" H 6000 3550 50  0001 C CNN
+	1    6000 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0139
+U 1 1 5CC516BF
+P 6000 3400
+F 0 "#PWR0139" H 6000 3250 50  0001 C CNN
+F 1 "+3.3V" H 6000 3540 50  0000 C CNN
+F 2 "" H 6000 3400 50  0001 C CNN
+F 3 "" H 6000 3400 50  0001 C CNN
+	1    6000 3400
+	1    0    0    -1  
+$EndComp
+Text Label 6300 3750 2    60   ~ 0
+S10
+$Comp
+L Device:R R9
+U 1 1 5CC516C6
+P 6000 1950
+F 0 "R9" V 6080 1950 50  0000 C CNN
+F 1 "20K" V 6000 1950 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 5930 1950 50  0001 C CNN
+F 3 "" H 6000 1950 50  0001 C CNN
+	1    6000 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0140
+U 1 1 5CC516CD
+P 6000 1700
+F 0 "#PWR0140" H 6000 1550 50  0001 C CNN
+F 1 "+3.3V" H 6000 1840 50  0000 C CNN
+F 2 "" H 6000 1700 50  0001 C CNN
+F 3 "" H 6000 1700 50  0001 C CNN
+	1    6000 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0141
+U 1 1 5CC516D3
+P 5600 1700
+F 0 "#PWR0141" H 5600 1550 50  0001 C CNN
+F 1 "+3.3V" H 5600 1840 50  0000 C CNN
+F 2 "" H 5600 1700 50  0001 C CNN
+F 3 "" H 5600 1700 50  0001 C CNN
+	1    5600 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6000 4300 6000 4350
+Wire Wire Line
+	6000 3700 6000 3750
+Wire Wire Line
+	6000 3750 6300 3750
+Wire Wire Line
+	6000 2100 6000 2150
+Wire Wire Line
+	6000 2150 6300 2150
+Connection ~ 6000 2150
+Connection ~ 6000 3750
+Wire Wire Line
+	5600 4300 5600 4350
+Connection ~ 6000 4350
+Wire Wire Line
+	5600 4350 6000 4350
+Wire Wire Line
+	6000 2150 6000 2200
+Wire Wire Line
+	6000 3750 6000 3800
+Wire Wire Line
+	6000 4350 6000 4400
+Wire Wire Line
+	6000 2700 6000 2750
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue S11
+U 1 1 5CC516EA
+P 7000 2400
+F 0 "S11" H 7250 2550 60  0000 L CNN
+F 1 "QRE1113" H 7250 2150 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 7100 2500 60  0001 C CNN
+F 3 "" H 7100 2500 60  0000 C CNN
+	1    7000 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L PCB_Fujitora_morro-rescue:QRE1113-QRE1113-multiPCB-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora-rescue-PCB_Fujitora_morro-rescue S12
+U 1 1 5CC516F1
+P 7000 4000
+F 0 "S12" H 7250 4150 60  0000 L CNN
+F 1 "QRE1113" H 7250 3750 60  0000 L CNN
+F 2 "QRE1113:QRE1113GR-inv" H 7100 4100 60  0001 C CNN
+F 3 "" H 7100 4100 60  0000 C CNN
+	1    7000 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R18
+U 1 1 5CC516F8
+P 6800 3200
+F 0 "R18" V 6880 3200 50  0000 C CNN
+F 1 "47" V 6800 3200 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 6730 3200 50  0001 C CNN
+F 3 "" H 6800 3200 50  0001 C CNN
+	1    6800 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0142
+U 1 1 5CC516FF
+P 7200 2750
+F 0 "#PWR0142" H 7200 2500 50  0001 C CNN
+F 1 "GND" H 7200 2600 50  0000 C CNN
+F 2 "" H 7200 2750 50  0001 C CNN
+F 3 "" H 7200 2750 50  0001 C CNN
+	1    7200 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0143
+U 1 1 5CC51705
+P 7200 4400
+F 0 "#PWR0143" H 7200 4150 50  0001 C CNN
+F 1 "GND" H 7200 4250 50  0000 C CNN
+F 2 "" H 7200 4400 50  0001 C CNN
+F 3 "" H 7200 4400 50  0001 C CNN
+	1    7200 4400
+	1    0    0    -1  
+$EndComp
+Text Label 7500 2150 2    60   ~ 0
+S11
+$Comp
+L Device:R R12
+U 1 1 5CC5170C
+P 7200 3550
+F 0 "R12" V 7280 3550 50  0000 C CNN
+F 1 "20K" V 7200 3550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 7130 3550 50  0001 C CNN
+F 3 "" H 7200 3550 50  0001 C CNN
+	1    7200 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0144
+U 1 1 5CC51713
+P 7200 3400
+F 0 "#PWR0144" H 7200 3250 50  0001 C CNN
+F 1 "+3.3V" H 7200 3540 50  0000 C CNN
+F 2 "" H 7200 3400 50  0001 C CNN
+F 3 "" H 7200 3400 50  0001 C CNN
+	1    7200 3400
+	1    0    0    -1  
+$EndComp
+Text Label 7500 3750 2    60   ~ 0
+S12
+$Comp
+L Device:R R11
+U 1 1 5CC5171A
+P 7200 1950
+F 0 "R11" V 7280 1950 50  0000 C CNN
+F 1 "20K" V 7200 1950 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" V 7130 1950 50  0001 C CNN
+F 3 "" H 7200 1950 50  0001 C CNN
+	1    7200 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0145
+U 1 1 5CC51721
+P 7200 1700
+F 0 "#PWR0145" H 7200 1550 50  0001 C CNN
+F 1 "+3.3V" H 7200 1840 50  0000 C CNN
+F 2 "" H 7200 1700 50  0001 C CNN
+F 3 "" H 7200 1700 50  0001 C CNN
+	1    7200 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0146
+U 1 1 5CC51727
+P 6800 1700
+F 0 "#PWR0146" H 6800 1550 50  0001 C CNN
+F 1 "+3.3V" H 6800 1840 50  0000 C CNN
+F 2 "" H 6800 1700 50  0001 C CNN
+F 3 "" H 6800 1700 50  0001 C CNN
+	1    6800 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7200 4300 7200 4350
+Wire Wire Line
+	7200 3700 7200 3750
+Wire Wire Line
+	7200 3750 7500 3750
+Wire Wire Line
+	7200 2100 7200 2150
+Wire Wire Line
+	7200 2150 7500 2150
+Connection ~ 7200 2150
+Connection ~ 7200 3750
+Wire Wire Line
+	6800 4300 6800 4350
+Connection ~ 7200 4350
+Wire Wire Line
+	6800 4350 7200 4350
+Wire Wire Line
+	7200 2150 7200 2200
+Wire Wire Line
+	7200 3750 7200 3800
+Wire Wire Line
+	7200 4350 7200 4400
+Wire Wire Line
+	7200 2700 7200 2750
+Wire Wire Line
+	8400 3400 8400 3800
+Wire Wire Line
+	8400 2700 8400 3100
+Wire Wire Line
+	9900 3400 9900 3800
+Wire Wire Line
+	9900 2700 9900 3100
+Wire Wire Line
+	8800 4350 9450 4350
+Wire Wire Line
+	8800 1750 9450 1750
+Wire Wire Line
+	8800 2750 9450 2750
+Wire Wire Line
+	8800 3350 9450 3350
+Wire Wire Line
+	8400 4350 8800 4350
+Wire Wire Line
+	10300 4350 10950 4350
+Wire Wire Line
+	10300 1750 10950 1750
+Wire Wire Line
+	10300 2750 10950 2750
+Wire Wire Line
+	10300 3350 10950 3350
+Wire Wire Line
+	9900 4350 10300 4350
+Wire Wire Line
+	900  3350 900  3800
+Wire Wire Line
+	900  2700 900  3050
+Wire Wire Line
+	2050 2700 2050 3050
+Wire Wire Line
+	3250 2700 3250 3050
+Wire Wire Line
+	4450 2700 4450 3050
+Wire Wire Line
+	5600 2700 5600 3050
+Wire Wire Line
+	6800 2700 6800 3050
+Wire Wire Line
+	2050 3350 2050 3800
+Wire Wire Line
+	3250 3350 3250 3800
+Wire Wire Line
+	4450 3350 4450 3800
+Wire Wire Line
+	5600 3350 5600 3800
+Wire Wire Line
+	6800 3350 6800 3800
+Wire Wire Line
+	900  1700 900  2200
+Wire Wire Line
+	1300 1700 1300 1800
+Wire Wire Line
+	2050 1700 2050 2200
+Wire Wire Line
+	2450 1700 2450 1800
+Wire Wire Line
+	3250 1700 3250 2200
+Wire Wire Line
+	3650 1700 3650 1800
+Wire Wire Line
+	4450 1700 4450 2200
+Wire Wire Line
+	4850 1700 4850 1800
+Wire Wire Line
+	7200 1700 7200 1800
+Wire Wire Line
+	6800 1700 6800 2200
+Wire Wire Line
+	6000 1700 6000 1800
+Wire Wire Line
+	5600 1700 5600 2200
+Wire Bus Line
+	500  5050 6950 5050
+Wire Bus Line
+	7950 5050 7950 500 
+Wire Bus Line
+	7950 5050 11200 5050
+Connection ~ 7950 5050
+Wire Wire Line
+	1950 7250 2300 7250
+Wire Wire Line
+	1950 7150 2300 7150
+Wire Wire Line
+	1950 7050 2300 7050
+Wire Wire Line
+	1950 6950 2300 6950
+Wire Wire Line
+	1950 6250 2300 6250
+Wire Wire Line
+	1950 6350 2300 6350
+Wire Wire Line
+	1950 6450 2300 6450
+Wire Wire Line
+	1950 6550 2300 6550
+Wire Wire Line
+	1950 6750 2300 6750
+Wire Wire Line
+	1950 6850 2300 6850
+Wire Wire Line
+	1950 6650 2300 6650
+Wire Wire Line
+	1950 7350 2300 7350
+$Comp
+L Barra_aint-flex:Barra_anti-Flex U1
+U 1 1 5CCC05E4
+P 5400 5800
+F 0 "U1" H 5728 5585 50  0000 L CNN
+F 1 "Barra_anti-Flex" H 5728 5494 50  0000 L CNN
+F 2 "Barra Anti-Flex:Barra Anti-Flex2" H 5400 5800 50  0001 C CNN
+F 3 "" H 5400 5800 50  0001 C CNN
+	1    5400 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0147
+U 1 1 5CCC0B7D
+P 5150 6300
+F 0 "#PWR0147" H 5150 6050 50  0001 C CNN
+F 1 "GND" H 5150 6150 50  0000 C CNN
+F 2 "" H 5150 6300 50  0001 C CNN
+F 3 "" H 5150 6300 50  0001 C CNN
+	1    5150 6300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0148
+U 1 1 5CCC9D18
+P 5300 6300
+F 0 "#PWR0148" H 5300 6050 50  0001 C CNN
+F 1 "GND" H 5300 6150 50  0000 C CNN
+F 2 "" H 5300 6300 50  0001 C CNN
+F 3 "" H 5300 6300 50  0001 C CNN
+	1    5300 6300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0149
+U 1 1 5CCD2EB8
+P 5450 6300
+F 0 "#PWR0149" H 5450 6050 50  0001 C CNN
+F 1 "GND" H 5450 6150 50  0000 C CNN
+F 2 "" H 5450 6300 50  0001 C CNN
+F 3 "" H 5450 6300 50  0001 C CNN
+	1    5450 6300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0150
+U 1 1 5CCD2EBE
+P 5600 6300
+F 0 "#PWR0150" H 5600 6050 50  0001 C CNN
+F 1 "GND" H 5600 6150 50  0000 C CNN
+F 2 "" H 5600 6300 50  0001 C CNN
+F 3 "" H 5600 6300 50  0001 C CNN
+	1    5600 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 6250 5150 6300
+Wire Wire Line
+	5300 6250 5300 6300
+Wire Wire Line
+	5450 6250 5450 6300
+Wire Wire Line
+	5600 6250 5600 6300
+$Comp
+L Barra_aint-flex:Barra_anti-Flex U2
+U 1 1 5CD01AE9
+P 5400 6450
+F 0 "U2" H 5728 6235 50  0000 L CNN
+F 1 "Barra_anti-Flex" H 5728 6144 50  0000 L CNN
+F 2 "Barra Anti-Flex:Barra Anti-Flex2" H 5400 6450 50  0001 C CNN
+F 3 "" H 5400 6450 50  0001 C CNN
+	1    5400 6450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0151
+U 1 1 5CD01AF0
+P 5150 6950
+F 0 "#PWR0151" H 5150 6700 50  0001 C CNN
+F 1 "GND" H 5150 6800 50  0000 C CNN
+F 2 "" H 5150 6950 50  0001 C CNN
+F 3 "" H 5150 6950 50  0001 C CNN
+	1    5150 6950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0152
+U 1 1 5CD01AF6
+P 5300 6950
+F 0 "#PWR0152" H 5300 6700 50  0001 C CNN
+F 1 "GND" H 5300 6800 50  0000 C CNN
+F 2 "" H 5300 6950 50  0001 C CNN
+F 3 "" H 5300 6950 50  0001 C CNN
+	1    5300 6950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0153
+U 1 1 5CD01AFC
+P 5450 6950
+F 0 "#PWR0153" H 5450 6700 50  0001 C CNN
+F 1 "GND" H 5450 6800 50  0000 C CNN
+F 2 "" H 5450 6950 50  0001 C CNN
+F 3 "" H 5450 6950 50  0001 C CNN
+	1    5450 6950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0154
+U 1 1 5CD01B02
+P 5600 6950
+F 0 "#PWR0154" H 5600 6700 50  0001 C CNN
+F 1 "GND" H 5600 6800 50  0000 C CNN
+F 2 "" H 5600 6950 50  0001 C CNN
+F 3 "" H 5600 6950 50  0001 C CNN
+	1    5600 6950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 6900 5150 6950
+Wire Wire Line
+	5300 6900 5300 6950
+Wire Wire Line
+	5450 6900 5450 6950
+Wire Wire Line
+	5600 6900 5600 6950
+$Comp
+L Device:C C2
+U 1 1 5CCE1107
+P 8300 6050
+F 0 "C2" H 8325 6150 50  0000 L CNN
+F 1 "0.1uF" H 8325 5950 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 8338 5900 50  0001 C CNN
+F 3 "" H 8300 6050 50  0001 C CNN
+	1    8300 6050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C C3
+U 1 1 5CCF589A
+P 8600 6050
+F 0 "C3" H 8625 6150 50  0000 L CNN
+F 1 "1uF" H 8625 5950 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 8638 5900 50  0001 C CNN
+F 3 "" H 8600 6050 50  0001 C CNN
+	1    8600 6050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C C1
+U 1 1 5CCFFC0C
+P 8000 6050
+F 0 "C1" H 8025 6150 50  0000 L CNN
+F 1 "0.1uF" H 8025 5950 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 8038 5900 50  0001 C CNN
+F 3 "" H 8000 6050 50  0001 C CNN
+	1    8000 6050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C C4
+U 1 1 5CD09F7B
+P 8900 6050
+F 0 "C4" H 8925 6150 50  0000 L CNN
+F 1 "1uF" H 8925 5950 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 8938 5900 50  0001 C CNN
+F 3 "" H 8900 6050 50  0001 C CNN
+	1    8900 6050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C C6
+U 1 1 5CD1465D
+P 9500 6050
+F 0 "C6" H 9525 6150 50  0000 L CNN
+F 1 "22uF" H 9525 5950 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 9538 5900 50  0001 C CNN
+F 3 "" H 9500 6050 50  0001 C CNN
+	1    9500 6050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C C7
+U 1 1 5CD14664
+P 9800 6050
+F 0 "C7" H 9825 6150 50  0000 L CNN
+F 1 "47uF" H 9825 5950 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 9838 5900 50  0001 C CNN
+F 3 "" H 9800 6050 50  0001 C CNN
+	1    9800 6050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C C5
+U 1 1 5CD1466B
+P 9200 6050
+F 0 "C5" H 9225 6150 50  0000 L CNN
+F 1 "22uF" H 9225 5950 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 9238 5900 50  0001 C CNN
+F 3 "" H 9200 6050 50  0001 C CNN
+	1    9200 6050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C C8
+U 1 1 5CD14672
+P 10100 6050
+F 0 "C8" H 10125 6150 50  0000 L CNN
+F 1 "47uF" H 10125 5950 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 10138 5900 50  0001 C CNN
+F 3 "" H 10100 6050 50  0001 C CNN
+	1    10100 6050
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	8000 6200 8000 6250
+Wire Wire Line
+	8000 6250 8300 6250
+Wire Wire Line
+	10100 6250 10100 6200
+Wire Wire Line
+	9800 6200 9800 6250
+Connection ~ 9800 6250
+Wire Wire Line
+	9800 6250 10100 6250
+Wire Wire Line
+	9500 6200 9500 6250
+Connection ~ 9500 6250
+Wire Wire Line
+	9500 6250 9800 6250
+Wire Wire Line
+	9200 6200 9200 6250
+Connection ~ 9200 6250
+Wire Wire Line
+	9200 6250 9500 6250
+Wire Wire Line
+	8900 6200 8900 6250
+Connection ~ 8900 6250
+Wire Wire Line
+	8900 6250 9050 6250
+Wire Wire Line
+	8600 6200 8600 6250
+Connection ~ 8600 6250
+Wire Wire Line
+	8600 6250 8900 6250
+Wire Wire Line
+	8300 6200 8300 6250
+Connection ~ 8300 6250
+Wire Wire Line
+	8300 6250 8600 6250
+Wire Wire Line
+	8000 5900 8000 5850
+Wire Wire Line
+	8000 5850 8300 5850
+Wire Wire Line
+	10100 5850 10100 5900
+Wire Wire Line
+	9800 5900 9800 5850
+Connection ~ 9800 5850
+Wire Wire Line
+	9800 5850 10100 5850
+Wire Wire Line
+	9500 5900 9500 5850
+Connection ~ 9500 5850
+Wire Wire Line
+	9500 5850 9800 5850
+Wire Wire Line
+	9200 5900 9200 5850
+Connection ~ 9200 5850
+Wire Wire Line
+	9200 5850 9500 5850
+Wire Wire Line
+	8900 5900 8900 5850
+Connection ~ 8900 5850
+Wire Wire Line
+	8900 5850 9050 5850
+Wire Wire Line
+	8600 5900 8600 5850
+Connection ~ 8600 5850
+Wire Wire Line
+	8600 5850 8900 5850
+Wire Wire Line
+	8300 5900 8300 5850
+Connection ~ 8300 5850
+Wire Wire Line
+	8300 5850 8600 5850
+$Comp
+L power:GND #PWR0155
+U 1 1 5CDC209C
+P 9050 6300
+F 0 "#PWR0155" H 9050 6050 50  0001 C CNN
+F 1 "GND" H 9050 6150 50  0000 C CNN
+F 2 "" H 9050 6300 50  0001 C CNN
+F 3 "" H 9050 6300 50  0001 C CNN
+	1    9050 6300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR0156
+U 1 1 5CDCF5C9
+P 9050 5800
+F 0 "#PWR0156" H 9050 5650 50  0001 C CNN
+F 1 "+3.3V" H 9050 5940 50  0000 C CNN
+F 2 "" H 9050 5800 50  0001 C CNN
+F 3 "" H 9050 5800 50  0001 C CNN
+	1    9050 5800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9050 6300 9050 6250
+Connection ~ 9050 6250
+Wire Wire Line
+	9050 6250 9200 6250
+Wire Wire Line
+	9050 5800 9050 5850
+Connection ~ 9050 5850
+Wire Wire Line
+	9050 5850 9200 5850
+Text Notes 7500 5500 0    236  ~ 47
+CONDENSADORES
+Wire Bus Line
+	6950 6500 6950 5050
+Connection ~ 6950 5050
+Wire Bus Line
+	6950 5050 7950 5050
+$EndSCHEMATC
