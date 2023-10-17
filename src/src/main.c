@@ -26,10 +26,12 @@ void sys_tick_handler(void) {
 
 int main(void) {
   setup();
-
   do {
     check_menu_button();
   } while (in_debug_mode() || !get_start_btn());
+
+  bool use_btn_start = get_swtich_3();
+  
   do {
     reset_menu_mode();
     set_RGB_color(0, 0, 0);
@@ -47,7 +49,7 @@ int main(void) {
     if (!is_competicion_iniciada()) {
       check_menu_button();
       if (!in_debug_mode()) {
-        if (get_start_btn() && get_swtich_3()) {
+        if ((get_start_btn() && use_btn_start) || (!use_btn_start && get_swtich_3())) {
           reset_menu_mode();
           set_status_led(false);
           while (get_start_btn()) {
