@@ -5,7 +5,7 @@
  * 
  * @return bool
  */
-bool get_start_btn() {
+bool get_start_btn(void) {
   bool state1 = (bool)gpio_get(GPIOB, GPIO15);
   delay(50);
   bool state2 = (bool)gpio_get(GPIOB, GPIO15);
@@ -17,7 +17,7 @@ bool get_start_btn() {
  * 
  * @return bool
  */
-bool get_menu_up_btn() {
+bool get_menu_up_btn(void) {
   bool state1 = (bool)gpio_get(GPIOC, GPIO11);
   delay(50);
   bool state2 = (bool)gpio_get(GPIOC, GPIO11);
@@ -29,7 +29,7 @@ bool get_menu_up_btn() {
  * 
  * @return bool
  */
-bool get_menu_down_btn() {
+bool get_menu_down_btn(void) {
   bool state1 = (bool)gpio_get(GPIOA, GPIO15);
   delay(50);
   bool state2 = (bool)gpio_get(GPIOA, GPIO15);
@@ -41,7 +41,7 @@ bool get_menu_down_btn() {
  * 
  * @return bool
  */
-bool get_menu_mode_btn() {
+bool get_menu_mode_btn(void) {
   bool state1 = (bool)gpio_get(GPIOC, GPIO10);
   delay(50);
   bool state2 = (bool)gpio_get(GPIOC, GPIO10);
@@ -53,7 +53,7 @@ bool get_menu_mode_btn() {
  * 
  * @return bool
  */
-bool get_swtich_1() {
+bool get_swtich_1(void) {
   return (bool)gpio_get(GPIOB, GPIO14);
 }
 
@@ -62,7 +62,7 @@ bool get_swtich_1() {
  * 
  * @return bool
  */
-bool get_swtich_2() {
+bool get_swtich_2(void) {
   return (bool)gpio_get(GPIOB, GPIO13);
 }
 
@@ -71,7 +71,7 @@ bool get_swtich_2() {
  * 
  * @return bool
  */
-bool get_swtich_3() {
+bool get_swtich_3(void) {
   return (bool)gpio_get(GPIOB, GPIO12);
 }
 
@@ -81,7 +81,7 @@ bool get_swtich_3() {
  * 
  * @return uint8_t decimal
  */
-uint8_t get_switch_decimal() {
+uint8_t get_switch_decimal(void) {
   uint8_t binario = 0;
   uint8_t decimal = 0;
 

@@ -24,9 +24,9 @@
 
 void debug_from_config(uint8_t type);
 
-void debug_sensors_calibration();
+void debug_sensors_calibration(void);
 
-void update_log();
-void debug_log();
+void update_log(void);
+void debug_log(void);
 
 #endif

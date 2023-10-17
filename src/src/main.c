@@ -53,8 +53,8 @@ int main(void) {
           while (get_start_btn()) {
             set_RGB_color(255, 0, 0);
           }
-          int32_t millisInicio = get_clock_ticks();
-          int16_t millisPasados = 5;
+          uint32_t millisInicio = get_clock_ticks();
+          uint16_t millisPasados = 5;
           while (get_clock_ticks() < (millisInicio + get_start_millis())) {
             millisPasados = get_clock_ticks() - millisInicio;
             uint8_t r = 0, g = 0;

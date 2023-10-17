@@ -6,14 +6,14 @@ static volatile uint32_t clock_ticks;
  * @brief Aumenta el contador de pulsos del reloj
  * 
  */
-void clock_tick() { clock_ticks++; }
+void clock_tick(void) { clock_ticks++; }
 
 /**
  * @brief Obtiene el contaor de ciclos de ejecución interno
  * 
  * @return uint32_t 
  */
-uint32_t read_cycle_counter() {
+uint32_t read_cycle_counter(void) {
   return dwt_read_cycle_counter();
 }
 

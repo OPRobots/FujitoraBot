@@ -13,20 +13,20 @@
 #include <libopencm3/stm32/rcc.h>
 #include <stdint.h>
 
-void print_sensors_calibrations();
-void calibrate_sensors();
-uint8_t *get_sensors();
-uint8_t get_sensors_num();
-uint8_t get_sensors_line_num();
-volatile uint16_t *get_sensors_raw();
+void print_sensors_calibrations(void);
+void calibrate_sensors(void);
+uint8_t *get_sensors(void);
+uint8_t get_sensors_num(void);
+uint8_t get_sensors_line_num(void);
+volatile uint16_t *get_sensors_raw(void);
 uint16_t get_sensor_raw(uint8_t pos);
 uint16_t get_sensor_calibrated(uint8_t pos);
-int32_t get_sensor_line_position();
-void calc_sensor_line_position();
-void check_side_marks();
-bool is_left_mark();
-bool is_right_mark();
+int32_t get_sensor_line_position(void);
+void calc_sensor_line_position(void);
+void check_side_marks(void);
+bool is_left_mark(void);
+bool is_right_mark(void);
 
-void emergency_stop();
+void emergency_stop(void);
 
 #endif

@@ -11,8 +11,8 @@
  * DWT
  *
  */
-static void setup_clock() {
-  rcc_clock_setup_hse_3v3(&hse_8mhz_3v3[CLOCK_3V3_168MHZ]);
+static void setup_clock(void) {
+  rcc_clock_setup_pll(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_168MHZ]);
 
   rcc_periph_clock_enable(RCC_GPIOA);
   rcc_periph_clock_enable(RCC_GPIOB);
@@ -38,13 +38,13 @@ static void setup_clock() {
  * @brief Configura el SysTick para 1ms
  *
  */
-static void setup_systick() {
+static void setup_systick(void) {
   systick_set_frequency(SYSTICK_FREQUENCY_HZ, 168000000);
   systick_counter_enable();
   systick_interrupt_enable();
 }
 
-static void setup_timer_priorities() {
+static void setup_timer_priorities(void) {
   nvic_set_priority(NVIC_SYSTICK_IRQ, 16 * 1);
   nvic_set_priority(NVIC_DMA2_STREAM0_IRQ, 16 * 2);
   nvic_set_priority(NVIC_TIM2_IRQ, 16 * 3);
@@ -70,7 +70,7 @@ static void setup_usart(void) {
   usart_enable(USART3);
 }
 
-static void setup_gpio() {
+static void setup_gpio(void) {
   // Entradas digitales configuracion
   gpio_mode_setup(GPIOC, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO10 | GPIO11);
   gpio_mode_setup(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO15);  
@@ -118,8 +118,8 @@ static void setup_gpio() {
   gpio_set_af(GPIOB, GPIO_AF7, GPIO10 | GPIO11);
 }
 
-static void setup_adc1() {
-  adc_off(ADC1);
+static void setup_adc1(void) {
+  adc_power_off(ADC1);
   adc_disable_external_trigger_regular(ADC1);
   adc_set_resolution(ADC1, ADC_CR1_RES_12BIT);
   adc_set_right_aligned(ADC1);
@@ -141,7 +141,7 @@ static void setup_adc1() {
   adc_start_conversion_regular(ADC1);
 }
 
-static void setup_dma_adc1() {
+static void setup_dma_adc1(void) {
   rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_ADC1EN);
   rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_DMA2EN);
   dma_stream_reset(DMA2, DMA_STREAM0);
@@ -219,7 +219,7 @@ static void setup_motors_pwm(void) {
   timer_enable_counter(TIM8);
 }
 
-static void setup_pid_speed_timer() {
+static void setup_pid_speed_timer(void) {
   rcc_periph_reset_pulse(RST_TIM5);
   timer_set_mode(TIM5, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
   timer_set_prescaler(TIM5, ((rcc_apb1_frequency * 2) / 1000000 - 2));
@@ -232,14 +232,14 @@ static void setup_pid_speed_timer() {
   // timer_enable_irq(TIM5, TIM_DIER_CC1IE);
 }
 
-void tim5_isr() {
+void tim5_isr(void) {
   if (timer_get_flag(TIM5, TIM_SR_CC1IF)) {
     timer_clear_flag(TIM5, TIM_SR_CC1IF);
     pid_speed_timer_custom_isr();
   }
 }
 
-static void setup_quadrature_encoders() {
+static void setup_quadrature_encoders(void) {
   timer_set_period(TIM4, 0xFFFF);
   timer_slave_set_mode(TIM4, TIM_SMCR_SMS_EM3);
   timer_ic_set_input(TIM4, TIM_IC1, TIM_IC_IN_TI1);
@@ -253,7 +253,7 @@ static void setup_quadrature_encoders() {
   timer_enable_counter(TIM3);
 }
 
-void setup() {
+void setup(void) {
   setup_clock();
   setup_gpio();
   setup_usart();

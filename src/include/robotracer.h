@@ -11,9 +11,9 @@ enum SectorType { STRAIGHT,
                   TURN,
                   R10 };
 
-// void check_sector_radius();
-void robotracer_loop_flow();
-void robotracer_restart();
+// void check_sector_radius(void);
+void robotracer_loop_flow(void);
+void robotracer_restart(void);
 void robotracer_set_turn_speed(float ms);
 void robotracer_set_straight_speed(float ms);
 void robotracer_set_acceleration_mss(float mss);

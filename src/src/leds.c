@@ -1,12 +1,12 @@
 #include "leds.h"
 
-int lastTicksRainbow = 0;
+uint32_t lastTicksRainbow = 0;
 uint32_t rainbowRGB[3] = {LEDS_MAX_PWM, 0, 0};
 int rainbowColorDesc = 0;
 int rainbowColorAsc = 1;
 
-int lastTicksHeartbeat = 0;
-int lastTicksWarning = 0;
+uint32_t lastTicksHeartbeat = 0;
+uint32_t lastTicksWarning = 0;
 
 /**
  * @brief Establece el estado del led de estado
@@ -25,7 +25,7 @@ void set_status_led(bool state) {
  * @brief Aleterna el estado del led de estado
  *
  */
-void toggle_status_led() {
+void toggle_status_led(void) {
   gpio_toggle(GPIOA, GPIO12);
 }
 
@@ -54,7 +54,7 @@ void set_RGB_color(uint32_t r, uint32_t g, uint32_t b) {
   timer_set_oc_value(TIM1, TIM_OC2, b);
 }
 
-void set_RGB_rainbow() {
+void set_RGB_rainbow(void) {
   if (get_clock_ticks() > lastTicksRainbow + 10) {
     lastTicksRainbow = get_clock_ticks();
     rainbowRGB[rainbowColorDesc] -= 20;
@@ -79,7 +79,7 @@ void set_neon_fade(uint32_t n) {
 
 int32_t fade = 0;
 int32_t increment = 20;
-void set_neon_heartbeat() {
+void set_neon_heartbeat(void) {
   if (get_clock_ticks() > lastTicksHeartbeat + 10) {
     lastTicksHeartbeat = get_clock_ticks();
     fade += increment;
@@ -95,7 +95,7 @@ void set_neon_heartbeat() {
   }
 }
 
-void all_leds_clear() {
+void all_leds_clear(void) {
   set_neon_fade(0);
   set_RGB_color(0, 0, 0);
   set_status_led(false);

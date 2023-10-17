@@ -9,12 +9,12 @@
 #include <libopencm3/stm32/timer.h>
 
 void set_status_led(bool state);
-void toggle_status_led();
+void toggle_status_led(void);
 void warning_status_led(uint16_t ms);
 void set_RGB_color(uint32_t r, uint32_t g, uint32_t b);
-void set_RGB_rainbow();
+void set_RGB_rainbow(void);
 void set_neon_fade(uint32_t n);
-void set_neon_heartbeat();
-void all_leds_clear();
+void set_neon_heartbeat(void);
+void all_leds_clear(void);
 
 #endif

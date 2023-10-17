@@ -10,10 +10,10 @@ static int32_t velocidadVentiladorIdeal = 0;
 static bool fullVelocidadVentilador = false;
 static bool competicionIniciada = false;
 static uint32_t competicionIniciadaMillis = 0;
-volatile static float correccion_velocidad = 0;
-volatile static float error_anterior = 0;
-volatile static float suma_error_ms = 0;
-volatile static float error_anterior_ms = 0;
+static volatile float correccion_velocidad = 0;
+static volatile float error_anterior = 0;
+static volatile float suma_error_ms = 0;
+static volatile float error_anterior_ms = 0;
 
 static uint32_t resume_speed_ms = 0;
 
@@ -74,7 +74,7 @@ float calc_ms_pid_correction(float velocidadActualMs) {
  * @return bool 
  */
 
-bool is_competicion_iniciada() {
+bool is_competicion_iniciada(void) {
   return competicionIniciada;
 }
 
@@ -93,7 +93,7 @@ void set_competicion_iniciada(bool state) {
   }
 }
 
-uint32_t get_competicion_iniciada_millis() {
+uint32_t get_competicion_iniciada_millis(void) {
   return competicionIniciadaMillis;
 }
 
@@ -101,7 +101,7 @@ uint32_t get_competicion_iniciada_millis() {
  * @brief Función ISR del Timer5 encargada del control de posición, velocidad y mapeo de pista en caso de robotracer
  * 
  */
-void pid_speed_timer_custom_isr() {
+void pid_speed_timer_custom_isr(void) {
   calc_sensor_line_position();
   correccion_velocidad = calc_pid_correction(get_sensor_line_position());
 
@@ -207,7 +207,7 @@ void pid_speed_timer_custom_isr() {
  * 
  * @return float 
  */
-float get_speed_correction() {
+float get_speed_correction(void) {
   return correccion_velocidad;
 }
 
@@ -260,7 +260,7 @@ void set_ideal_fan_speed(int32_t v) {
  * @brief Reanuda la ejecución del Timer encargado del PID
  * 
  */
-void resume_pid_speed_timer() {
+void resume_pid_speed_timer(void) {
   resume_speed_ms = get_clock_ticks();
   velocidad = 0;
   correccion_velocidad = 0;
@@ -276,7 +276,7 @@ void resume_pid_speed_timer() {
  * @brief Pausa la ejecución del Timer encargado del PID
  * 
  */
-void pause_pid_speed_timer() {
+void pause_pid_speed_timer(void) {
   timer_disable_irq(TIM5, TIM_DIER_CC1IE);
   set_fan_speed(0);
   set_motors_speed(0, 0);
@@ -287,6 +287,6 @@ void pause_pid_speed_timer() {
  * @brief Imprime valores clave para depurar la aceleración
  * 
  */
-void debug_accel() {
+void debug_accel(void) {
   printf("%.2f\t%.2f\t%.2f\t%.2f\n", velocidadIdealMs, velocidadObjetivoMs, get_encoder_avg_speed(), velocidad / 10.0f);
 }

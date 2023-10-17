@@ -66,7 +66,7 @@ static void set_config_line(uint16_t line_type) {
  * @brief Establece la configuración de encoders
  * 
  */
-static void set_micrometers_per_tick() {
+static void set_micrometers_per_tick(void) {
   if (_robot_type == CONFIG_ROBOT_ROBOTRACER) {
     _micrometers_per_tick = MICROMETERS_PER_TICK_ROBOTRACER;
   } else {

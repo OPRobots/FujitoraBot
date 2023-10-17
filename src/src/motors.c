@@ -6,11 +6,11 @@ static const uint16_t STOP_MOTORS_PWM = (uint16_t)(MOTORES_MAX_PWM * 0.75);
 static bool iniciado = false;
 static uint32_t millis_iniciado = 0;
 
-bool is_esc_inited() {
+bool is_esc_inited(void) {
   return escInited;
 }
 
-void init_esc() {
+void init_esc(void) {
   if (!escInited) {
     if (escInitMillis == 0) {
       escInitMillis = get_clock_ticks();

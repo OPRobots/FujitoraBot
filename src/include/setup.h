@@ -15,6 +15,6 @@
 #include <libopencm3/stm32/timer.h>
 #include <libopencm3/stm32/usart.h>
 
-void setup();
+void setup(void);
 
 #endif

@@ -21,7 +21,7 @@ float aceleracionCurvaRobotracerMss = 0.8f;
 float aceleracionRobotracerMss = MAX_ACCEL_MS2;
 float deceleracionRobotracerMss = MAX_BREAK_MS2;
 
-static void handle_menu_mode() {
+static void handle_menu_mode(void) {
   switch (modoConfig) {
     case MODE_NOTHING:
       set_status_led(false);
@@ -38,7 +38,7 @@ static void handle_menu_mode() {
   }
 }
 
-static void handle_menu_value() {
+static void handle_menu_value(void) {
   switch (modoConfig) {
     case MODE_NOTHING:
       set_RGB_color(0, 0, 0);
@@ -228,7 +228,7 @@ static void handle_menu_value() {
   }
 }
 
-static uint8_t get_num_modos() {
+static uint8_t get_num_modos(void) {
   if (get_config_run() == CONFIG_RUN_RACE) {
     return NUM_MODOS_RACE; // NOTHING - VELOCIDAD - VENTILADORES
   } else {
@@ -236,7 +236,7 @@ static uint8_t get_num_modos() {
   }
 }
 
-void check_menu_button() {
+void check_menu_button(void) {
   handle_menu_mode();
   if (in_debug_mode()) {
     handle_menu_value();
@@ -300,11 +300,11 @@ void check_menu_button() {
   }
 }
 
-uint8_t get_base_speed() {
+uint8_t get_base_speed(void) {
   return velocidadBase;
 }
 
-float get_base_ms_speed() {
+float get_base_ms_speed(void) {
   if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
     return velocidadMsBase;
   } else {
@@ -312,10 +312,10 @@ float get_base_ms_speed() {
   }
 }
 
-float get_robotracer_straight_ms_speed() {
+float get_robotracer_straight_ms_speed(void) {
   return velocidadRobotracerMsStraight;
 }
-float get_base_turn_acceleration_mss() {
+float get_base_turn_acceleration_mss(void) {
   if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
     return 0;
   } else {
@@ -323,7 +323,7 @@ float get_base_turn_acceleration_mss() {
   }
 }
 
-float get_base_deceleration_mss() {
+float get_base_deceleration_mss(void) {
   if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
     return MAX_BREAK_MS2;
   } else {
@@ -331,7 +331,7 @@ float get_base_deceleration_mss() {
   }
 }
 
-float get_base_acceleration_mss() {
+float get_base_acceleration_mss(void) {
   if (get_config_track() == CONFIG_TRACK_LINEFOLLOWER) {
     return MAX_ACCEL_MS2;
   } else {
@@ -339,14 +339,14 @@ float get_base_acceleration_mss() {
   }
 }
 
-uint8_t get_base_fan_speed() {
+uint8_t get_base_fan_speed(void) {
   return velocidadVentiladorBase;
 }
 
-bool in_debug_mode() {
+bool in_debug_mode(void) {
   return modoConfig == MODE_DEBUG;
 }
 
-void reset_menu_mode() {
+void reset_menu_mode(void) {
   modoConfig = MODE_NOTHING;
 }

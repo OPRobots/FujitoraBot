@@ -30,7 +30,7 @@ static int32_t ticks_ultima_interseccion = 0;
  * @brief Inicializa los sensores cuando se enciende el robot sin calibrarlos a partir de una calibración previa
  *
  */
-static void assign_sensors_calibrations() {
+static void assign_sensors_calibrations(void) {
   sensores_max_linefollower[0] = 3735;
   sensores_min_linefollower[0] = 289;
   sensores_umb_linefollower[0] = 2586;
@@ -69,7 +69,7 @@ static void assign_sensors_calibrations() {
   sensores_umb_linefollower[11] = 2700;
 }
 
-void print_sensors_calibrations() {
+void print_sensors_calibrations(void) {
   if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
     for (int sensor = 0; sensor < get_sensors_line_num(); sensor++) {
       printf("sensores_max_linefollower[%d] = %d;\n", sensor, sensores_max_linefollower[sensor]);
@@ -85,7 +85,7 @@ void print_sensors_calibrations() {
   }
 }
 
-uint8_t *get_sensors() {
+uint8_t *get_sensors(void) {
   if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
     return sensores_linefollower;
   } else {
@@ -93,7 +93,7 @@ uint8_t *get_sensors() {
   }
 }
 
-uint8_t get_sensors_num() {
+uint8_t get_sensors_num(void) {
   if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
     return NUM_SENSORES_LINEFOLLOWER;
   } else {
@@ -101,7 +101,7 @@ uint8_t get_sensors_num() {
   }
 }
 
-uint8_t get_sensors_line_num() {
+uint8_t get_sensors_line_num(void) {
   if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
     return NUM_SENSORES_LINEFOLLOWER;
   } else {
@@ -109,7 +109,7 @@ uint8_t get_sensors_line_num() {
   }
 }
 
-volatile uint16_t *get_sensors_raw() {
+volatile uint16_t *get_sensors_raw(void) {
   return sensores_raw;
 }
 
@@ -149,7 +149,7 @@ uint16_t get_sensor_calibrated(uint8_t pos) {
   }
 }
 
-void calibrate_sensors() {
+void calibrate_sensors(void) {
   bool skip_calibration = false;
   bool pushFlag = (get_config_run() == CONFIG_RUN_RACE); // En modo carrera, se calibra automáticamente por defecto.
   while (!get_start_btn()) {
@@ -291,11 +291,11 @@ void calibrate_sensors() {
   delay(250);
 }
 
-int32_t get_sensor_line_position() {
+int32_t get_sensor_line_position(void) {
   return line_position;
 }
 
-void calc_sensor_line_position() {
+void calc_sensor_line_position(void) {
   uint32_t suma_sensores_ponderados = 0;
   uint32_t suma_sensores = 0;
   uint8_t sensores_detectando = 0;
@@ -383,7 +383,7 @@ void calc_sensor_line_position() {
   line_position = posicion;
 }
 
-void check_side_marks() {
+void check_side_marks(void) {
   bool side_marks[4] = {false, false, false, false};
   for (uint8_t sensor = get_sensors_line_num(); sensor < get_sensors_num(); sensor++) {
     side_marks[sensor] = get_sensor_calibrated(sensor) >= sensores_umb_robotracer[sensor];
@@ -397,15 +397,15 @@ void check_side_marks() {
   right_mark = right && !(left && right) && linea_simple;
 }
 
-bool is_left_mark() {
+bool is_left_mark(void) {
   return left_mark;
 }
 
-bool is_right_mark() {
+bool is_right_mark(void) {
   return right_mark;
 }
 
-void emergency_stop() {
+void emergency_stop(void) {
   set_competicion_iniciada(false);
   pause_pid_speed_timer();
   line_position = 0;
