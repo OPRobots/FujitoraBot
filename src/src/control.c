@@ -134,7 +134,7 @@ void pid_speed_timer_custom_isr(void) {
             fullVelocidadVentilador = true;
           }
         } else {
-          velocidad = 15;
+          velocidad = 22;
           suma_error_ms = 0;
         }
         if (velocidad > 100) {
@@ -156,10 +156,10 @@ void pid_speed_timer_custom_isr(void) {
       if (velocidadIdeal > 0) {
         if (velocidad < velocidadIdeal) {
           if (velocidad < MIN_SPEED_PERCENT) {
-            velocidad = MIN_SPEED_PERCENT;
+            velocidad = 15;
           }
           float increment_percent = ((get_clock_ticks() - resume_speed_ms) / 1000.0) * MAX_ACCEL_PERCENT;
-          velocidad = MIN_SPEED_PERCENT + increment_percent;
+          velocidad = 15 + increment_percent;
         } else if (velocidad != velocidadIdeal) {
           velocidad = velocidadIdeal;
         }
