@@ -4,6 +4,7 @@
 #include "control.h"
 #include "debug.h"
 #include "delay.h"
+#include "eeprom.h"
 #include "encoders.h"
 #include "leds.h"
 #include "menu.h"
@@ -26,12 +27,58 @@ void sys_tick_handler(void) {
 
 int main(void) {
   setup();
+    uint32_t data_to_write[] = {2500, 250, 25, 5};
+    uint32_t data_readback[] = {0, 0, 0, 0};
+  while (1) {
+
+    if (get_start_btn()) {
+      while (get_start_btn()) {
+      }
+      set_status_led(true);
+      erase_eeprom();
+      set_status_led(false);
+    }
+
+    // Write data to the emulated EEPROM
+    if (get_menu_up_btn()) {
+      while (get_menu_up_btn()) {
+      }
+      set_status_led(true);
+      write_to_eeprom(data_to_write, 4);
+      set_status_led(false);
+    }
+
+    if (get_menu_down_btn()) {
+      while (get_menu_down_btn()) {
+      }
+      set_status_led(true);
+      uint32_t data[] = {1752, 36, 2, 365};
+      write_to_eeprom(data, 4);
+      set_status_led(false);
+    }
+
+    // Read data from the emulated EEPROM
+    if (get_menu_mode_btn()) {
+      while (get_menu_mode_btn()) {
+      }
+      for (uint8_t i = 0; i < 4; i++) {
+        printf("%ld ", data_readback[i]);
+      }
+      printf(" -> ");
+      read_from_eeprom(data_readback, 4);
+      for (uint8_t i = 0; i < 4; i++) {
+        printf("%ld ", data_readback[i]);
+      }
+      printf("\n");
+    }
+  }
+
   do {
     check_menu_button();
   } while (in_debug_mode() || !get_start_btn());
 
   bool use_btn_start = get_swtich_3();
-  
+
   do {
     reset_menu_mode();
     set_RGB_color(0, 0, 0);

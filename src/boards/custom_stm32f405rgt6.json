@@ -2,37 +2,37 @@
   "build": {
     "core": "stm32",
     "cpu": "cortex-m4",
-    "extra_flags": "-DSTM32F4 -DSTM32F415xx -DSTM32F40_41xxx -DBOARD_discovery_f4",
+    "extra_flags": "-DSTM32F405xx -DSTM32F4xx",
     "f_cpu": "168000000L",
-    "ldscript": "stm32f405x6.ld",
-    "mcu": "stm32f415rgt",
-    "variant": "stm32f415xx"
+    "mcu": "stm32f405rgt6",
+    "product_line": "STM32F405xx",
+    "variant": "STM32F4xx/F405RGT_F415RGT",
+    "ldscript": "boards/memory_map.ld"
   },
   "debug": {
-    "default_tools": [
-      "stlink"
-    ],
-    "jlink_device": "STM32F415RG",
+    "jlink_device": "STM32F405RG",
     "openocd_target": "stm32f4x",
-    "svd_path": "STM32F41x.svd"
+    "svd_path": "STM32F40x.svd"
   },
   "frameworks": [
-    "libopencm3",
+    "arduino",
     "cmsis",
-    "spl",
-    "stm32cube"
+    "stm32cube",
+    "libopencm3"
   ],
-  "name": "1Bitsy",
+  "name": "STM32F405RG (128k RAM. 1024k Flash)",
   "upload": {
     "maximum_ram_size": 131072,
     "maximum_size": 1048576,
-    "protocol": "blackmagic",
+    "protocol": "serial",
     "protocols": [
+      "blackmagic",
+      "dfu",
       "jlink",
-      "stlink",
-      "blackmagic"
+      "serial",
+      "stlink"
     ]
   },
-  "url": "http://1bitsy.org",
-  "vendor": "1BitSquared"
+  "url": "https://www.st.com/en/microcontrollers-microprocessors/stm32f405rg.html",
+  "vendor": "Generic"
 }
