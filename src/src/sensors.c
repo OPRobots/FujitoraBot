@@ -135,29 +135,34 @@ void calibrate_sensors(void) {
   }
   while (get_start_btn()) {
     set_neon_heartbeat();
+    warning_status_led(75);
   }
 
   if (use_eeprom_calibration) {
-    bool sensorsChecked[get_sensors_num()];
+    bool sensorsMinChecked[get_sensors_num()];
+    bool sensorsMaxChecked[get_sensors_num()];
     for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
-      sensorsChecked[sensor] = false;
+      sensorsMinChecked[sensor] = false;
+      sensorsMaxChecked[sensor] = false;
     }
 
     uint8_t countSensorsChecked = 0;
     uint32_t millisSensorsChecked = 0;
     while (!get_start_btn() && (countSensorsChecked < get_sensors_num() || get_clock_ticks() - millisSensorsChecked < 500)) {
-
       for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
         if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
-          if (get_sensor_calibrated(sensor) >= sensores_umb_linefollower[sensor]) {
-            sensorsChecked[sensor] = true;
+          if (abs(get_sensor_raw(sensor) - sensores_min_linefollower[sensor]) < 200) {
+            sensorsMinChecked[sensor] = true;
+          }
+          if (abs(get_sensor_raw(sensor) - sensores_max_linefollower[sensor]) < 200 && sensorsMinChecked[sensor]) {
+            sensorsMaxChecked[sensor] = true;
           }
         }
       }
 
       countSensorsChecked = 0;
       for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
-        if (sensorsChecked[sensor]) {
+        if (sensorsMinChecked[sensor] && sensorsMaxChecked[sensor]) {
           countSensorsChecked++;
         }
       }
@@ -236,25 +241,30 @@ void calibrate_sensors(void) {
     eeprom_set_data(DATA_INDEX_SENSORS_MIN, sensores_min_linefollower, NUM_SENSORES_MAX);
     eeprom_set_data(DATA_INDEX_SENSORS_UMB, sensores_umb_linefollower, NUM_SENSORES_MAX);
 
-    while (!get_start_btn()) {
-      if (calibrationOK && marksOK) {
-        set_RGB_color(0, 100, 0);
-      } else if (!calibrationOK) {
-        set_RGB_color(100, 0, 0);
-      } else if (!marksOK) {
-        set_RGB_color(100, 20, 0);
+    if (calibrationOK && marksOK) {
+      set_RGB_color(0, 100, 0);
+      delay(500);
+    } else {
+      while (!get_start_btn()) {
+        if (calibrationOK && marksOK) {
+          set_RGB_color(0, 100, 0);
+        } else if (!calibrationOK) {
+          set_RGB_color(100, 0, 0);
+        } else if (!marksOK) {
+          set_RGB_color(100, 20, 0);
+        }
+      }
+      while (get_start_btn()) {
+        if (calibrationOK) {
+          set_RGB_color(0, 100, 0);
+        } else {
+          set_RGB_color(100, 0, 0);
+        }
       }
     }
-    while (get_start_btn()) {
-      if (calibrationOK) {
-        set_RGB_color(0, 100, 0);
-      } else {
-        set_RGB_color(100, 0, 0);
-      }
-    }
-    set_RGB_color(0, 0, 0);
-    delay(250);
   }
+  set_RGB_color(0, 0, 0);
+  delay(250);
 }
 
 int32_t get_sensor_line_position(void) {
