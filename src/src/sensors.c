@@ -1,10 +1,5 @@
 #include "sensors.h"
 
-#define NUM_SENSORES_LINEFOLLOWER 16
-#define NUM_SENSORES_ROBOTRACER 12
-#define NUM_SENSORES_ROBOTRACER_MARCAS 4
-#define NUM_SENSORES_MAX 16
-
 // ADC de derecha a izquierda
 static uint8_t sensores_linefollower[NUM_SENSORES_LINEFOLLOWER] = {ADC_CHANNEL11, ADC_CHANNEL10, ADC_CHANNEL0, ADC_CHANNEL1, ADC_CHANNEL2, ADC_CHANNEL3, ADC_CHANNEL4, ADC_CHANNEL5, ADC_CHANNEL6, ADC_CHANNEL7, ADC_CHANNEL14, ADC_CHANNEL15, ADC_CHANNEL8, ADC_CHANNEL9, ADC_CHANNEL12, ADC_CHANNEL13};
 
@@ -31,42 +26,18 @@ static int32_t ticks_ultima_interseccion = 0;
  *
  */
 static void assign_sensors_calibrations(void) {
-  sensores_max_linefollower[0] = 3735;
-  sensores_min_linefollower[0] = 289;
-  sensores_umb_linefollower[0] = 2586;
-  sensores_max_linefollower[1] = 3918;
-  sensores_min_linefollower[1] = 421;
-  sensores_umb_linefollower[1] = 2752;
-  sensores_max_linefollower[2] = 3911;
-  sensores_min_linefollower[2] = 606;
-  sensores_umb_linefollower[2] = 2809;
-  sensores_max_linefollower[3] = 3865;
-  sensores_min_linefollower[3] = 243;
-  sensores_umb_linefollower[3] = 2657;
-  sensores_max_linefollower[4] = 3867;
-  sensores_min_linefollower[4] = 260;
-  sensores_umb_linefollower[4] = 2664;
-  sensores_max_linefollower[5] = 2883;
-  sensores_min_linefollower[5] = 624;
-  sensores_umb_linefollower[5] = 2130;
-  sensores_max_linefollower[6] = 3743;
-  sensores_min_linefollower[6] = 221;
-  sensores_umb_linefollower[6] = 2569;
-  sensores_max_linefollower[7] = 3881;
-  sensores_min_linefollower[7] = 249;
-  sensores_umb_linefollower[7] = 2670;
-  sensores_max_linefollower[8] = 3841;
-  sensores_min_linefollower[8] = 222;
-  sensores_umb_linefollower[8] = 2634;
-  sensores_max_linefollower[9] = 2905;
-  sensores_min_linefollower[9] = 562;
-  sensores_umb_linefollower[9] = 2124;
-  sensores_max_linefollower[10] = 3762;
-  sensores_min_linefollower[10] = 242;
-  sensores_umb_linefollower[10] = 2588;
-  sensores_max_linefollower[11] = 3887;
-  sensores_min_linefollower[11] = 326;
-  sensores_umb_linefollower[11] = 2700;
+  if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
+    uint16_t *eeprom_data = eeprom_get_data();
+    for (uint16_t i = DATA_INDEX_SENSORS_MAX; i < NUM_SENSORES_MAX; i++) {
+      sensores_max_linefollower[i] = eeprom_data[i];
+    }
+    for (uint16_t i = DATA_INDEX_SENSORS_MIN; i < DATA_INDEX_SENSORS_MIN + NUM_SENSORES_MAX; i++) {
+      sensores_min_linefollower[i - DATA_INDEX_SENSORS_MIN] = eeprom_data[i];
+    }
+    for (uint16_t i = DATA_INDEX_SENSORS_UMB; i < DATA_INDEX_SENSORS_UMB + NUM_SENSORES_MAX; i++) {
+      sensores_umb_linefollower[i - DATA_INDEX_SENSORS_UMB] = eeprom_data[i];
+    }
+  }
 }
 
 void print_sensors_calibrations(void) {
@@ -150,31 +121,23 @@ uint16_t get_sensor_calibrated(uint8_t pos) {
 }
 
 void calibrate_sensors(void) {
-  bool skip_calibration = false;
-  bool pushFlag = (get_config_run() == CONFIG_RUN_RACE); // En modo carrera, se calibra automáticamente por defecto.
+  assign_sensors_calibrations();
+  bool use_eeprom_calibration = true;
   while (!get_start_btn()) {
     set_neon_heartbeat();
     if (get_menu_mode_btn()) {
-      pushFlag = !pushFlag;
-      set_status_led(pushFlag);
+      use_eeprom_calibration = !use_eeprom_calibration;
+      set_status_led(use_eeprom_calibration);
       while (get_menu_mode_btn()) {
       }
     }
-    set_status_led(pushFlag);
+    set_status_led(use_eeprom_calibration);
   }
   while (get_start_btn()) {
     set_neon_heartbeat();
   }
-  if (pushFlag) {
-    skip_calibration = true;
-  }
-  while (skip_calibration && !is_esc_inited()) {
-  }
-  set_neon_fade(0);
-  set_status_led(false);
-  if (skip_calibration) {
-    assign_sensors_calibrations();
 
+  if (use_eeprom_calibration) {
     bool sensorsChecked[get_sensors_num()];
     for (uint8_t sensor = 0; sensor < get_sensors_num(); sensor++) {
       sensorsChecked[sensor] = false;
@@ -210,85 +173,88 @@ void calibrate_sensors(void) {
         }
       }
     }
-
-    return;
-  }
-  delay(1000);
-
-  // Resetear los valores máximos, mínimos y umbrales
-  for (uint8_t sensor = 0; sensor < NUM_SENSORES_MAX; sensor++) {
-    sensores_max_linefollower[sensor] = LECTURA_MINIMO_SENSORES_LINEA;
-    sensores_min_linefollower[sensor] = LECTURA_MAXIMO_SENSORES_LINEA;
-    sensores_umb_linefollower[sensor] = LECTURA_MINIMO_SENSORES_LINEA;
-
-    sensores_max_robotracer[sensor] = LECTURA_MINIMO_SENSORES_LINEA;
-    sensores_min_robotracer[sensor] = LECTURA_MAXIMO_SENSORES_LINEA;
-    sensores_umb_robotracer[sensor] = LECTURA_MINIMO_SENSORES_LINEA;
-  }
-
-  uint32_t ms_inicio = get_clock_ticks();
-  while (ms_inicio + MS_CALIBRACION_LINEA >= get_clock_ticks()) {
-    for (int sensor = 0; sensor < get_sensors_num(); sensor++) {
-      if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
-        if (sensores_raw[sensor] < sensores_min_linefollower[sensor]) {
-          sensores_min_linefollower[sensor] = sensores_raw[sensor];
-        }
-        if (sensores_raw[sensor] > sensores_max_linefollower[sensor]) {
-          sensores_max_linefollower[sensor] = sensores_raw[sensor];
-        }
-      } else {
-        if (sensores_raw[sensor] < sensores_min_robotracer[sensor]) {
-          sensores_min_robotracer[sensor] = sensores_raw[sensor];
-        }
-        if (sensores_raw[sensor] > sensores_max_robotracer[sensor]) {
-          sensores_max_robotracer[sensor] = sensores_raw[sensor];
-        }
-      }
-    }
-
-    set_RGB_rainbow();
-  }
-
-  bool calibrationOK = true;
-  bool marksOK = true;
-  if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
-    for (int sensor = 0; sensor < get_sensors_num(); sensor++) {
-      if (abs(sensores_max_linefollower[sensor] - sensores_min_linefollower[sensor]) < 1000) {
-        calibrationOK = false;
-      }
-      sensores_umb_linefollower[sensor] = sensores_min_linefollower[sensor] + ((sensores_max_linefollower[sensor] - sensores_min_linefollower[sensor]) * 2 / 3);
-    }
   } else {
-    for (int sensor = 0; sensor < get_sensors_num(); sensor++) {
-      if (abs(sensores_max_robotracer[sensor] - sensores_min_robotracer[sensor]) < 1000) {
-        if (sensor < get_sensors_line_num()) {
-          calibrationOK = false;
+    delay(1000);
+
+    // Resetear los valores máximos, mínimos y umbrales
+    for (uint8_t sensor = 0; sensor < NUM_SENSORES_MAX; sensor++) {
+      sensores_max_linefollower[sensor] = LECTURA_MINIMO_SENSORES_LINEA;
+      sensores_min_linefollower[sensor] = LECTURA_MAXIMO_SENSORES_LINEA;
+      sensores_umb_linefollower[sensor] = LECTURA_MINIMO_SENSORES_LINEA;
+
+      sensores_max_robotracer[sensor] = LECTURA_MINIMO_SENSORES_LINEA;
+      sensores_min_robotracer[sensor] = LECTURA_MAXIMO_SENSORES_LINEA;
+      sensores_umb_robotracer[sensor] = LECTURA_MINIMO_SENSORES_LINEA;
+    }
+
+    uint32_t ms_inicio = get_clock_ticks();
+    while (ms_inicio + MS_CALIBRACION_LINEA >= get_clock_ticks()) {
+      for (int sensor = 0; sensor < get_sensors_num(); sensor++) {
+        if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
+          if (sensores_raw[sensor] < sensores_min_linefollower[sensor]) {
+            sensores_min_linefollower[sensor] = sensores_raw[sensor];
+          }
+          if (sensores_raw[sensor] > sensores_max_linefollower[sensor]) {
+            sensores_max_linefollower[sensor] = sensores_raw[sensor];
+          }
         } else {
-          marksOK = false;
+          if (sensores_raw[sensor] < sensores_min_robotracer[sensor]) {
+            sensores_min_robotracer[sensor] = sensores_raw[sensor];
+          }
+          if (sensores_raw[sensor] > sensores_max_robotracer[sensor]) {
+            sensores_max_robotracer[sensor] = sensores_raw[sensor];
+          }
         }
       }
-      sensores_umb_robotracer[sensor] = (sensores_max_robotracer[sensor] + sensores_min_robotracer[sensor]) * 2 / 3;
-    }
-  }
 
-  while (!get_start_btn()) {
-    if (calibrationOK && marksOK) {
-      set_RGB_color(0, 100, 0);
-    } else if (!calibrationOK) {
-      set_RGB_color(100, 0, 0);
-    } else if (!marksOK) {
-      set_RGB_color(100, 20, 0);
+      set_RGB_rainbow();
     }
-  }
-  while (get_start_btn()) {
-    if (calibrationOK) {
-      set_RGB_color(0, 100, 0);
+
+    bool calibrationOK = true;
+    bool marksOK = true;
+    if (get_config_robot() == CONFIG_ROBOT_LINEFOLLOWER) {
+      for (int sensor = 0; sensor < get_sensors_num(); sensor++) {
+        if (abs(sensores_max_linefollower[sensor] - sensores_min_linefollower[sensor]) < 1000) {
+          calibrationOK = false;
+        }
+        sensores_umb_linefollower[sensor] = sensores_min_linefollower[sensor] + ((sensores_max_linefollower[sensor] - sensores_min_linefollower[sensor]) * 2 / 3);
+      }
     } else {
-      set_RGB_color(100, 0, 0);
+      for (int sensor = 0; sensor < get_sensors_num(); sensor++) {
+        if (abs(sensores_max_robotracer[sensor] - sensores_min_robotracer[sensor]) < 1000) {
+          if (sensor < get_sensors_line_num()) {
+            calibrationOK = false;
+          } else {
+            marksOK = false;
+          }
+        }
+        sensores_umb_robotracer[sensor] = (sensores_max_robotracer[sensor] + sensores_min_robotracer[sensor]) * 2 / 3;
+      }
     }
+
+    eeprom_set_data(DATA_INDEX_SENSORS_MAX, sensores_max_linefollower, NUM_SENSORES_MAX);
+    eeprom_set_data(DATA_INDEX_SENSORS_MIN, sensores_min_linefollower, NUM_SENSORES_MAX);
+    eeprom_set_data(DATA_INDEX_SENSORS_UMB, sensores_umb_linefollower, NUM_SENSORES_MAX);
+
+    while (!get_start_btn()) {
+      if (calibrationOK && marksOK) {
+        set_RGB_color(0, 100, 0);
+      } else if (!calibrationOK) {
+        set_RGB_color(100, 0, 0);
+      } else if (!marksOK) {
+        set_RGB_color(100, 20, 0);
+      }
+    }
+    while (get_start_btn()) {
+      if (calibrationOK) {
+        set_RGB_color(0, 100, 0);
+      } else {
+        set_RGB_color(100, 0, 0);
+      }
+    }
+    set_RGB_color(0, 0, 0);
+    delay(250);
   }
-  set_RGB_color(0, 0, 0);
-  delay(250);
 }
 
 int32_t get_sensor_line_position(void) {

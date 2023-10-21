@@ -7,11 +7,17 @@
 #include "encoders.h"
 #include "leds.h"
 #include "motors.h"
+#include "eeprom.h"
 
 #include <libopencm3/stm32/adc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/rcc.h>
 #include <stdint.h>
+
+#define NUM_SENSORES_LINEFOLLOWER 16
+#define NUM_SENSORES_ROBOTRACER 12
+#define NUM_SENSORES_ROBOTRACER_MARCAS 4
+#define NUM_SENSORES_MAX 16
 
 void print_sensors_calibrations(void);
 void calibrate_sensors(void);

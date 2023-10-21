@@ -7,6 +7,16 @@
 #include "leds.h"
 #include "sensors.h"
 
+#define MODE_NOTHING 0
+#define MODE_SPEED 1
+#define MODE_FANS 2
+#define MODE_DEBUG 3
+#define NUM_MODOS_RACE 3
+#define NUM_MODOS_DEBUG 4
+
+#define NUM_VALORES 9
+#define NUM_VALORES_TIPO_MORRO 2
+
 void check_menu_button(void);
 uint8_t get_base_speed(void);
 float get_base_ms_speed(void);

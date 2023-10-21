@@ -1,15 +1,7 @@
 #include "menu.h"
 
 uint8_t modoConfig = 0;
-#define MODE_NOTHING 0
-#define MODE_SPEED 1
-#define MODE_FANS 2
-#define MODE_DEBUG 3
-#define NUM_MODOS_RACE 3
-#define NUM_MODOS_DEBUG 4
 int8_t valorConfig[NUM_MODOS_DEBUG] = {0, 0, 0, 0};
-#define NUM_VALORES 9
-#define NUM_VALORES_TIPO_MORRO 2
 
 uint8_t velocidadBase = 0;
 float velocidadMsBase = 0;

@@ -25,67 +25,38 @@ void sys_tick_handler(void) {
   }
 }
 
+  /*
+  - [M] Encender robot
+  - [A] Cargar valores de EEPROM (sensores y menú) y asignarlos a sus variables correspondientes
+  - [M] Menú. Configurar/Comprobar velocidad y succión (estarán pre-cargados los valores confirmados anteriormente) y confirmar con BTN_START
+  - [M] Modo calibración.
+  - - [A] Si ya existen valores de calibración, se propone reutilizarlos (led rojo menu ON)
+  - - [M] Confirmar si usar valores de calibración existentes (led rojo menu ON) o calibrar de nuevo (led rojo menu OFF)
+  - - [A] Validar calibración de sensores (led rojo menu ON) & encoders al poner el robot en pista (todos sensores blanco)
+  - - [M?] Calibrar sensores (led rojo menu OFF) & comprobar encoders
+  - - [A/M] Si todo correcto, se muestra RGB verde por 1 segundo y se autoconfirma. En caso contrario, se queda en rojo y se confirma manual
+  - [A] Actualizar valores de EEPROM con calibración y menú
+  - [M] Modo menu again
+  - [M] Iniciar competición
+  */
+
+
 int main(void) {
   setup();
-    uint32_t data_to_write[] = {2500, 250, 25, 5};
-    uint32_t data_readback[] = {0, 0, 0, 0};
-  while (1) {
-
-    if (get_start_btn()) {
-      while (get_start_btn()) {
-      }
-      set_status_led(true);
-      erase_eeprom();
-      set_status_led(false);
-    }
-
-    // Write data to the emulated EEPROM
-    if (get_menu_up_btn()) {
-      while (get_menu_up_btn()) {
-      }
-      set_status_led(true);
-      write_to_eeprom(data_to_write, 4);
-      set_status_led(false);
-    }
-
-    if (get_menu_down_btn()) {
-      while (get_menu_down_btn()) {
-      }
-      set_status_led(true);
-      uint32_t data[] = {1752, 36, 2, 365};
-      write_to_eeprom(data, 4);
-      set_status_led(false);
-    }
-
-    // Read data from the emulated EEPROM
-    if (get_menu_mode_btn()) {
-      while (get_menu_mode_btn()) {
-      }
-      for (uint8_t i = 0; i < 4; i++) {
-        printf("%ld ", data_readback[i]);
-      }
-      printf(" -> ");
-      read_from_eeprom(data_readback, 4);
-      for (uint8_t i = 0; i < 4; i++) {
-        printf("%ld ", data_readback[i]);
-      }
-      printf("\n");
-    }
-  }
+  eeprom_load();
 
   do {
     check_menu_button();
   } while (in_debug_mode() || !get_start_btn());
 
   bool use_btn_start = get_swtich_3();
-
   do {
     reset_menu_mode();
     set_RGB_color(0, 0, 0);
   } while (get_start_btn());
 
   calibrate_sensors();
-
+  eeprom_save();
   do {
     set_RGB_color(0, 0, 0);
     set_status_led(false);
@@ -176,6 +147,59 @@ int main(void) {
       // delay(1);
       // debug_accel();
       // printf("%ld (%.2f - %.2f)\n", get_sensor_line_position(), get_encoder_left_speed(), get_encoder_right_speed());
+
+
+
+      
+
+  //   uint32_t data_to_write[] = {2500, 250, 25, 5};
+  //   uint32_t data_readback[] = {0, 0, 0, 0};
+  // while (1) {
+
+  //   if (get_start_btn()) {
+  //     while (get_start_btn()) {
+  //     }
+  //     set_status_led(true);
+  //     eeprom_clear();
+  //     set_status_led(false);
+  //   }
+
+  //   // Write data to the emulated EEPROM
+  //   if (get_menu_up_btn()) {
+  //     while (get_menu_up_btn()) {
+  //     }
+  //     set_status_led(true);
+  //     eeprom_set_data(4, (uint32_t[]){3215, 125, 98, 138}, 4);
+  //     eeprom_save();
+  //     set_status_led(false);
+  //   }
+
+  //   if (get_menu_down_btn()) {
+  //     while (get_menu_down_btn()) {
+  //     }
+  //     set_status_led(true);
+  //     eeprom_set_data(0, (uint32_t[]){2500, 250, 25, 5}, 4);
+  //     eeprom_save();
+  //     set_status_led(false);
+  //   }
+
+  //   // Read data from the emulated EEPROM
+  //   if (get_menu_mode_btn()) {
+  //     while (get_menu_mode_btn()) {
+  //     }
+  //     uint32_t *data = eeprom_get_data();
+  //     for (uint8_t i = 0; i < DATA_LENGTH; i++) {
+  //       printf("%ld ", data[i]);
+  //     }
+  //     printf(" -> ");
+  //     eeprom_load();
+  //     for (uint8_t i = 0; i < DATA_LENGTH; i++) {
+  //       printf("%ld ", data[i]);
+  //     }
+  //     printf("\n");
+  //   }
+  // }
+
     }
   }
 }
