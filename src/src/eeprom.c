@@ -1,9 +1,15 @@
 #include "eeprom.h"
 
 static uint16_t eeprom_data[DATA_LENGTH];
+static uint32_t millis_save = 0;
 
 void eeprom_save(void) {
   uint32_t addr = EEPROM_BASE_ADDRESS;
+  millis_save = get_clock_ticks();
+  while(get_clock_ticks() - millis_save < 500){
+    warning_status_led(50);
+  }
+  set_status_led(true);
   flash_unlock();
   flash_erase_sector(11, FLASH_CR_PROGRAM_X32);
   for (uint16_t i = 0; i < DATA_LENGTH; i++) {
@@ -11,6 +17,7 @@ void eeprom_save(void) {
     addr += 4;
   }
   flash_lock();
+  set_status_led(false);
 }
 
 void eeprom_load(void) {

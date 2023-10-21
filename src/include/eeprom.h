@@ -1,8 +1,10 @@
 #ifndef __EEPROM_H
 #define __EEPROM_H
 
-#include <leds.h>
 #include <libopencm3/stm32/flash.h>
+
+#include <delay.h>
+#include <leds.h>
 #include <menu.h>
 #include <sensors.h>
 
