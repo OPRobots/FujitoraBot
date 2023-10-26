@@ -11,7 +11,7 @@ void eeprom_save(void) {
   }
   set_status_led(true);
   flash_unlock();
-  flash_erase_sector(11, FLASH_CR_PROGRAM_X32);
+  flash_erase_sector(EEPROM_SECTOR, FLASH_CR_PROGRAM_X16);
   for (uint16_t i = 0; i < DATA_LENGTH; i++) {
     flash_program_word(addr, eeprom_data[i]);
     addr += 4;
@@ -30,7 +30,7 @@ void eeprom_load(void) {
 
 void eeprom_clear(void) {
   flash_unlock();
-  flash_erase_sector(11, FLASH_CR_PROGRAM_X16);
+  flash_erase_sector(EEPROM_SECTOR, FLASH_CR_PROGRAM_X16);
   flash_lock();
 }
 

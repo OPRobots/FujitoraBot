@@ -8,6 +8,7 @@
 #include <menu.h>
 #include <sensors.h>
 
+#define EEPROM_SECTOR 11
 #define EEPROM_BASE_ADDRESS (0x080E0000)
 
 #define DATA_LENGTH ((NUM_SENSORES_MAX * 3) + (NUM_MODOS_RACE - 1))
