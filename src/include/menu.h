@@ -14,8 +14,13 @@
 #define NUM_MODOS_RACE 3
 #define NUM_MODOS_DEBUG 4
 
-#define NUM_VALORES 9
-#define NUM_VALORES_TIPO_MORRO 2
+#define NUM_VALORES_SPEED 22
+#define NUM_VALORES_FANS 11
+#define NUM_VALORES 10
+
+#define MENU_WARNING_25 250
+#define MENU_WARNING_50 125
+#define MENU_WARNING_75 75
 
 void check_menu_button(void);
 uint8_t get_base_speed(void);

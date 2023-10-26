@@ -7,6 +7,9 @@
  */
 bool get_start_btn(void) {
   bool state1 = (bool)gpio_get(GPIOB, GPIO15);
+  if(!state1) {
+    return false;
+  }
   delay(50);
   bool state2 = (bool)gpio_get(GPIOB, GPIO15);
   return state1 && state2;
@@ -19,6 +22,9 @@ bool get_start_btn(void) {
  */
 bool get_menu_up_btn(void) {
   bool state1 = (bool)gpio_get(GPIOC, GPIO11);
+  if(!state1) {
+    return false;
+  }
   delay(50);
   bool state2 = (bool)gpio_get(GPIOC, GPIO11);
   return state1 && state2;
@@ -43,6 +49,9 @@ bool get_menu_down_btn(void) {
  */
 bool get_menu_mode_btn(void) {
   bool state1 = (bool)gpio_get(GPIOC, GPIO10);
+  if(!state1) {
+    return false;
+  }
   delay(50);
   bool state2 = (bool)gpio_get(GPIOC, GPIO10);
   return state1 && state2;

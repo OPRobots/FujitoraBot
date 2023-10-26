@@ -8,6 +8,9 @@ int rainbowColorAsc = 1;
 uint32_t lastTicksHeartbeat = 0;
 uint32_t lastTicksWarning = 0;
 
+uint32_t lastTicksWarningRGB = 0;
+bool lastWarningRGBState = false;
+
 /**
  * @brief Establece el estado del led de estado
  *
@@ -52,6 +55,18 @@ void set_RGB_color(uint32_t r, uint32_t g, uint32_t b) {
   timer_set_oc_value(TIM1, TIM_OC4, r);
   timer_set_oc_value(TIM1, TIM_OC3, g);
   timer_set_oc_value(TIM1, TIM_OC2, b);
+}
+
+void warning_RGB_color(uint32_t r, uint32_t g, uint32_t b, uint16_t ms) {
+  if (get_clock_ticks() > lastTicksWarningRGB + ms) {
+    if (lastWarningRGBState) {
+      set_RGB_color(0, 0, 0);
+    } else {
+      set_RGB_color(r, g, b);
+    }
+    lastTicksWarningRGB = get_clock_ticks();
+    lastWarningRGBState = !lastWarningRGBState;
+  }
 }
 
 void set_RGB_rainbow(void) {
