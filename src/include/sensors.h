@@ -33,6 +33,8 @@ void check_side_marks(void);
 bool is_left_mark(void);
 bool is_right_mark(void);
 
+uint32_t get_millis_emergency_stop(void);
+void reset_millis_emergency_stop(void);
 void emergency_stop(void);
 
 #endif

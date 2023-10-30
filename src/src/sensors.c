@@ -21,6 +21,8 @@ static bool left_mark = false;
 static bool right_mark = false;
 static int32_t ticks_ultima_interseccion = 0;
 
+static uint32_t millis_emergency_stop = 0;
+
 /**
  * @brief Inicializa los sensores cuando se enciende el robot sin calibrarlos a partir de una calibración previa
  *
@@ -381,8 +383,17 @@ bool is_right_mark(void) {
   return right_mark;
 }
 
+uint32_t get_millis_emergency_stop(void) {
+  return millis_emergency_stop;
+}
+
+void reset_millis_emergency_stop(void) {
+  millis_emergency_stop = 0;
+}
+
 void emergency_stop(void) {
   set_competicion_iniciada(false);
   pause_pid_speed_timer();
   line_position = 0;
+  millis_emergency_stop = get_clock_ticks();
 }
