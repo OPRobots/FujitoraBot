@@ -6,6 +6,7 @@
 #include "debug.h"
 #include "leds.h"
 #include "sensors.h"
+#include "eeprom.h"
 
 #define MODE_NOTHING 0
 #define MODE_SPEED 1

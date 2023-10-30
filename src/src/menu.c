@@ -1,7 +1,7 @@
 #include "menu.h"
 
 uint8_t modoConfig = 0;
-int8_t valorConfig[NUM_MODOS_DEBUG] = {0, 0, 0, 0};
+uint16_t valorConfig[NUM_MODOS_DEBUG] = {0, 0, 0, 0};
 
 uint8_t velocidadBase = 0;
 float velocidadMsBase = 0;
@@ -246,7 +246,31 @@ static uint8_t get_num_modos(void) {
   }
 }
 
+static void refresh_menu_from_eeprom(void) {
+  uint16_t *data = eeprom_get_data();
+  for (uint8_t i = 0; i < NUM_MODOS_DEBUG; i++) {
+    uint8_t numValores = 0;
+    switch (i) {
+      case MODE_SPEED:
+        numValores = NUM_VALORES_SPEED;
+        break;
+      case MODE_FANS:
+        numValores = NUM_VALORES_FANS;
+        break;
+      case MODE_DEBUG:
+        numValores = NUM_VALORES;
+        break;
+    }
+    if (data[DATA_INDEX_MENU + i] < numValores) {
+      valorConfig[i] = data[DATA_INDEX_MENU + i];
+    } else {
+      valorConfig[i] = 0;
+    }
+  }
+}
+
 void check_menu_button(void) {
+  refresh_menu_from_eeprom();
   handle_menu_mode();
   handle_menu_value();
 
@@ -295,19 +319,20 @@ void check_menu_button(void) {
       handle_menu_value();
       handle_menu_mode();
     };
+    eeprom_set_data(DATA_INDEX_MENU, valorConfig, NUM_MODOS_DEBUG);
     delay(50);
   }
 
   // Comprueba descenso de valor de configuración
   if (get_menu_down_btn()) {
-    valorConfig[modoConfig]--;
-    if (valorConfig[modoConfig] < 0) {
-      valorConfig[modoConfig] = 0;
+    if (valorConfig[modoConfig] > 0) {
+      valorConfig[modoConfig]--;
     }
     while (get_menu_down_btn()) {
       handle_menu_value();
       handle_menu_mode();
     };
+    eeprom_set_data(DATA_INDEX_MENU, valorConfig, NUM_MODOS_DEBUG);
     delay(50);
   }
 }
