@@ -16,6 +16,7 @@
 
 static bool use_btn_start = false;
 static uint32_t millis_iniciado = 0;
+static uint32_t millis_emergency_stop = 0;
 
 void sys_tick_handler(void) {
   clock_tick();
@@ -63,6 +64,10 @@ int main(void) {
   millis_iniciado = 0;
   while (1) {
     if (!is_competicion_iniciada()) {
+      if (millis_emergency_stop != 0 && get_clock_ticks() - millis_emergency_stop > MILLIS_STOP_FAN) {
+        millis_emergency_stop = 0;
+        set_fan_speed(0);
+      }
       check_menu_button();
       if (!in_debug_mode()) {
         if ((use_btn_start && get_start_btn()) || (!use_btn_start && get_swtich_3())) {
@@ -107,6 +112,7 @@ int main(void) {
 
       if ((get_config_run() == CONFIG_RUN_DEBUG && get_clock_ticks() - millis_iniciado > 5000) || !get_swtich_3()) {
         emergency_stop();
+        millis_emergency_stop = get_clock_ticks();
       }
       // if (last_micrometers_r == 0 || last_micrometers_l == 0 || abs(last_micrometers_r - get_encoder_right_micrometers()) >= 10000 || abs(last_micrometers_l - get_encoder_left_micrometers()) >= 10000) {
       // last_micrometers_r = get_encoder_right_micrometers();

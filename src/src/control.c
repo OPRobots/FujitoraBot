@@ -278,7 +278,6 @@ void resume_pid_speed_timer(void) {
  */
 void pause_pid_speed_timer(void) {
   timer_disable_irq(TIM5, TIM_DIER_CC1IE);
-  set_fan_speed(0);
   set_motors_speed(0, 0);
   all_leds_clear();
 }
