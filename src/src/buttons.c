@@ -36,10 +36,14 @@ bool get_menu_up_btn(void) {
  * @return bool
  */
 bool get_menu_down_btn(void) {
-  bool state1 = (bool)gpio_get(GPIOA, GPIO15);
-  delay(50);
-  bool state2 = (bool)gpio_get(GPIOA, GPIO15);
-  return state1 && state2;
+  return false;
+  // bool state1 = (bool)gpio_get(GPIOA, GPIO15);
+  // if(!state1) {
+  //   return false;
+  // }
+  // delay(50);
+  // bool state2 = (bool)gpio_get(GPIOA, GPIO15);
+  // return state1 && state2;
 }
 
 /**
@@ -81,7 +85,10 @@ bool get_swtich_2(void) {
  * @return bool
  */
 bool get_swtich_3(void) {
-  return (bool)gpio_get(GPIOB, GPIO12);
+  bool state1 = (bool)gpio_get(GPIOB, GPIO12);
+  delay(50);
+  bool state2 = (bool)gpio_get(GPIOB, GPIO12);
+  return state1 && state2;
 }
 
 
