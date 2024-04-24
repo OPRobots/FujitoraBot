@@ -301,17 +301,17 @@ void check_menu_button(void) {
     switch (modoConfig) {
       case MODE_SPEED:
         if (valorConfig[modoConfig] >= NUM_VALORES_SPEED) {
-          valorConfig[modoConfig] = NUM_VALORES_SPEED - 1;
+          valorConfig[modoConfig] = 0;
         }
         break;
       case MODE_FANS:
         if (valorConfig[modoConfig] >= NUM_VALORES_FANS) {
-          valorConfig[modoConfig] = NUM_VALORES_FANS - 1;
+          valorConfig[modoConfig] = 0;
         }
         break;
       default:
         if (valorConfig[modoConfig] >= NUM_VALORES) {
-          valorConfig[modoConfig] = NUM_VALORES - 1;
+          valorConfig[modoConfig] = 0;
         }
         break;
     }
