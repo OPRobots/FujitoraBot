@@ -1,3 +1,0 @@
-(sym_lib_table
-  (lib (name PCB_Fujitora-rescue)(type Legacy)(uri ${KIPRJMOD}/PCB_Fujitora-rescue.lib)(options "")(descr ""))
-)
