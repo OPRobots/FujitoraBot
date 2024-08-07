@@ -34,7 +34,6 @@
       3,
       4,
       5,
-      7,
       8,
       9,
       10,
@@ -65,8 +64,14 @@
       39,
       40
     ],
-    "visible_layers": "8003fff_ffffffff",
+    "visible_layers": "8003fdf_ffffffff",
     "zone_display_mode": 0
+  },
+  "git": {
+    "repo_password": "",
+    "repo_type": "",
+    "repo_username": "",
+    "ssh_key": ""
   },
   "meta": {
     "filename": "PCB_FujitoraBot2.kicad_prl",
