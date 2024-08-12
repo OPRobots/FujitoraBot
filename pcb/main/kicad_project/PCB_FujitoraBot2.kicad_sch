@@ -18288,17 +18288,6 @@
 		)
 		(uuid "a98ebd60-d5bd-4161-8dd8-923aef9ddbcc")
 	)
-	(label "ESC_M1_R"
-		(at 349.25 91.44 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "acad0590-aac9-4dc8-9602-fc69e882eb84")
-	)
 	(label "ENC_2_A"
 		(at 290.83 261.62 180)
 		(fields_autoplaced yes)
@@ -18464,17 +18453,6 @@
 		)
 		(uuid "c5315579-0b42-4913-b334-39c12a2d8b8e")
 	)
-	(label "ESC_M1_T"
-		(at 349.25 96.52 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "c6474517-2630-4432-bd52-d872d021f9bc")
-	)
 	(label "BATT"
 		(at 17.78 259.08 90)
 		(fields_autoplaced yes)
@@ -18485,6 +18463,17 @@
 			(justify left bottom)
 		)
 		(uuid "c796d428-02a0-488b-8500-1222658a22d1")
+	)
+	(label "ESC_M1_T"
+		(at 349.25 91.44 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c8bc095a-e0c3-43af-bdb0-756915688040")
 	)
 	(label "SWCLK"
 		(at 53.34 210.82 90)
@@ -18518,6 +18507,17 @@
 			(justify left bottom)
 		)
 		(uuid "cbaf3d86-9368-41e1-864b-7130aab4ec71")
+	)
+	(label "ESC_M1_R"
+		(at 349.25 96.52 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ceb65d09-be68-413e-898d-5918f7b71baa")
 	)
 	(label "LED_9"
 		(at 237.49 52.07 270)
