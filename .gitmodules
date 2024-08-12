@@ -2,5 +2,5 @@
 	path = pcb/main/kicad_project/custom_libraries
 	url = https://github.com/OPRobots/KiCADLibraries.git
 [submodule "pcb/sensors_20/kicad_project/custom_libraries"]
-	path = pcb/sensors_20/kicad_project/custom_libraries
+	path = pcb/sensors_24/kicad_project/custom_libraries
 	url = https://github.com/OPRobots/KiCADLibraries.git
